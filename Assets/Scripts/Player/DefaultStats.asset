@@ -32,3 +32,4 @@ MonoBehaviour:
   CoyoteTime: 0.07
   DashTime: 0.15
   DashDistance: 4
+  GroundDashCooldown: 0.2

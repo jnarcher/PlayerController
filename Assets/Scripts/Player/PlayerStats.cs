@@ -6,8 +6,10 @@ public class PlayerStats : ScriptableObject
     [Header("Input")]
     [Tooltip("Forces movement input to integer values, movement won't scale with analouge input.")]
     public bool SnapInput = true;
-    [Range(0f, 0.99f)] public float HorizontalDeadzone = 0f;
-    [Range(0f, 0.99f)] public float VerticalDeadzone = 0f;
+    [Tooltip("Sets the minimum of vertical input for movement that is needed to register."), Range(0f, 0.99f)]
+    public float HorizontalDeadzone = 0f;
+    [Tooltip("Sets the minimum of vertical input for movement that is needed to register."), Range(0f, 0.99f)]
+    public float VerticalDeadzone = 0f;
 
     [Header("Horizontal Movement")]
     [Tooltip("Maximum horizontal move speed.")]
@@ -54,4 +56,6 @@ public class PlayerStats : ScriptableObject
     public float DashTime = 1f;
     [Tooltip("The maximum distance a dash can take the player horizontally.")]
     public float DashDistance = 4f;
+    [Tooltip("How long the player has to wait before dashing again after a dash has been performed while on the ground.")]
+    public float GroundDashCooldown = 0.5f;
 }

@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D), typeof(PlayerCollision))]
 public class PlayerController : MonoBehaviour
 {
-
     // Component references
     private Rigidbody2D _rb;
     private PlayerCollision _col;
@@ -68,12 +67,14 @@ public class PlayerController : MonoBehaviour
         else if (_grounded && !_col.OnGround)
         {
             _timeLeftGround = _time;
+            // the player will always get their dash back immediately after leaving the ground (ignoring cooldown)
+            _dashAvailable = true;
         }
 
         if (_col.OnGround)
         {
             _jumpsRemaining = _stats.JumpCount;
-            _dashAvailable = true;
+            _dashAvailable = _time > _timeDashEnded + _stats.GroundDashCooldown;
         }
 
         _grounded = _col.OnGround;
@@ -127,14 +128,10 @@ public class PlayerController : MonoBehaviour
         // this should only happen when the player leaves the ground without jumping
         if (!_col.OnGround && _jumpsRemaining == _stats.JumpCount && !HasCoyoteJump) _jumpsRemaining--;
 
-        // prevent player from using a jump while dashing
-        if (_dashing) return;
+        if (_dashing) return; // can't jump while dashing
 
-        // check if jump input is in buffer
         if (_col.OnGround && HasBufferedJump) Jump();
-        // check if player pressed jump within coyote window
         else if (_jumpPressedThisFrame && !_col.OnGround && HasCoyoteJump) Jump();
-        // check if in the air and player want's to multi-jump
         else if (_jumpPressedThisFrame && !_col.OnGround && _jumpsRemaining > 0) AirJump();
 
         _jumpPressedThisFrame = false;
@@ -160,40 +157,38 @@ public class PlayerController : MonoBehaviour
 
     #region DASH
 
-    // tracks whether the player is currently dashing
     private bool _dashing;
-    // only reset to true when player is on the ground
     private bool _dashAvailable;
-    // stores x velocity from before dash for smoother exit transition
     private float _cachedXVelocity;
-    // tracks the time when the dash started
     private float _timeDashStarted;
+    private float _timeDashEnded = float.MinValue;
 
     private void HandleDash()
     {
-        if (_dashAvailable && (_dashPressedThisFrame || _dashing))
-            Dash();
+        // start a dash
+        if (_dashPressedThisFrame && _dashAvailable)
+        {
+            _timeDashStarted = _time;
+            _dashing = true;
+            _cachedXVelocity = Mathf.Abs(_frameVelocity.x);
+        }
+        // end a dash
+        else if (_dashing && _time >= _timeDashStarted + _stats.DashTime)
+        {
+            _dashing = false;
+            _dashDirection = Vector2.zero;
+            _dashAvailable = false;
+            _timeDashEnded = _time;
+            _frameVelocity.x = _cachedXVelocity * Mathf.Sign(_moveInput.x);
+        }
+
+        if (_dashing) Dash();
 
         _dashPressedThisFrame = false;
     }
 
     private void Dash()
     {
-        if (_dashPressedThisFrame && !_dashing)
-        {
-            _timeDashStarted = _time;
-            _dashing = true;
-            _cachedXVelocity = Mathf.Abs(_frameVelocity.x);
-        }
-        else if (_time >= _timeDashStarted + _stats.DashTime)
-        {
-            _dashing = false;
-            _dashDirection = Vector2.zero;
-            _dashAvailable = false;
-            _frameVelocity.x = _cachedXVelocity * Math.Sign(_moveInput.x);
-            return;
-        }
-
         float speed = _stats.DashDistance / _stats.DashTime;
         _frameVelocity = speed * _dashDirection;
     }
