@@ -19,15 +19,16 @@ MonoBehaviour:
   MoveAcceleration: 300
   MaxFallSpeed: 60
   QuickFallSpeed: 70
-  FallingGravity: 200
+  FallingGravity: 170
   RisingGravity: 100
-  GroundingForce: -1.5
+  GroundingForce: 0
   JumpPower: 32
   AirJumpPower: 25
   JumpCount: 2
   EarlyJumpReleaseModifier: 2.5
-  JumpFloatWindow: 10
-  JumpFloatMultiplier: 1.2
+  JumpApexWindow: 5
+  JumpApexGravityMultiplier: 0.5
+  JumpApexMoveAccelerationMultiplier: 2
   JumpBuffer: 0.2
   CoyoteTime: 0.07
   DashToggle: 1
