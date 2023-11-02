@@ -165,6 +165,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleDash()
     {
+        // TODO: Separate the toggle for dashing and dashing in the air
+
         // start a dash
         if (_dashPressedThisFrame && _dashAvailable)
         {
@@ -182,7 +184,7 @@ public class PlayerController : MonoBehaviour
             _frameVelocity.x = _cachedXVelocity * Mathf.Sign(_moveInput.x);
         }
 
-        if (_dashing) Dash();
+        if (_dashing && _stats.DashToggle) Dash();
 
         _dashPressedThisFrame = false;
     }

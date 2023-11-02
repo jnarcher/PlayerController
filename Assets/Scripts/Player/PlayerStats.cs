@@ -52,6 +52,8 @@ public class PlayerStats : ScriptableObject
     public float CoyoteTime = 0.15f;
 
     [Header("Dash")]
+    [Tooltip("Toggle whether the player can dash or not.")]
+    public bool DashToggle = true;
     [Tooltip("How quickly it takes a dash to reach the dash distance.")]
     public float DashTime = 1f;
     [Tooltip("The maximum distance a dash can take the player horizontally.")]
