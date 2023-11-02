@@ -97,14 +97,16 @@ public class PlayerController : MonoBehaviour
     private void HandleHorizontal()
     {
         float moveSpeed = _stats.MoveSpeed;
+        float moveAcceleration = _stats.MoveAcceleration;
 
-        if (!_col.OnGround && Mathf.Abs(_frameVelocity.y) < _stats.JumpFloatWindow)
-            moveSpeed *= _stats.JumpFloatMultiplier;
+        if (!_col.OnGround && Mathf.Abs(_frameVelocity.y) < _stats.JumpApexWindow)
+            moveAcceleration *= _stats.JumpApexMoveAccelerationMultiplier;
+
 
         _frameVelocity.x = Mathf.MoveTowards(
             _frameVelocity.x,
             _moveInput.x * moveSpeed,
-            _stats.MoveAcceleration * Time.fixedDeltaTime
+            moveAcceleration * Time.fixedDeltaTime
         );
 
     }
@@ -207,14 +209,19 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        // set the correct gravity
         float gravity = _frameVelocity.y > 0f ? _stats.RisingGravity : _stats.FallingGravity;
-        if ((!_jumpHeld || _moveInput.y < 0f) && _frameVelocity.y > 0f) gravity *= _stats.EarlyJumpReleaseModifier;
+        if ((!_jumpHeld || _moveInput.y < 0f) && _frameVelocity.y > 0f)
+            gravity *= _stats.EarlyJumpReleaseModifier;
+        else if (!_col.OnGround && Mathf.Abs(_frameVelocity.y) < _stats.JumpApexWindow)
+            gravity *= _stats.JumpApexGravityMultiplier;
 
-        float fallSpeed = _stats.MaxFallSpeed;
-        if (_moveInput.y < 0f && _frameVelocity.y < 0f) fallSpeed = _stats.QuickFallSpeed;
+        // set the correct maximum fall speed
+        float maxFallSpeed = _stats.MaxFallSpeed;
+        if (_moveInput.y < 0f && _frameVelocity.y < 0f) maxFallSpeed = _stats.QuickFallSpeed;
 
         _frameVelocity.y -= gravity * Time.fixedDeltaTime;
-        _frameVelocity.y = Mathf.Max(_frameVelocity.y, -fallSpeed);
+        _frameVelocity.y = Mathf.Max(_frameVelocity.y, -maxFallSpeed);
     }
 
     #endregion

@@ -37,11 +37,13 @@ public class PlayerStats : ScriptableObject
     [Tooltip("An extra downforce when the player releases the jump button.")]
     public float EarlyJumpReleaseModifier = 2f;
 
-    [Header("Jump Apex Boost")]
-    [Tooltip("The y-velocity range in which the player will get a boost at the apex of their jump.")]
-    public float JumpFloatWindow = 0f;
+    [Header("Jump Apex")]
+    [Tooltip("The y-velocity range in which the player is considered in the apex of the jump arc.")]
+    public float JumpApexWindow = 5f;
+    [Tooltip("The gravity multiplier while at the apex of a jump"), Range(0.01f, 1f)]
+    public float JumpApexGravityMultiplier = 0.5f;
     [Tooltip("The increase in horizontal speed at the apex of a jump.")]
-    public float JumpFloatMultiplier = 2f;
+    public float JumpApexMoveAccelerationMultiplier = 2f;
 
     [Header("Jump Buffering")]
     [Tooltip("The amount of time in seconds that the player can press jump before hitting the ground and still have it register.")]
