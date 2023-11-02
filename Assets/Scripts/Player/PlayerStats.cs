@@ -32,8 +32,8 @@ public class PlayerStats : ScriptableObject
     public float JumpPower = 20f;
     [Tooltip("Vertical velocity of a mid-air jump.")]
     public float AirJumpPower = 10f;
-    [Tooltip("The amount of jumps the player can use.")]
-    public int JumpCount = 2;
+    [Tooltip("The amount of jumps the player can use in the air.")]
+    public int AirJumpCount = 1;
     [Tooltip("An extra downforce when the player releases the jump button.")]
     public float EarlyJumpReleaseModifier = 2f;
 

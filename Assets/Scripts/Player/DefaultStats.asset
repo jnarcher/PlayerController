@@ -24,7 +24,7 @@ MonoBehaviour:
   GroundingForce: 0
   JumpPower: 32
   AirJumpPower: 25
-  JumpCount: 2
+  AirJumpCount: 0
   EarlyJumpReleaseModifier: 2.5
   JumpApexWindow: 5
   JumpApexGravityMultiplier: 0.5

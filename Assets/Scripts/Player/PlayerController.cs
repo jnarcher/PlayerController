@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
         if (_col.OnGround)
         {
-            _jumpsRemaining = _stats.JumpCount;
+            _airJumpsRemaining = _stats.AirJumpCount;
             _dashAvailable = _time > _timeDashEnded + _stats.GroundDashCooldown;
         }
 
@@ -123,18 +123,15 @@ public class PlayerController : MonoBehaviour
     private bool HasCoyoteJump => _time <= _timeLeftGround + _stats.CoyoteTime;
 
     // multi-jump
-    private int _jumpsRemaining;
+    private int _airJumpsRemaining;
 
     private void HandleJump()
     {
-        // this should only happen when the player leaves the ground without jumping
-        if (!_col.OnGround && _jumpsRemaining == _stats.JumpCount && !HasCoyoteJump) _jumpsRemaining--;
-
         if (_dashing) return; // can't jump while dashing
 
         if (_col.OnGround && HasBufferedJump) Jump();
         else if (_jumpPressedThisFrame && !_col.OnGround && HasCoyoteJump) Jump();
-        else if (_jumpPressedThisFrame && !_col.OnGround && _jumpsRemaining > 0) AirJump();
+        else if (_jumpPressedThisFrame && !_col.OnGround && _airJumpsRemaining > 0) AirJump();
 
         _jumpPressedThisFrame = false;
     }
@@ -144,7 +141,6 @@ public class PlayerController : MonoBehaviour
         if (GroundJumpEffect != null) Instantiate(GroundJumpEffect, transform.position, Quaternion.identity);
         _frameVelocity.y = _stats.JumpPower;
         _timeJumpPressed = float.MinValue;
-        _jumpsRemaining--;
     }
 
     private void AirJump()
@@ -152,7 +148,7 @@ public class PlayerController : MonoBehaviour
         if (AirJumpEffect != null) Instantiate(AirJumpEffect, transform.position, Quaternion.identity);
         _frameVelocity.y = _stats.AirJumpPower;
         _timeJumpPressed = float.MinValue;
-        _jumpsRemaining--;
+        _airJumpsRemaining--;
     }
 
     #endregion
