@@ -24,13 +24,16 @@ MonoBehaviour:
   GroundingForce: 0
   JumpPower: 32
   AirJumpPower: 25
-  AirJumpCount: 0
+  AirJumpCount: 1
   EarlyJumpReleaseModifier: 2.5
   JumpApexWindow: 5
   JumpApexGravityMultiplier: 0.5
   JumpApexMoveAccelerationMultiplier: 2
   JumpBuffer: 0.2
   CoyoteTime: 0.07
+  WallSlideJumpToggle: 1
+  WallSlideSpeed: 8
+  WallJumpVelocity: {x: 20, y: 20}
   DashToggle: 1
   DashTime: 0.15
   DashDistance: 4

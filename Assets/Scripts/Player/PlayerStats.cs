@@ -53,6 +53,11 @@ public class PlayerStats : ScriptableObject
     [Tooltip("The amount of time in seconds that the player can still jump after leaving the ground.")]
     public float CoyoteTime = 0.15f;
 
+    [Header("Wall Slide / Jump")]
+    [Tooltip("Toggle whether the player can wall slide and jump or not.")]
+    public bool WallSlideJumpToggle = true;
+    [Tooltip("The speed the player falls down walls.")]
+    public float WallSlideSpeed = 10f;
     [Header("Dash")]
     [Tooltip("Toggle whether the player can dash or not.")]
     public bool DashToggle = true;

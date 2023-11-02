@@ -214,7 +214,15 @@ public class PlayerController : MonoBehaviour
 
         // set the correct maximum fall speed
         float maxFallSpeed = _stats.MaxFallSpeed;
-        if (_moveInput.y < 0f && _frameVelocity.y < 0f) maxFallSpeed = _stats.QuickFallSpeed;
+        if (_moveInput.y < 0f && _frameVelocity.y < 0f)
+            maxFallSpeed = _stats.QuickFallSpeed;
+
+        // check for wall sliding
+        if (
+            _stats.WallSlideJumpToggle &&
+            (_isFacingRight && _moveInput.x > 0f && _col.OnWall ||
+            !_isFacingRight && _moveInput.x < 0f && _col.OnWall)
+        ) maxFallSpeed = _stats.WallSlideSpeed;
 
         _frameVelocity.y -= gravity * Time.fixedDeltaTime;
         _frameVelocity.y = Mathf.Max(_frameVelocity.y, -maxFallSpeed);
