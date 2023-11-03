@@ -60,6 +60,9 @@ public class PlayerController : MonoBehaviour
     private float _timeLeftGround = float.MinValue;
     private float _timeLeftWall = float.MinValue;
 
+    /// <summary>
+    /// Collects collision data from player collision class and sets the necessary variables.
+    /// </summary>
     private void HandleCollisions()
     {
         if (_col.OnCeiling)
@@ -107,6 +110,9 @@ public class PlayerController : MonoBehaviour
 
     #region HORIZONTAL
 
+    /// <summary>
+    /// This will apply the horizontal velocity of the character.
+    /// </summary>
     private void HandleHorizontal()
     {
         if (_time <= _timeWallJumped + _stats.WallJumpInputFreezeTime) return;
@@ -148,6 +154,9 @@ public class PlayerController : MonoBehaviour
     private bool _lastWallWasRight;
     private bool HasBufferedWallJump => _time <= _timeLeftWall + _stats.WallJumpBuffer;
 
+    /// <summary>
+    /// Determines whether the player can jump.
+    /// </summary>
     private void HandleJump()
     {
         if (_dashing) return; // can't jump while dashing
@@ -160,6 +169,9 @@ public class PlayerController : MonoBehaviour
         _jumpPressedThisFrame = false;
     }
 
+    /// <summary>
+    /// Apply the velocity for a ground jump.
+    /// </summary>
     private void Jump()
     {
         if (GroundJumpEffect != null) Instantiate(GroundJumpEffect, transform.position, Quaternion.identity);
@@ -167,6 +179,9 @@ public class PlayerController : MonoBehaviour
         _timeJumpPressed = float.MinValue;
     }
 
+    /// <summary>
+    /// Apply the velocity for an air jump.
+    /// </summary>
     private void AirJump()
     {
         if (AirJumpEffect != null) Instantiate(AirJumpEffect, transform.position, Quaternion.identity);
@@ -175,6 +190,9 @@ public class PlayerController : MonoBehaviour
         _airJumpsRemaining--;
     }
 
+    /// <summary>
+    /// Apply the velocity for a wall jump.
+    /// </summary>
     private void WallJump()
     {
         if (WallJumpEffect != null) Instantiate(WallJumpEffect, transform.position, Quaternion.identity);
@@ -196,6 +214,9 @@ public class PlayerController : MonoBehaviour
     private float _timeDashStarted;
     private float _timeDashEnded = float.MinValue;
 
+    /// <summary>
+    /// Determines whether the player can dash.
+    /// </summary>
     private void HandleDash()
     {
         // check if player can dash in the air
@@ -227,6 +248,9 @@ public class PlayerController : MonoBehaviour
         _dashPressedThisFrame = false;
     }
 
+    /// <summary>
+    /// Applies the correct velocity for a dash.
+    /// </summary>
     private void Dash()
     {
         float speed = _stats.DashDistance / _stats.DashTime;
@@ -237,6 +261,9 @@ public class PlayerController : MonoBehaviour
 
     #region GRAVITY
 
+    /// <summary>
+    /// Applies downward acceleration to the player.
+    /// </summary>
     private void HandleGravity()
     {
         if (_col.OnGround && _frameVelocity.y <= 0f)
@@ -271,6 +298,10 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 _moveInput;
 
+    /// <summary>
+    /// Handles the movement input event sent from the `Player Input` component.
+    /// </summary>
+    /// <param name="context">The wrapper around the input event.</param>
     public void OnMovement(InputAction.CallbackContext context)
     {
         Vector2 ipt = context.ReadValue<Vector2>();
@@ -315,6 +346,10 @@ public class PlayerController : MonoBehaviour
     private bool _jumpHeld;
     private bool _jumpPressedThisFrame;
 
+    /// <summary>
+    /// Handles the jump input event sent from the `Player Input` component.
+    /// </summary>
+    /// <param name="context">The wrapper around the input event.</param>
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -332,6 +367,10 @@ public class PlayerController : MonoBehaviour
     private bool _dashPressedThisFrame;
     private Vector2 _dashDirection;
 
+    /// <summary>
+    /// Handles the dash input event sent from the `Player Input` component.
+    /// </summary>
+    /// <param name="context">The wrapper around the input event.</param>
     public void OnDash(InputAction.CallbackContext context)
     {
         if (context.performed)
