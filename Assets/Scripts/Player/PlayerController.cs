@@ -115,24 +115,21 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void HandleHorizontal()
     {
-        if (_time <= _timeWallJumped + _stats.WallJumpInputFreezeTime) return;
-
         float moveAcceleration = _stats.MoveAcceleration;
 
         if (!_col.OnGround && Mathf.Abs(_frameVelocity.y) < _stats.JumpApexWindow)
             moveAcceleration *= _stats.JumpApexMoveAccelerationMultiplier;
 
-        // Lerp input after wall jumping
-        float xInput = _moveInput.x;
-        if (_time <= _timeWallJumped + _stats.WallJumpInputFreezeTime)
-            xInput *= Mathf.Lerp(0, 1, (_timeWallJumped + _time) / (_timeWallJumped + _stats.WallJumpInputFreezeTime));
+        // Lerp acceleration after wall jumping
+        float x = 1;
+        if (!_col.OnGround && _time <= _timeWallJumped + _stats.WallJumpInputFreezeTime)
+            x = Mathf.Lerp(0, 1, (_time - _timeWallJumped) / _stats.WallJumpInputFreezeTime);
 
         _frameVelocity.x = Mathf.MoveTowards(
             _frameVelocity.x,
-            xInput * _stats.MoveSpeed,
-            moveAcceleration * Time.fixedDeltaTime
+            _moveInput.x * _stats.MoveSpeed,
+            x * moveAcceleration * Time.fixedDeltaTime
         );
-
     }
 
     #endregion
