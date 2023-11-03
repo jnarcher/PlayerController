@@ -58,6 +58,13 @@ public class PlayerStats : ScriptableObject
     public bool WallSlideJumpToggle = true;
     [Tooltip("The speed the player falls down walls.")]
     public float WallSlideSpeed = 10f;
+    [Tooltip("The velocity that gets applied when the player wall jumps.")]
+    public Vector2 WallJumpVelocity = new(20f, 20f);
+    [Tooltip("The time after a player has left the wall where they can still wall jump. (Similar to coyote time).")]
+    public float WallJumpBuffer = 0.2f;
+    [Tooltip("The amount of time the players input is frozen after a wall jump.")]
+    public float WallJumpInputFreezeTime = 0.2f;
+
     [Header("Dash")]
     [Tooltip("Toggle whether the player can dash or not.")]
     public bool DashToggle = true;

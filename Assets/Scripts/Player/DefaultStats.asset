@@ -33,8 +33,11 @@ MonoBehaviour:
   CoyoteTime: 0.07
   WallSlideJumpToggle: 1
   WallSlideSpeed: 8
-  WallJumpVelocity: {x: 20, y: 20}
+  WallJumpVelocity: {x: 13, y: 32}
+  WallJumpBuffer: 0.1
+  WallJumpInputFreezeTime: 0.1
   DashToggle: 1
+  AirDashToggle: 1
   DashTime: 0.15
   DashDistance: 4
-  GroundDashCooldown: 0.2
+  GroundDashCooldown: 0.4

@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public GameObject LandEffect;
     public GameObject GroundJumpEffect;
     public GameObject AirJumpEffect;
+    public GameObject WallJumpEffect;
     public GameObject DashEffect;
 
     #region INTERFACE
@@ -55,7 +56,9 @@ public class PlayerController : MonoBehaviour
 
     // tracks if player was grounded last time step
     private bool _grounded;
+    private bool _onWall;
     private float _timeLeftGround = float.MinValue;
+    private float _timeLeftWall = float.MinValue;
 
     private void HandleCollisions()
     {
@@ -77,6 +80,16 @@ public class PlayerController : MonoBehaviour
             _dashAvailable = _time > _timeDashEnded + _stats.GroundDashCooldown;
         }
 
+        if (_col.OnWall)
+        {
+            _lastWallWasRight = _isFacingRight;
+        }
+        else if (_onWall && !_col.OnWall)
+        {
+            _timeLeftWall = _time;
+        }
+
+        _onWall = _col.OnWall;
         _grounded = _col.OnGround;
     }
 
@@ -96,16 +109,21 @@ public class PlayerController : MonoBehaviour
 
     private void HandleHorizontal()
     {
-        float moveSpeed = _stats.MoveSpeed;
+        if (_time <= _timeWallJumped + _stats.WallJumpInputFreezeTime) return;
+
         float moveAcceleration = _stats.MoveAcceleration;
 
         if (!_col.OnGround && Mathf.Abs(_frameVelocity.y) < _stats.JumpApexWindow)
             moveAcceleration *= _stats.JumpApexMoveAccelerationMultiplier;
 
+        // Lerp input after wall jumping
+        float xInput = _moveInput.x;
+        if (_time <= _timeWallJumped + _stats.WallJumpInputFreezeTime)
+            xInput *= Mathf.Lerp(0, 1, (_timeWallJumped + _time) / (_timeWallJumped + _stats.WallJumpInputFreezeTime));
 
         _frameVelocity.x = Mathf.MoveTowards(
             _frameVelocity.x,
-            _moveInput.x * moveSpeed,
+            xInput * _stats.MoveSpeed,
             moveAcceleration * Time.fixedDeltaTime
         );
 
@@ -125,11 +143,17 @@ public class PlayerController : MonoBehaviour
     // multi-jump
     private int _airJumpsRemaining;
 
+    // wall jumps
+    private float _timeWallJumped = float.MinValue;
+    private bool _lastWallWasRight;
+    private bool HasBufferedWallJump => _time <= _timeLeftWall + _stats.WallJumpBuffer;
+
     private void HandleJump()
     {
         if (_dashing) return; // can't jump while dashing
 
         if (_col.OnGround && HasBufferedJump) Jump();
+        else if (_jumpPressedThisFrame && (HasBufferedWallJump || _col.OnWall)) WallJump();
         else if (_jumpPressedThisFrame && !_col.OnGround && HasCoyoteJump) Jump();
         else if (_jumpPressedThisFrame && !_col.OnGround && _airJumpsRemaining > 0) AirJump();
 
@@ -149,6 +173,17 @@ public class PlayerController : MonoBehaviour
         _frameVelocity.y = _stats.AirJumpPower;
         _timeJumpPressed = float.MinValue;
         _airJumpsRemaining--;
+    }
+
+    private void WallJump()
+    {
+        if (WallJumpEffect != null) Instantiate(WallJumpEffect, transform.position, Quaternion.identity);
+        _frameVelocity.y = _stats.WallJumpVelocity.y;
+        _frameVelocity.x = _stats.WallJumpVelocity.x;
+        if (_lastWallWasRight) _frameVelocity.x *= -1;
+        _airJumpsRemaining = _stats.AirJumpCount;
+        _dashAvailable = _stats.AirDashToggle;
+        _timeWallJumped = _time;
     }
 
     #endregion
