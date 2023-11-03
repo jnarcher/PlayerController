@@ -284,27 +284,31 @@ public class PlayerController : MonoBehaviour
             ipt.y = Math.Sign(ipt.y);
         }
 
-        // check if player has turned
         _moveInput = ipt;
-        if (ipt.x > 0f && !_isFacingRight)
+
+        if (!_dashing)
         {
-            Vector3 rotator = new(
-                transform.rotation.x,
-                0f,
-                transform.rotation.z
-            );
-            transform.rotation = Quaternion.Euler(rotator);
-            _isFacingRight = true;
-        }
-        else if (ipt.x < 0f && _isFacingRight)
-        {
-            Vector3 rotator = new(
-                transform.rotation.x,
-                180f,
-                transform.rotation.z
-            );
-            transform.rotation = Quaternion.Euler(rotator);
-            _isFacingRight = false;
+            // check if player has turned
+            if (ipt.x > 0f && !_isFacingRight)
+            {
+                Vector3 rotator = new(
+                    transform.rotation.x,
+                    0f,
+                    transform.rotation.z
+                );
+                transform.rotation = Quaternion.Euler(rotator);
+                _isFacingRight = true;
+            }
+            else if (ipt.x < 0f && _isFacingRight)
+            {
+                Vector3 rotator = new(
+                    transform.rotation.x,
+                    180f,
+                    transform.rotation.z
+                );
+                transform.rotation = Quaternion.Euler(rotator);
+                _isFacingRight = false;
+            }
         }
     }
 

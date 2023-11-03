@@ -40,4 +40,4 @@ MonoBehaviour:
   AirDashToggle: 1
   DashTime: 0.15
   DashDistance: 4
-  GroundDashCooldown: 0.4
+  GroundDashCooldown: 0.3
