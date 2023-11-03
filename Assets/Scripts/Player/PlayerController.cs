@@ -199,7 +199,7 @@ public class PlayerController : MonoBehaviour
     private void HandleDash()
     {
         // check if player can dash in the air
-        if (!_col.OnGround && !_stats.AirDashToggle && !_dashing)
+        if ((!_col.OnGround && !_stats.AirDashToggle || _col.OnWall) && !_dashing)
         {
             _dashPressedThisFrame = false;
             return;
