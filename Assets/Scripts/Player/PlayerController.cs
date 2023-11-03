@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
         {
             _timeLeftGround = _time;
             // the player will always get their dash back immediately after leaving the ground (ignoring cooldown)
-            _dashAvailable = true;
+            _dashAvailable = _stats.AirDashToggle;
         }
 
         if (_col.OnGround)
@@ -163,10 +163,15 @@ public class PlayerController : MonoBehaviour
 
     private void HandleDash()
     {
-        // TODO: Separate the toggle for dashing and dashing in the air
+        // check if player can dash in the air
+        if (!_col.OnGround && !_stats.AirDashToggle && !_dashing)
+        {
+            _dashPressedThisFrame = false;
+            return;
+        }
 
         // start a dash
-        if (_dashPressedThisFrame && _dashAvailable)
+        if (_dashPressedThisFrame && _dashAvailable && !_dashing)
         {
             _timeDashStarted = _time;
             _dashing = true;
