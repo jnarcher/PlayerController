@@ -319,22 +319,32 @@ public class PlayerController : MonoBehaviour
             // check if player has turned
             if (ipt.x > 0f && !_isFacingRight)
             {
-                Vector3 rotator = new(
+                // Vector3 rotator = new(
+                //     transform.rotation.x,
+                //     0f,
+                //     transform.rotation.z
+                // );
+                // transform.rotation = Quaternion.Euler(rotator);
+                transform.localEulerAngles = new Vector3(
                     transform.rotation.x,
                     0f,
                     transform.rotation.z
                 );
-                transform.rotation = Quaternion.Euler(rotator);
                 _isFacingRight = true;
             }
             else if (ipt.x < 0f && _isFacingRight)
             {
-                Vector3 rotator = new(
+                // Vector3 rotator = new(
+                //     transform.rotation.x,
+                //     180f,
+                //     transform.rotation.z
+                // );
+                // transform.rotation = Quaternion.Euler(rotator);
+                transform.localEulerAngles = new Vector3(
                     transform.rotation.x,
                     180f,
                     transform.rotation.z
                 );
-                transform.rotation = Quaternion.Euler(rotator);
                 _isFacingRight = false;
             }
         }
