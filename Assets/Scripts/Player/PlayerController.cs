@@ -8,9 +8,12 @@ public class PlayerController : MonoBehaviour
     // Component references
     private Rigidbody2D _rb;
     private PlayerCollision _col;
-    [SerializeField] private PlayerStats _stats;
+
+    public PlayerStats Stats;
+    public GameObject GrappleDirectionIndicator;
 
     // Effects
+    [Header("Effects")]
     public GameObject LandEffect;
     public GameObject GroundJumpEffect;
     public GameObject AirJumpEffect;
@@ -22,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 Position => _rb.position;
     public Vector2 Velocity => _frameVelocity;
     public bool IsFacingRight => _isFacingRight;
+    public bool IsAimingGrapple => _aimingGrapple;
 
     #endregion
 
@@ -46,6 +50,7 @@ public class PlayerController : MonoBehaviour
         HandleHorizontal();
         HandleJump();
         HandleGravity();
+        HandleGrapple();
         HandleDash();
         ApplyMovement();
     }
@@ -74,13 +79,13 @@ public class PlayerController : MonoBehaviour
         {
             _timeLeftGround = _time;
             // the player will always get their dash back immediately after leaving the ground (ignoring cooldown)
-            _dashAvailable = _stats.AirDashToggle;
+            ResetDash();
         }
 
         if (_col.OnGround)
         {
-            _airJumpsRemaining = _stats.AirJumpCount;
-            _dashAvailable = _time > _timeDashEnded + _stats.GroundDashCooldown;
+            ResetAirJumps();
+            _dashAvailable = _time > _timeDashEnded + Stats.GroundDashCooldown;
         }
 
         if (_col.OnWall)
@@ -102,7 +107,7 @@ public class PlayerController : MonoBehaviour
     private void OnLanding()
     {
         if (LandEffect != null) Instantiate(LandEffect, transform.position, Quaternion.identity);
-        if (_frameVelocity.y <= -_stats.MaxFallSpeed)
+        if (_frameVelocity.y <= -Stats.MaxFallSpeed)
             CameraShake.Instance.ShakeCamera(10f, 0.2f);
     }
 
@@ -110,24 +115,35 @@ public class PlayerController : MonoBehaviour
 
     #region HORIZONTAL
 
+    private float _cachedMoveInputX;
+
     /// <summary>
     /// This will apply the horizontal velocity of the character.
     /// </summary>
     private void HandleHorizontal()
     {
-        float moveAcceleration = _stats.MoveAcceleration;
+        if (_grapplePressedThisFrame)
+            _cachedMoveInputX = _moveInput.x;
+        _grapplePressedThisFrame = false;
 
-        if (!_col.OnGround && Mathf.Abs(_frameVelocity.y) < _stats.JumpApexWindow)
-            moveAcceleration *= _stats.JumpApexMoveAccelerationMultiplier;
+        float moveAcceleration = Stats.MoveAcceleration;
+
+        if (!_col.OnGround && Mathf.Abs(_frameVelocity.y) < Stats.JumpApexWindow)
+            moveAcceleration *= Stats.JumpApexMoveAccelerationMultiplier;
 
         // Lerp acceleration after wall jumping
         float x = 1;
-        if (!_col.OnGround && _time <= _timeWallJumped + _stats.WallJumpInputFreezeTime)
-            x = Mathf.Lerp(0, 1, (_time - _timeWallJumped) / _stats.WallJumpInputFreezeTime);
+        if (!_col.OnGround && _time <= _timeWallJumped + Stats.WallJumpInputFreezeTime)
+            x = Mathf.Lerp(0, 1, (_time - _timeWallJumped) / Stats.WallJumpInputFreezeTime);
+        else if (!_col.OnGround && _time <= _timeStoppedGrappling + Stats.GrappleInputFreezeTime)
+            x = Mathf.Lerp(0, 1, (_time - _timeStoppedGrappling) / Stats.GrappleInputFreezeTime);
+
+        float moveInputX = _moveInput.x;
+        if (_aimingGrapple) moveInputX = _cachedMoveInputX;
 
         _frameVelocity.x = Mathf.MoveTowards(
             _frameVelocity.x,
-            _moveInput.x * _stats.MoveSpeed,
+            moveInputX * Stats.MoveSpeed,
             x * moveAcceleration * Time.fixedDeltaTime
         );
     }
@@ -138,10 +154,10 @@ public class PlayerController : MonoBehaviour
 
     // jump buffer
     private float _timeJumpPressed = float.MinValue;
-    private bool HasBufferedJump => _time <= _timeJumpPressed + _stats.JumpBuffer;
+    private bool HasBufferedJump => _time <= _timeJumpPressed + Stats.JumpBuffer;
 
     // coyote buffer
-    private bool HasCoyoteJump => _time <= _timeLeftGround + _stats.CoyoteTime;
+    private bool HasCoyoteJump => _time <= _timeLeftGround + Stats.CoyoteTime;
 
     // multi-jump
     private int _airJumpsRemaining;
@@ -149,7 +165,7 @@ public class PlayerController : MonoBehaviour
     // wall jumps
     private float _timeWallJumped = float.MinValue;
     private bool _lastWallWasRight;
-    private bool HasBufferedWallJump => _time <= _timeLeftWall + _stats.WallJumpBuffer;
+    private bool HasBufferedWallJump => _time <= _timeLeftWall + Stats.WallJumpBuffer;
 
     /// <summary>
     /// Determines whether the player can jump.
@@ -172,7 +188,7 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         if (GroundJumpEffect != null) Instantiate(GroundJumpEffect, transform.position, Quaternion.identity);
-        _frameVelocity.y = _stats.JumpPower;
+        _frameVelocity.y = Stats.JumpPower;
         _timeJumpPressed = float.MinValue;
     }
 
@@ -182,10 +198,12 @@ public class PlayerController : MonoBehaviour
     private void AirJump()
     {
         if (AirJumpEffect != null) Instantiate(AirJumpEffect, transform.position, Quaternion.identity);
-        _frameVelocity.y = _stats.AirJumpPower;
+        _frameVelocity.y = Stats.AirJumpPower;
         _timeJumpPressed = float.MinValue;
         _airJumpsRemaining--;
     }
+
+    private void ResetAirJumps() => _airJumpsRemaining = Stats.AirJumpCount;
 
     /// <summary>
     /// Apply the velocity for a wall jump.
@@ -193,11 +211,11 @@ public class PlayerController : MonoBehaviour
     private void WallJump()
     {
         if (WallJumpEffect != null) Instantiate(WallJumpEffect, transform.position, Quaternion.identity);
-        _frameVelocity.y = _stats.WallJumpVelocity.y;
-        _frameVelocity.x = _stats.WallJumpVelocity.x;
+        _frameVelocity.y = Stats.WallJumpVelocity.y;
+        _frameVelocity.x = Stats.WallJumpVelocity.x;
         if (_lastWallWasRight) _frameVelocity.x *= -1;
-        _airJumpsRemaining = _stats.AirJumpCount;
-        _dashAvailable = _stats.AirDashToggle;
+        ResetAirJumps();
+        ResetDash();
         _timeWallJumped = _time;
     }
 
@@ -217,7 +235,7 @@ public class PlayerController : MonoBehaviour
     private void HandleDash()
     {
         // check if player can dash in the air
-        if ((!_col.OnGround && !_stats.AirDashToggle || _col.OnWall) && !_dashing)
+        if ((!_col.OnGround && !Stats.AirDashToggle || _col.OnWall) && !_dashing)
         {
             _dashPressedThisFrame = false;
             return;
@@ -231,7 +249,7 @@ public class PlayerController : MonoBehaviour
             _cachedXVelocity = Mathf.Abs(_frameVelocity.x);
         }
         // end a dash
-        else if (_dashing && _time >= _timeDashStarted + _stats.DashTime)
+        else if (_dashing && _time >= _timeDashStarted + Stats.DashTime)
         {
             _dashing = false;
             _dashDirection = Vector2.zero;
@@ -240,7 +258,7 @@ public class PlayerController : MonoBehaviour
             _frameVelocity.x = _cachedXVelocity * Mathf.Sign(_moveInput.x);
         }
 
-        if (_dashing && _stats.DashToggle) Dash();
+        if (_dashing && Stats.DashToggle) Dash();
 
         _dashPressedThisFrame = false;
     }
@@ -250,8 +268,55 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Dash()
     {
-        float speed = _stats.DashDistance / _stats.DashTime;
+        float speed = Stats.DashDistance / Stats.DashTime;
         _frameVelocity = speed * _dashDirection;
+    }
+
+    private void ResetDash() => _dashAvailable = Stats.AirDashToggle;
+
+    #endregion
+
+    #region GRAPPLE
+
+    private float _timeStartedAimingGrapple = float.MinValue;
+    private float _timeStoppedGrappling = float.MinValue;
+    private bool _grappling;
+    private Vector2 _hitPosition;
+
+    private void HandleGrapple()
+    {
+        if (_aimingGrapple)
+            Time.timeScale = Mathf.Lerp(1f, Stats.GrappleTimeSlow, (_time - _timeStartedAimingGrapple) / Stats.GrappleTimeSlowSpeed);
+        else
+            Time.timeScale = 1f;
+
+        if (_grappleReleasedThisFrame)
+        {
+            RaycastHit2D hit = _col.FindGrapplePoint(_grappleAimInput);
+            if ((bool)hit)
+            {
+                _hitPosition = hit.transform.position;
+                _grappling = true;
+            }
+        }
+
+        if (_grappling) Grapple(_hitPosition);
+
+        _grappleReleasedThisFrame = false;
+    }
+
+    private void Grapple(Vector3 point)
+    {
+        if (Vector2.Distance(transform.position, point) <= Stats.GrappleDistanceTolerance)
+        {
+            _grappling = false;
+            _timeStoppedGrappling = _time;
+            ResetAirJumps();
+            ResetDash();
+            return;
+        }
+        Vector2 grapplePointDirection = (point - transform.position).normalized;
+        _frameVelocity = Stats.GrappleSpeed * grapplePointDirection;
     }
 
     #endregion
@@ -265,25 +330,20 @@ public class PlayerController : MonoBehaviour
     {
         if (_col.OnGround && _frameVelocity.y <= 0f)
         {
-            _frameVelocity.y = _stats.GroundingForce;
+            _frameVelocity.y = Stats.GroundingForce;
             return;
         }
 
         // set the correct gravity
-        float gravity = _frameVelocity.y > 0f ? _stats.RisingGravity : _stats.FallingGravity;
-        if ((!_jumpHeld || _moveInput.y < 0f) && _frameVelocity.y > 0f)
-            gravity *= _stats.EarlyJumpReleaseModifier;
-        else if (!_col.OnGround && Mathf.Abs(_frameVelocity.y) < _stats.JumpApexWindow)
-            gravity *= _stats.JumpApexGravityMultiplier;
+        float gravity = _frameVelocity.y > 0f ? Stats.RisingGravity : Stats.FallingGravity;
+        if (!_jumpHeld && _frameVelocity.y > 0f)
+            gravity *= Stats.EarlyJumpReleaseModifier;
+        else if (!_col.OnGround && Mathf.Abs(_frameVelocity.y) < Stats.JumpApexWindow)
+            gravity *= Stats.JumpApexGravityMultiplier;
 
-        // set the correct maximum fall speed
-        float maxFallSpeed = _stats.MaxFallSpeed;
-        if (_moveInput.y < 0f && _frameVelocity.y < 0f)
-            maxFallSpeed = _stats.QuickFallSpeed;
-
-        // check for wall sliding
-        if (_stats.WallSlideJumpToggle && _col.OnWall)
-            maxFallSpeed = _stats.WallSlideSpeed;
+        float maxFallSpeed = Stats.MaxFallSpeed;
+        if (Stats.WallSlideJumpToggle && _col.OnWall)
+            maxFallSpeed = Stats.WallSlideSpeed;
 
         _frameVelocity.y -= gravity * Time.fixedDeltaTime;
         _frameVelocity.y = Mathf.Max(_frameVelocity.y, -maxFallSpeed);
@@ -294,6 +354,7 @@ public class PlayerController : MonoBehaviour
     #region INPUT
 
     private Vector2 _moveInput;
+    private Vector2 _grappleAimInput;
 
     /// <summary>
     /// Handles the movement input event sent from the `Player Input` component.
@@ -303,10 +364,12 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 ipt = context.ReadValue<Vector2>();
 
-        ipt.x = Mathf.Abs(ipt.x) >= _stats.HorizontalDeadzone ? ipt.x : 0;
-        ipt.y = Mathf.Abs(ipt.y) >= _stats.VerticalDeadzone ? ipt.y : 0;
+        _grappleAimInput = ipt;
 
-        if (_stats.SnapInput)
+        ipt.x = Mathf.Abs(ipt.x) >= Stats.HorizontalDeadzone ? ipt.x : 0;
+        ipt.y = Mathf.Abs(ipt.y) >= Stats.VerticalDeadzone ? ipt.y : 0;
+
+        if (Stats.SnapInput)
         {
             ipt.x = Math.Sign(ipt.x);
             ipt.y = Math.Sign(ipt.y);
@@ -314,17 +377,11 @@ public class PlayerController : MonoBehaviour
 
         _moveInput = ipt;
 
-        if (!_dashing)
+        if (!_dashing && !_aimingGrapple)
         {
             // check if player has turned
             if (ipt.x > 0f && !_isFacingRight)
             {
-                // Vector3 rotator = new(
-                //     transform.rotation.x,
-                //     0f,
-                //     transform.rotation.z
-                // );
-                // transform.rotation = Quaternion.Euler(rotator);
                 transform.localEulerAngles = new Vector3(
                     transform.rotation.x,
                     0f,
@@ -334,12 +391,6 @@ public class PlayerController : MonoBehaviour
             }
             else if (ipt.x < 0f && _isFacingRight)
             {
-                // Vector3 rotator = new(
-                //     transform.rotation.x,
-                //     180f,
-                //     transform.rotation.z
-                // );
-                // transform.rotation = Quaternion.Euler(rotator);
                 transform.localEulerAngles = new Vector3(
                     transform.rotation.x,
                     180f,
@@ -380,6 +431,9 @@ public class PlayerController : MonoBehaviour
     /// <param name="context">The wrapper around the input event.</param>
     public void OnDash(InputAction.CallbackContext context)
     {
+        // cannot dash while aiming the grapple
+        if (_aimingGrapple) return;
+
         if (context.performed)
         {
             _dashPressedThisFrame = true;
@@ -388,6 +442,33 @@ public class PlayerController : MonoBehaviour
             if (!_dashing) _dashDirection = _isFacingRight
                 ? Vector2.right
                 : Vector2.left;
+        }
+    }
+
+    private bool _aimingGrapple = false;
+    private bool _grapplePressedThisFrame;
+    private bool _grappleReleasedThisFrame;
+
+    public void OnGrapple(InputAction.CallbackContext context)
+    {
+        if (!Stats.GrappleToggle)
+        {
+            _aimingGrapple = false;
+            return;
+        }
+
+        if (context.performed)
+        {
+            _aimingGrapple = true;
+            _timeStartedAimingGrapple = _time;
+            _grapplePressedThisFrame = true;
+            GrappleDirectionIndicator.SetActive(true);
+        }
+        else if (context.canceled)
+        {
+            _aimingGrapple = false;
+            _grappleReleasedThisFrame = true;
+            GrappleDirectionIndicator.SetActive(false);
         }
     }
 

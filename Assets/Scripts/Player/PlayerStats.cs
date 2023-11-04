@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Player Stats")]
@@ -76,4 +77,18 @@ public class PlayerStats : ScriptableObject
     public float DashDistance = 4f;
     [Tooltip("How long the player has to wait before dashing again after a dash has been performed while on the ground.")]
     public float GroundDashCooldown = 0.5f;
+
+    [Header("Grapple")]
+    [Tooltip("Toogle whether the player can grapple.")]
+    public bool GrappleToggle = true;
+    [Tooltip("The speed at which the grapple launches you.")]
+    public float GrappleSpeed = 30f;
+    [Tooltip("The range of the grapple.")]
+    public float GrappleRange = 10f;
+    [Tooltip("How much time slows while aiming the grapple."), Range(0.01f, 1f)]
+    public float GrappleTimeSlow = 0.2f;
+    [Tooltip("The speed the time slow is interpolated with.")]
+    public float GrappleTimeSlowSpeed = 0.1f;
+    public float GrappleDistanceTolerance = 0.5f;
+    public float GrappleInputFreezeTime = 0.2f;
 }
