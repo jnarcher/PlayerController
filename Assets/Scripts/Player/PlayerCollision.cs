@@ -69,12 +69,8 @@ public class PlayerCollision : MonoBehaviour
     {
         Physics2D.queriesStartInColliders = false;
 
-        Debug.DrawRay(_col.bounds.center, _stats.GrappleRange * direction, Color.green, 10f);
-
-        RaycastHit2D hit = Physics2D.BoxCast(
+        RaycastHit2D hit = Physics2D.Raycast(
             _col.bounds.center,
-            _col.size,
-            0f,
             direction,
             _stats.GrappleRange,
             GrappleLayer
