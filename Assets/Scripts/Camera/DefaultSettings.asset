@@ -12,10 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e2310d1d7074725b7f72209251fc6b, type: 3}
   m_Name: DefaultSettings
   m_EditorClassIdentifier: 
-  RisingYDamping: 2
-  FallingYDamping: 0.1
-  StationaryLookAhead: 1
-  FlipRotationTime: 0.5
   ToggleShake: 0
   ShakeIntensity: 1
-  ShakeTime: 0.21
+  ShakeTime: 0.1
