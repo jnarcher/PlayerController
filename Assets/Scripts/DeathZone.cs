@@ -8,7 +8,7 @@ public class DeathZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.gameObject.transform.position = Vector3.zero;
+            other.gameObject.GetComponent<PlayerDeath>().KillPlayer();
         }
     }
 }
