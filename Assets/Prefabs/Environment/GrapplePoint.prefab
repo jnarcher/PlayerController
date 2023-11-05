@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5607314904393694570}
   - component: {fileID: 4255939302837167701}
-  - component: {fileID: 9176003700447939794}
   - component: {fileID: 316730734956660539}
   m_Layer: 7
   m_Name: GrapplePoint
@@ -86,41 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &9176003700447939794
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4977682727973071008}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 6.8227158
 --- !u!114 &316730734956660539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,3 +99,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActiveColor: {r: 0.90588236, g: 0.6784314, b: 0.39607844, a: 1}
   InactiveColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 64

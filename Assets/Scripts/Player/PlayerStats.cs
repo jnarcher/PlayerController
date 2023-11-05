@@ -93,6 +93,6 @@ public class PlayerStats : ScriptableObject
     public float GrappleStopDistance = 0.5f;
     [Tooltip("The amount of time the input is lerped after a grapple finishes (similar to wall jump).")]
     public float GrappleInputFreezeTime = 0.2f;
-    [Tooltip("The angle at which the player can point on either side of the grapple point while within its collider and successfully grapple.")]
-    public float CloseupGrappleAssistAngle = 45f;
+    [Tooltip("The range in which the grapple point can be within around the aim input for the grapple to execute successfully. (Aim assist)")]
+    public float GrappleAssistAngle = 45f;
 }

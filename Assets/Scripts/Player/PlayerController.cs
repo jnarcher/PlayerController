@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     // Component references
     private Rigidbody2D _rb;
     private PlayerCollision _col;
+    private PlayerGrapple _playerGrapple;
 
     public PlayerStats Stats;
     public GameObject GrappleDirectionIndicator;
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _col = GetComponent<PlayerCollision>();
+        _playerGrapple = GetComponent<PlayerGrapple>();
     }
 
     private void Update()
@@ -292,10 +294,10 @@ public class PlayerController : MonoBehaviour
 
         if (_grappleReleasedThisFrame)
         {
-            HitData hit = _col.FindGrapplePoint(_grappleAimInput);
-            if (hit.DidHit && hit.HitObject.GetComponent<GrapplePointController>().IsOn)
+            GameObject hitGrapplePoint = _playerGrapple.FindGrappleFromInput(_grappleAimInput);
+            if (hitGrapplePoint != null)
             {
-                _hitPosition = hit.HitPosition;
+                _hitPosition = hitGrapplePoint.transform.position;
                 _grappling = true;
             }
         }
