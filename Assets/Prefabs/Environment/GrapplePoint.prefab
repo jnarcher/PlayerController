@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 316730734956660539}
   m_Layer: 7
   m_Name: GrapplePoint
-  m_TagString: Untagged
+  m_TagString: GrapplePoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,3 +133,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7da91c1e67b34514b9d352ee27d6396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActiveColor: {r: 0.90588236, g: 0.6784314, b: 0.39607844, a: 1}
+  InactiveColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}

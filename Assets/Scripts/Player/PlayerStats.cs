@@ -63,7 +63,7 @@ public class PlayerStats : ScriptableObject
     public Vector2 WallJumpVelocity = new(20f, 20f);
     [Tooltip("The time after a player has left the wall where they can still wall jump. (Similar to coyote time).")]
     public float WallJumpBuffer = 0.2f;
-    [Tooltip("The amount of time the players input is frozen after a wall jump.")]
+    [Tooltip("The amount of time the players input is lerped after a wall jump.")]
     public float WallJumpInputFreezeTime = 0.2f;
 
     [Header("Dash")]
@@ -89,6 +89,10 @@ public class PlayerStats : ScriptableObject
     public float GrappleTimeSlow = 0.2f;
     [Tooltip("The speed the time slow is interpolated with.")]
     public float GrappleTimeSlowSpeed = 0.1f;
-    public float GrappleDistanceTolerance = 0.5f;
+    [Tooltip("The distance from the player to the grapple point at which the grapple will detach.")]
+    public float GrappleStopDistance = 0.5f;
+    [Tooltip("The amount of time the input is lerped after a grapple finishes (similar to wall jump).")]
     public float GrappleInputFreezeTime = 0.2f;
+    [Tooltip("The angle at which the player can point on either side of the grapple point while within its collider and successfully grapple.")]
+    public float CloseupGrappleAssistAngle = 45f;
 }

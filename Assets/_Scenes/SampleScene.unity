@@ -1466,7 +1466,7 @@ MonoBehaviour:
     m_FontSize: 11
     m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 63
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -1482,6 +1482,9 @@ MonoBehaviour:
     (R-trigger) - Dash
 
     CTRL (Left Shoulder) - Grapple
+
+    Release Grapple Button
+    to execute the grapple
 
     Esc - Quit'
 --- !u!222 &569704731

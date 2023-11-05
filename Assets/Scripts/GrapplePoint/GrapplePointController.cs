@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class GrapplePointController : MonoBehaviour
 {
+    [SerializeField] private Color ActiveColor;
+    [SerializeField] private Color InactiveColor;
+
     private SpriteRenderer _sprite;
     private Transform _playerTransform;
     private PlayerStats _playerStats;
@@ -9,6 +12,7 @@ public class GrapplePointController : MonoBehaviour
     private bool _cachedQueriesStartInColliders;
 
     // tracks whether the player is in range of this grapple point
+    public bool IsOn => _isOn;
     private bool _isOn;
 
     private void Awake()
@@ -30,10 +34,13 @@ public class GrapplePointController : MonoBehaviour
     private void CheckDistance()
     {
         Vector2 dir = (transform.position - _playerTransform.position).normalized;
+
         Physics2D.queriesStartInColliders = false;
         RaycastHit2D hit = Physics2D.Raycast(_playerTransform.position, dir, _playerStats.GrappleRange);
         Physics2D.queriesStartInColliders = _cachedQueriesStartInColliders;
-        if ((bool)hit) SetStatus(hit.transform.gameObject == gameObject);
+
+        if ((bool)hit) SetStatus(hit.transform.gameObject == gameObject || _playerInsideCollider);
+        else SetStatus(_playerInsideCollider);
     }
 
     private void SetStatus(bool newStatus)
@@ -47,15 +54,17 @@ public class GrapplePointController : MonoBehaviour
         _isOn = newStatus;
     }
 
-    private void ChangeSprite()
+    private void ChangeSprite() => _sprite.color = _isOn ? ActiveColor : InactiveColor;
+
+    private bool _playerInsideCollider;
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (_isOn)
-        {
-            _sprite.color = Color.green;
-        }
-        else
-        {
-            _sprite.color = Color.red;
-        }
+        if (other.CompareTag("Player")) _playerInsideCollider = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player")) _playerInsideCollider = false;
     }
 }

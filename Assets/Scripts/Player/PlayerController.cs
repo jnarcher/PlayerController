@@ -285,17 +285,17 @@ public class PlayerController : MonoBehaviour
 
     private void HandleGrapple()
     {
-        if (_aimingGrapple)
+        if (_aimingGrapple && !_grappling)
             Time.timeScale = Mathf.Lerp(1f, Stats.GrappleTimeSlow, (_time - _timeStartedAimingGrapple) / Stats.GrappleTimeSlowSpeed);
         else
             Time.timeScale = 1f;
 
         if (_grappleReleasedThisFrame)
         {
-            RaycastHit2D hit = _col.FindGrapplePoint(_grappleAimInput);
-            if ((bool)hit)
+            HitData hit = _col.FindGrapplePoint(_grappleAimInput);
+            if (hit.DidHit && hit.HitObject.GetComponent<GrapplePointController>().IsOn)
             {
-                _hitPosition = hit.transform.position;
+                _hitPosition = hit.HitPosition;
                 _grappling = true;
             }
         }
@@ -307,7 +307,7 @@ public class PlayerController : MonoBehaviour
 
     private void Grapple(Vector3 point)
     {
-        if (Vector2.Distance(transform.position, point) <= Stats.GrappleDistanceTolerance)
+        if (Vector2.Distance(transform.position, point) <= Stats.GrappleStopDistance)
         {
             _grappling = false;
             _timeStoppedGrappling = _time;
