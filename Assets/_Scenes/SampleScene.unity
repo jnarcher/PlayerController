@@ -1010,11 +1010,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5607314904393694570, guid: 30066304ba0a247968ecd0889bda3624, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -33.93
+      value: -33.17
       objectReference: {fileID: 0}
     - target: {fileID: 5607314904393694570, guid: 30066304ba0a247968ecd0889bda3624, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.05
+      value: -1.01
       objectReference: {fileID: 0}
     - target: {fileID: 5607314904393694570, guid: 30066304ba0a247968ecd0889bda3624, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1625,8 +1625,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e919a9c4eb1487c8a9c3244ec28454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerTransform: {fileID: 126392623}
+  Player: {fileID: 126392616}
   _sprite: {fileID: 1051920718}
+  SmoothTime: 0.2
 --- !u!1 &620058727
 GameObject:
   m_ObjectHideFlags: 0
@@ -2610,11 +2611,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5607314904393694570, guid: 30066304ba0a247968ecd0889bda3624, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -22.62
+      value: -16.96
       objectReference: {fileID: 0}
     - target: {fileID: 5607314904393694570, guid: 30066304ba0a247968ecd0889bda3624, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.37
+      value: -6.66
       objectReference: {fileID: 0}
     - target: {fileID: 5607314904393694570, guid: 30066304ba0a247968ecd0889bda3624, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2855,7 +2856,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
