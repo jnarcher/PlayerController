@@ -283,7 +283,7 @@ public class PlayerController : MonoBehaviour
     private float _timeStartedAimingGrapple = float.MinValue;
     private float _timeStoppedGrappling = float.MinValue;
     private bool _grappling;
-    private Vector2 _hitPosition;
+    private GameObject _pointGrapplingTo;
 
     private void HandleGrapple()
     {
@@ -297,12 +297,12 @@ public class PlayerController : MonoBehaviour
             GameObject hitGrapplePoint = _playerGrapple.FindGrappleFromInput(_grappleAimInput);
             if (hitGrapplePoint != null)
             {
-                _hitPosition = hitGrapplePoint.transform.position;
+                _pointGrapplingTo = hitGrapplePoint;
                 _grappling = true;
             }
         }
 
-        if (_grappling) Grapple(_hitPosition);
+        if (_grappling) Grapple(_pointGrapplingTo.transform.position);
 
         _grappleReleasedThisFrame = false;
     }
