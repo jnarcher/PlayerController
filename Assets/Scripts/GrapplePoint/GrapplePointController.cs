@@ -25,7 +25,7 @@ public class GrapplePointController : MonoBehaviour
         _cachedQueriesStartInColliders = Physics2D.queriesStartInColliders;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         CheckDistance();
         ChangeSprite();
