@@ -61,5 +61,8 @@ public class GrapplePointController : MonoBehaviour
 
     }
 
-    private void ChangeSprite() => _sprite.color = _isOn ? ActiveColor : InactiveColor;
+    private void ChangeSprite()
+    {
+        _sprite.color = _isOn ? ActiveColor : InactiveColor;
+    }
 }
