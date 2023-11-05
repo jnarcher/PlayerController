@@ -433,9 +433,6 @@ public class PlayerController : MonoBehaviour
     /// <param name="context">The wrapper around the input event.</param>
     public void OnDash(InputAction.CallbackContext context)
     {
-        // cannot dash while aiming the grapple
-        if (_aimingGrapple) return;
-
         if (context.performed)
         {
             _dashPressedThisFrame = true;
