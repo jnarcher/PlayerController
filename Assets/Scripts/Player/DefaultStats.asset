@@ -48,4 +48,4 @@ MonoBehaviour:
   GrappleTimeSlowSpeed: 0.15
   GrappleStopDistance: 0.5
   GrappleInputFreezeTime: 0.7
-  CloseupGrappleAssistAngle: 45
+  GrappleAssistAngle: 45
