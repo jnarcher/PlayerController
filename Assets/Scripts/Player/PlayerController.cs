@@ -9,8 +9,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     private PlayerCollision _col;
     private PlayerGrapple _playerGrapple;
+    private PlayerStats Stats => GameManager.Instance.PlayerStats;
 
-    public PlayerStats Stats;
     public GameObject GrappleDirectionIndicator;
 
     // Effects
@@ -109,8 +109,6 @@ public class PlayerController : MonoBehaviour
     private void OnLanding()
     {
         if (LandEffect != null) Instantiate(LandEffect, transform.position, Quaternion.identity);
-        if (_frameVelocity.y <= -Stats.MaxFallSpeed)
-            CameraShake.Instance.ShakeCamera(10f, 0.2f);
     }
 
     #endregion

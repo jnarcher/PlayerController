@@ -6,12 +6,7 @@ public class PlayerGrapple : MonoBehaviour
 {
     private List<GameObject> _activeGrapplePoints = new();
 
-    private PlayerStats _stats;
-
-    private void Awake()
-    {
-        _stats = GetComponent<PlayerController>().Stats;
-    }
+    private PlayerStats Stats => GameManager.Instance.PlayerStats;
 
     public GameObject FindGrappleFromInput(Vector2 aimInput)
     {
@@ -25,7 +20,7 @@ public class PlayerGrapple : MonoBehaviour
             float aimAngle = Mathf.Atan2(aimInput.y, aimInput.x);
 
             float difference = Mathf.Rad2Deg * Mathf.Abs(aimAngle - grapplePointAngle);
-            if (difference <= _stats.GrappleAssistAngle)
+            if (difference <= Stats.GrappleAssistAngle)
                 return point;
         }
         return null;
