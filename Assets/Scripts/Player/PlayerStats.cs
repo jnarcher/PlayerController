@@ -94,4 +94,8 @@ public class PlayerStats : ScriptableObject
     public float GrappleInputFreezeTime = 0.2f;
     [Tooltip("The range in which the grapple point can be within around the aim input for the grapple to execute successfully. (Aim assist)")]
     public float GrappleAssistAngle = 45f;
+
+    [Header("Health")]
+    [Tooltip("The maximum number of health the player can have.")]
+    public int MaxHealth = 5;
 }
