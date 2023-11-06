@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 1547756102583437512}
   - component: {fileID: 8000912464783177930}
   - component: {fileID: 4467766048523818252}
+  - component: {fileID: 4358356269117547947}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -363,7 +364,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b52c6c1c36b2c400ebd00d8b3cfea7d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Stats: {fileID: 11400000, guid: 5463be961ec114a9a82999b24f6abab9, type: 2}
   GrappleDirectionIndicator: {fileID: 0}
   LandEffect: {fileID: 0}
   GroundJumpEffect: {fileID: 0}
@@ -400,3 +400,15 @@ MonoBehaviour:
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &4358356269117547947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2648299439047168960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f59e9bf4ea91846018ec9e71233eb2ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
