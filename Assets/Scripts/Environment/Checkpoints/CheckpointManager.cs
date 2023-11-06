@@ -8,10 +8,11 @@ public class CheckpointManager : MonoBehaviour
 
     private GameObject _player;
 
-    public List<GameObject> _activeCheckpoints = new();
+    private List<GameObject> _activeCheckpoints = new();
 
     private GameObject _lastCheckpoint;
 
+    [Tooltip("Determines the checkpoint that the player will respawn to:\n\t\"Nearest\" will respawn the player at the nearest active checkpoint.\n\t\"Last\" will respawn the player at the last checkpoint they entered.")]
     public Mode CheckpointMode;
     public enum Mode
     {
@@ -59,15 +60,16 @@ public class CheckpointManager : MonoBehaviour
         return CheckpointMode switch
         {
             Mode.Nearest => GetNearestActiveCheckpoint(),
-            Mode.Last => _activeCheckpoints.Last(),
+            Mode.Last => _lastCheckpoint,
             _ => null,
         };
     }
 
     public void AddActiveCheckpoint(GameObject checkpoint)
     {
-        if (_activeCheckpoints.Contains(checkpoint)) return;
-        _activeCheckpoints.Add(checkpoint);
+        if (!_activeCheckpoints.Contains(checkpoint))
+            _activeCheckpoints.Add(checkpoint);
+        _lastCheckpoint = checkpoint;
     }
 
     public void RemoveActiveCheckpoint(GameObject checkpoint)
