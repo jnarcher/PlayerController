@@ -1,14 +1,21 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
     public int CurrentHealth;
+    public Text HealthText;
 
     private PlayerStats Stats => GameManager.Instance.PlayerStats;
 
     private void Start()
     {
         CurrentHealth = Stats.MaxHealth;
+    }
+
+    private void Update()
+    {
+        HealthText.text = CurrentHealth.ToString();
     }
 
     public void Damage(int damage)
