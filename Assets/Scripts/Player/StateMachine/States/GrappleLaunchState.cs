@@ -22,14 +22,18 @@ namespace PlayerStateMachine
         {
             if (Vector2.Distance(Player.transform.position, PointPosition) <= Stats.GrappleStopDistance)
             {
-                Player.ResetAirJumps();
-                Player.ResetDash();
-                Player.LerpMoveAcceleration(Stats.GrappleInputFreezeTime);
                 Player.SetState(PlayerStateType.Move);
                 return;
             }
             Vector2 grapplePointDirection = (PointPosition - Player.transform.position).normalized;
             Player.SetVelocity(Stats.GrappleSpeed * grapplePointDirection);
+        }
+
+        public override void ExitState()
+        {
+            Player.ResetAirJumps();
+            Player.ResetDash();
+            Player.LerpMoveAcceleration(Stats.GrappleInputFreezeTime);
         }
     }
 }
