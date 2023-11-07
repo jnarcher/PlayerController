@@ -6,8 +6,6 @@ namespace PlayerStateMachine
 {
     public class GrappleAimState : PlayerState
     {
-        private bool _failedExit;
-
         public GrappleAimState(Player player) : base(player) { }
 
         private float _timeStartedAiming;
@@ -19,27 +17,13 @@ namespace PlayerStateMachine
 
         public override void UpdateState()
         {
-            if (!_failedExit)
-            {
-                Time.timeScale = Mathf.Lerp(1, Stats.GrappleTimeSlow, (Player.ElapsedTime - _timeStartedAiming) / Stats.GrappleTimeSlowSpeed);
+            Time.timeScale = Mathf.Lerp(1, Stats.GrappleTimeSlow, (Player.ElapsedTime - _timeStartedAiming) / Stats.GrappleTimeSlowTransitionSpeed);
 
-                GameObject selectedGrapplePoint = FindGrappleFromInput();
-                Player.SetSelectedGrapplePoint(selectedGrapplePoint);
+            GameObject selectedGrapplePoint = FindGrappleFromInput();
+            Player.SetSelectedGrapplePoint(selectedGrapplePoint);
 
-                if (!InputInfo.Grapple)
-                {
-                    if (selectedGrapplePoint == null)
-                    {
-                        _failedExit = true;
-                        return;
-                    }
-                    Player.SetState(PlayerStateType.GrappleLaunch);
-                }
-            }
-            else
-            {
-                Player.SetState(PlayerStateType.Move);
-            }
+            if (!InputInfo.Grapple)
+                Player.SetState(selectedGrapplePoint == null ? PlayerStateType.Move : PlayerStateType.GrappleLaunch);
         }
 
         private GameObject FindGrappleFromInput()
@@ -75,7 +59,6 @@ namespace PlayerStateMachine
         public override void ExitState()
         {
             Time.timeScale = 1;
-            _failedExit = false;
             Player.GrappleAimIndicator.SetActive(false);
         }
     }
