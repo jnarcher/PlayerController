@@ -25,7 +25,7 @@ public class PlayerStats : ScriptableObject
     [Tooltip("Gravity while travelling down through the air.")]
     public float RisingGravity = 300f;
     [Tooltip("A contsant force while on the ground. (Good for slopes)")]
-    public float GroundingForce = -1.5f;
+    public float GroundingForce = 1.5f;
 
     [Header("Jump")]
     [Tooltip("Vertical velocity of a jump.")]
@@ -98,4 +98,10 @@ public class PlayerStats : ScriptableObject
     [Header("Health")]
     [Tooltip("The maximum number of health the player can have.")]
     public int MaxHealth = 5;
+
+    [Header("Attack")]
+    [Tooltip("The amount of damage a light attack does to enemies.")]
+    public int LightAttackDamage = 1;
+    [Tooltip("The amount of time between light attacks.")]
+    public float LightAttackCooldown = 0.2f;
 }

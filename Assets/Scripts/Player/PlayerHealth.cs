@@ -3,31 +3,32 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int CurrentHealth;
+    public Collider2D Hitbox;
     public Text HealthText;
+    private int _currentHealth;
 
     private PlayerStats Stats => GameManager.Instance.PlayerStats;
 
     private void Start()
     {
-        CurrentHealth = Stats.MaxHealth;
+        _currentHealth = Stats.MaxHealth;
     }
 
     private void Update()
     {
-        HealthText.text = CurrentHealth.ToString();
+        HealthText.text = _currentHealth.ToString();
     }
 
     public void Damage(int damage)
     {
-        CurrentHealth -= damage;
-        if (CurrentHealth <= 0) Kill();
+        _currentHealth -= damage;
+        if (_currentHealth <= 0) Kill();
     }
 
     public void DamageAndRespawn(int damage)
     {
-        CurrentHealth -= damage;
-        if (CurrentHealth <= 0)
+        _currentHealth -= damage;
+        if (_currentHealth <= 0)
             Kill();
         else
             Respawn();
@@ -43,7 +44,7 @@ public class PlayerHealth : MonoBehaviour
     public void Kill()
     {
         Debug.Log("Player has died.");
-        CurrentHealth = Stats.MaxHealth; // ! only for debugging
+        _currentHealth = Stats.MaxHealth; // ! only for debugging
         Respawn();
     }
 

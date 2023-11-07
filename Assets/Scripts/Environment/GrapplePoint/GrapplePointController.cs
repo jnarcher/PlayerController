@@ -9,8 +9,8 @@ public class GrapplePointController : MonoBehaviour
 
     private SpriteRenderer _sprite;
     private Transform _playerTransform;
-    private PlayerStats _playerStats;
-    private PlayerGrapple _playerGrapple;
+    private PlayerStats PlayerStats => GameManager.Instance.PlayerStats;
+    private PlayerStateMachine.Player _playerController;
 
     // tracks whether the player is in range of this grapple point
     public bool IsOn => _isOn;
@@ -21,8 +21,7 @@ public class GrapplePointController : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player == null) Debug.LogError("GrapplePointController: No object found with tag `Player`");
         _playerTransform = player.transform;
-        _playerStats = GameManager.Instance.PlayerStats;
-        _playerGrapple = player.GetComponent<PlayerGrapple>();
+        _playerController = player.GetComponent<PlayerStateMachine.Player>();
         _sprite = GetComponent<SpriteRenderer>();
     }
 
@@ -36,10 +35,10 @@ public class GrapplePointController : MonoBehaviour
     {
         bool newStatus = false;
 
-        if (_playerStats.GrappleToggle && Vector2.Distance(_playerTransform.position, transform.position) <= _playerStats.GrappleRange)
+        if (PlayerStats.GrappleToggle && Vector2.Distance(_playerTransform.position, transform.position) <= PlayerStats.GrappleRange)
         {
             Vector2 dir = (_playerTransform.position - transform.position).normalized;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, _playerStats.GrappleRange, PlayerLayer);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, PlayerStats.GrappleRange, PlayerLayer);
 
             if ((bool)hit)
                 newStatus = hit.collider.CompareTag("Player");
@@ -54,9 +53,9 @@ public class GrapplePointController : MonoBehaviour
         _isOn = newStatus;
 
         if (_isOn)
-            _playerGrapple.AddActiveGrapplePoint(gameObject);
+            _playerController.AddActiveGrapplePoint(gameObject);
         else
-            _playerGrapple.RemoveActiveGrapplePoint(gameObject);
+            _playerController.RemoveActiveGrapplePoint(gameObject);
 
     }
 

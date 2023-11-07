@@ -21,11 +21,11 @@ MonoBehaviour:
   QuickFallSpeed: 70
   FallingGravity: 170
   RisingGravity: 100
-  GroundingForce: 0
+  GroundingForce: 1.5
   JumpPower: 32
   AirJumpPower: 25
   AirJumpCount: 1
-  EarlyJumpReleaseModifier: 2.5
+  EarlyJumpReleaseModifier: 2
   JumpApexWindow: 5
   JumpApexGravityMultiplier: 0.5
   JumpApexMoveAccelerationMultiplier: 2
@@ -42,10 +42,13 @@ MonoBehaviour:
   DashDistance: 4
   GroundDashCooldown: 0.3
   GrappleToggle: 1
-  GrappleSpeed: 50
+  GrappleSpeed: 40
   GrappleRange: 10
   GrappleTimeSlow: 0.132
   GrappleTimeSlowSpeed: 0.15
-  GrappleStopDistance: 0.7
+  GrappleStopDistance: 0.5
   GrappleInputFreezeTime: 0.7
   GrappleAssistAngle: 45
+  MaxHealth: 5
+  LightAttackDamage: 1
+  LightAttackCooldown: 0.2
