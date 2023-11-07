@@ -98,7 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActiveColor: {r: 0.90588236, g: 0.6784314, b: 0.39607844, a: 1}
-  InactiveColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
+  InactiveColor: {r: 0.49056602, g: 0.38525254, b: 0.25222498, a: 1}
+  CooldownColor: {r: 1, g: 0, b: 0, a: 1}
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 64
+  GrapplePointCooldown: 2
