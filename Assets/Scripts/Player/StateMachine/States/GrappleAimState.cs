@@ -44,6 +44,8 @@ namespace PlayerStateMachine
 
         private GameObject FindGrappleFromInput()
         {
+            if (InputInfo.Aim == Vector2.zero) return null;
+
             GameObject chosenGrapplePoint = null;
             float grapplePointDist = float.MaxValue;
             foreach (var point in Player.ActiveGrapplePoints)
@@ -55,11 +57,13 @@ namespace PlayerStateMachine
                 // get angle of aim input
                 float aimAngle = Mathf.Atan2(InputInfo.Aim.y, InputInfo.Aim.x);
 
-                // get distance between player and grapple point
+                // Lerp the AimAssistAngle based on how close the grapple point is
+                // The closer the point the larger angle
                 float pointDistance = pointDirection.SqrMagnitude();
+                float assistAngle = Mathf.Lerp(Stats.GrappleAssistAngle, 70, 1 - (pointDistance / (Stats.GrappleRange * Stats.GrappleRange)));
 
                 float difference = Mathf.Rad2Deg * Mathf.Abs(aimAngle - grapplePointAngle);
-                if (difference <= Stats.GrappleAssistAngle && pointDistance < grapplePointDist)
+                if (difference <= assistAngle && pointDistance < grapplePointDist)
                 {
                     chosenGrapplePoint = point;
                     grapplePointDist = pointDistance;
