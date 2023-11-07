@@ -20,6 +20,14 @@ namespace PlayerStateMachine
             _cachedXSpeed = Mathf.Abs(Player.Velocity.x);
             _dashDirection = Player.IsFacingRight ? 1 : -1;
 
+            // if on wall, dash away from the wall
+            if (TriggerInfo.OnWall)
+            {
+                _dashDirection *= -1;
+                _cachedXSpeed = DashSpeed;
+                Player.SetFacing(!Player.IsFacingRight);
+            }
+
             Player.SetVelocity(_dashDirection * DashSpeed, 0);
             Player.SetGravity(0);
 
