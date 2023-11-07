@@ -41,7 +41,10 @@ namespace PlayerStateMachine
                 Player.ResetDash();
 
             if (TriggerInfo.HitWallThisFrame)
+            {
                 _lastWallDirection = Player.IsFacingRight ? 1 : -1;
+                Player.ResetDash();
+            }
 
             Player.SetFallSpeed(
                 Stats.WallSlideJumpToggle && TriggerInfo.OnWall
@@ -108,7 +111,6 @@ namespace PlayerStateMachine
         {
             Player.SetVelocity(-_lastWallDirection * Stats.WallJumpVelocity.x, Stats.WallJumpVelocity.y);
             Player.ResetAirJumps();
-            Player.ResetDash();
             Player.LerpMoveAcceleration(Stats.WallJumpInputFreezeTime);
         }
 
