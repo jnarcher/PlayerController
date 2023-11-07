@@ -9,7 +9,7 @@ namespace PlayerStateMachine
     {
         private float _dashStartTime;
         private float _dashDirection;
-        private float _cachedXVelocity;
+        private float _cachedXSpeed;
         private float DashSpeed => Stats.DashDistance / Stats.DashTime;
 
         public DashState(Player player) : base(player) { }
@@ -17,7 +17,7 @@ namespace PlayerStateMachine
         public override void EnterState()
         {
             _dashStartTime = Player.ElapsedTime;
-            _cachedXVelocity = Player.Velocity.x;
+            _cachedXSpeed = Mathf.Abs(Player.Velocity.x);
             _dashDirection = Player.IsFacingRight ? 1 : -1;
 
             Player.SetVelocity(_dashDirection * DashSpeed, 0);
@@ -37,6 +37,7 @@ namespace PlayerStateMachine
         public override void ExitState()
         {
             Player.SetGravity(Stats.RisingGravity);
+            Player.SetVelocity(_dashDirection * _cachedXSpeed, 0);
             Player.SetDashCooldown();
         }
     }
