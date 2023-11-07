@@ -18,6 +18,11 @@ public class GrappleIndicatorRotate : MonoBehaviour
         _sprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
+    private void OnDisable()
+    {
+        _sprite.enabled = false;
+    }
+
     private void Update()
     {
         // This object isn't a parent of the player object so that it doesn't get flipped when the player turns.
