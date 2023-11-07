@@ -4,13 +4,18 @@ public class GrapplePointController : MonoBehaviour
 {
     [SerializeField] private Color ActiveColor;
     [SerializeField] private Color InactiveColor;
+    [SerializeField] private Color CooldownColor;
 
     public LayerMask PlayerLayer;
+    public float GrapplePointCooldown;
 
     private SpriteRenderer _sprite;
     private Transform _playerTransform;
     private PlayerStats PlayerStats => GameManager.Instance.PlayerStats;
     private PlayerStateMachine.Player _playerController;
+
+    private bool _outOfCooldown = true;
+    private float _cooldownTimer;
 
     // tracks whether the player is in range of this grapple point
     public bool IsOn => _isOn;
@@ -27,6 +32,10 @@ public class GrapplePointController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        _cooldownTimer -= Time.deltaTime;
+        if (_cooldownTimer < 0)
+            _outOfCooldown = true;
+
         CheckDistance();
         ChangeSprite();
     }
@@ -35,7 +44,7 @@ public class GrapplePointController : MonoBehaviour
     {
         bool newStatus = false;
 
-        if (PlayerStats.GrappleToggle && Vector2.Distance(_playerTransform.position, transform.position) <= PlayerStats.GrappleRange)
+        if (_outOfCooldown && PlayerStats.GrappleToggle && Vector2.Distance(_playerTransform.position, transform.position) <= PlayerStats.GrappleRange)
         {
             Vector2 dir = (_playerTransform.position - transform.position).normalized;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, PlayerStats.GrappleRange, PlayerLayer);
@@ -61,6 +70,15 @@ public class GrapplePointController : MonoBehaviour
 
     private void ChangeSprite()
     {
-        _sprite.color = _isOn ? ActiveColor : InactiveColor;
+        if (_outOfCooldown)
+            _sprite.color = _isOn ? ActiveColor : InactiveColor;
+        else
+            _sprite.color = CooldownColor;
+    }
+
+    public void StartCooldown()
+    {
+        _outOfCooldown = false;
+        _cooldownTimer = GrapplePointCooldown;
     }
 }

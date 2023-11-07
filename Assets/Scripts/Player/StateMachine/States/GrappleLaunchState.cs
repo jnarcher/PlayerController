@@ -34,6 +34,7 @@ namespace PlayerStateMachine
             Player.ResetAirJumps();
             Player.ResetDash();
             Player.LerpMoveAcceleration(Stats.GrappleInputFreezeTime);
+            Player.SelectedGrapplePoint?.GetComponent<GrapplePointController>().StartCooldown();
         }
     }
 }
