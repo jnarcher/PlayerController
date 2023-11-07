@@ -286,7 +286,7 @@ public class PlayerController : MonoBehaviour
     private void HandleGrapple()
     {
         if (_aimingGrapple && !_grappling)
-            Time.timeScale = Mathf.Lerp(1f, Stats.GrappleTimeSlow, (_time - _timeStartedAimingGrapple) / Stats.GrappleTimeSlowSpeed);
+            Time.timeScale = Mathf.Lerp(1f, Stats.GrappleTimeSlow, (_time - _timeStartedAimingGrapple) / Stats.GrappleTimeSlowTransitionSpeed);
         else
             Time.timeScale = 1f;
 
