@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : Health
 {
     public Collider2D Hitbox;
     public Text HealthText;
@@ -19,7 +19,7 @@ public class PlayerHealth : MonoBehaviour
         HealthText.text = _currentHealth.ToString();
     }
 
-    public void Damage(int damage)
+    public override void Damage(int damage)
     {
         _currentHealth -= damage;
         if (_currentHealth <= 0) Kill();
@@ -41,7 +41,7 @@ public class PlayerHealth : MonoBehaviour
         transform.position = checkpoint.transform.GetChild(0).position;
     }
 
-    public void Kill()
+    public override void Kill()
     {
         Debug.Log("Player has died.");
         _currentHealth = Stats.MaxHealth; // ! only for debugging

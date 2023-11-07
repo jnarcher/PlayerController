@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : Health
 {
     public int StartHealth = 2;
     public int _currentHealth;
@@ -19,11 +19,16 @@ public class EnemyHealth : MonoBehaviour
 
     private void Start() => _currentHealth = StartHealth;
 
-    public void Damage(int damage)
+    public override void Damage(int damage)
     {
         _currentHealth -= damage;
         if (_currentHealth <= 0) Destroy(gameObject);
         _flashTimer = 0.1f;
+    }
+
+    public override void Kill()
+    {
+        Destroy(gameObject);
     }
 
     private void Update()
