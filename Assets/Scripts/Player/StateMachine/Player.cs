@@ -135,7 +135,7 @@ namespace PlayerStateMachine
         }
         private void HandleDashCooldown()
         {
-            if (!DashAvailable && ElapsedTime >= _timeDashed + Stats.GroundDashCooldown)
+            if (!DashAvailable && _trigs.OnGround && ElapsedTime >= _timeDashed + Stats.GroundDashCooldown)
                 ResetDash();
         }
 
