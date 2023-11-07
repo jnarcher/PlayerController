@@ -70,6 +70,7 @@ namespace PlayerStateMachine
             ElapsedTime += Time.deltaTime;
             HandleDashCooldown();
             HandleLightAttackCooldown();
+            HandleLerpTimeScale();
             State.UpdateState();
         }
 
@@ -167,13 +168,32 @@ namespace PlayerStateMachine
 
         public void SetSelectedGrapplePoint(GameObject go) => SelectedGrapplePoint = go;
 
-        private float _lerpStartTime = float.MinValue;
-        private float _lerpDuration;
-        public float CurrentLerpValue => (ElapsedTime - _lerpStartTime) / _lerpDuration;
+        private float _lerpMovementStartTime = float.MinValue;
+        private float _lerpMovementDuration;
+        public float CurrentMovementLerpValue => (ElapsedTime - _lerpMovementStartTime) / _lerpMovementDuration;
         public void LerpMoveAcceleration(float duration)
         {
-            _lerpStartTime = ElapsedTime;
-            _lerpDuration = duration;
+            _lerpMovementStartTime = ElapsedTime;
+            _lerpMovementDuration = duration;
+        }
+
+        private float _lerpTimeScaleStartTime = float.MinValue;
+        private float _lerpTimeScaleDuration;
+        private float _lerpTimeScaleTarget = 1;
+        private float _lerpTimeScaleStart = 1;
+        public float CurrentTimeScaleLerpValue => (ElapsedTime - _lerpTimeScaleStartTime) / _lerpTimeScaleDuration;
+        public void LerpTimeScale(float targetTimeScale, float transitionSpeed)
+        {
+            _lerpTimeScaleStartTime = ElapsedTime;
+            _lerpTimeScaleDuration = transitionSpeed;
+            _lerpTimeScaleTarget = targetTimeScale;
+            _lerpTimeScaleStart = Time.timeScale;
+        }
+
+        private void HandleLerpTimeScale()
+        {
+            if (Time.timeScale != _lerpTimeScaleTarget)
+                Time.timeScale = Mathf.Lerp(_lerpTimeScaleStart, _lerpTimeScaleTarget, CurrentTimeScaleLerpValue);
         }
     }
 }

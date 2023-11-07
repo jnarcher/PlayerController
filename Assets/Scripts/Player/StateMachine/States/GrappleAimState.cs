@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PlayerStateMachine
@@ -8,22 +6,30 @@ namespace PlayerStateMachine
     {
         public GrappleAimState(Player player) : base(player) { }
 
-        private float _timeStartedAiming;
+        private bool _launched;
+
         public override void EnterState()
         {
             Player.GrappleAimIndicator.SetActive(true);
-            _timeStartedAiming = Player.ElapsedTime;
+            Player.LerpTimeScale(Stats.GrappleTimeSlow, Stats.GrappleTimeSlowTransitionSpeed);
+            _launched = false;
         }
 
         public override void UpdateState()
         {
-            Time.timeScale = Mathf.Lerp(1, Stats.GrappleTimeSlow, (Player.ElapsedTime - _timeStartedAiming) / Stats.GrappleTimeSlowTransitionSpeed);
-
             GameObject selectedGrapplePoint = FindGrappleFromInput();
             Player.SetSelectedGrapplePoint(selectedGrapplePoint);
 
             if (!InputInfo.Grapple)
-                Player.SetState(selectedGrapplePoint == null ? PlayerStateType.Move : PlayerStateType.GrappleLaunch);
+            {
+                if (selectedGrapplePoint == null)
+                    Player.SetState(PlayerStateType.Move);
+                else
+                {
+                    _launched = true;
+                    Player.SetState(PlayerStateType.GrappleLaunch);
+                }
+            }
         }
 
         private GameObject FindGrappleFromInput()
@@ -58,7 +64,11 @@ namespace PlayerStateMachine
 
         public override void ExitState()
         {
-            Time.timeScale = 1;
+            // if the player didn't aim at a grapple point, lerp the time scale back
+            if (!_launched)
+                Player.LerpTimeScale(1, Stats.GrappleTimeSlowTransitionSpeed);
+            else
+                Player.LerpTimeScale(1, 0);
             Player.GrappleAimIndicator.SetActive(false);
         }
     }

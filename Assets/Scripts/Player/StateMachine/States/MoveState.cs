@@ -54,7 +54,7 @@ namespace PlayerStateMachine
         {
             float acceleration = Stats.MoveAcceleration;
 
-            float x = TriggerInfo.OnGround ? 1 : Mathf.Lerp(0, 1, Player.CurrentLerpValue);
+            float x = TriggerInfo.OnGround ? 1 : Mathf.Lerp(0, 1, Player.CurrentMovementLerpValue);
 
             float newXVelocity = Mathf.MoveTowards(
                 Player.Velocity.x,
