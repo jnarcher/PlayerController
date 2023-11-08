@@ -11,6 +11,7 @@ namespace PlayerStateMachine
         private float _dashDirection;
         private float _cachedXSpeed;
         private float DashSpeed => Stats.DashDistance / Stats.DashTime;
+        private bool _hitWall;
 
         public DashState(Player player) : base(player) { }
 
@@ -19,6 +20,7 @@ namespace PlayerStateMachine
             _dashStartTime = Player.ElapsedTime;
             _cachedXSpeed = Mathf.Abs(Player.Velocity.x);
             _dashDirection = Player.IsFacingRight ? 1 : -1;
+            _hitWall = false;
 
             // if on wall, dash away from the wall
             if (TriggerInfo.OnWall)
@@ -40,13 +42,19 @@ namespace PlayerStateMachine
         {
             if (Player.ElapsedTime >= _dashStartTime + Stats.DashTime)
                 Player.SetState(PlayerStateType.Move);
+
+            if (TriggerInfo.HitWallThisFrame && !TriggerInfo.OnGround)
+                _hitWall = true;
         }
 
         public override void ExitState()
         {
             Player.SetGravity(Stats.RisingGravity);
             Player.SetVelocity(_dashDirection * _cachedXSpeed, 0);
-            Player.SetDashCooldown();
+            if (_hitWall)
+                Player.ResetDash();
+            else
+                Player.SetDashCooldown();
         }
     }
 }
