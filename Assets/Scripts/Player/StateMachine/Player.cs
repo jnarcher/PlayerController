@@ -18,6 +18,7 @@ namespace PlayerStateMachine
         private TriggerInfo _trigs;
         private PlayerStats Stats => GameManager.Instance.PlayerStats;
         public GameObject GrappleAimIndicator;
+        public Animator Animator => _anim;
 
         // State Management
         public PlayerState State { get; private set; }
@@ -71,6 +72,7 @@ namespace PlayerStateMachine
             HandleDashCooldown();
             HandleLightAttackCooldown();
             HandleLerpTimeScale();
+            HandleAnimations();
             State.UpdateState();
         }
 
@@ -105,14 +107,6 @@ namespace PlayerStateMachine
         {
             _rb.velocity = new(_rb.velocity.x, Mathf.Max(-_maxFallSpeed, _rb.velocity.y));
         }
-
-        public void SetAnimation(string stateName)
-        {
-            // SetAnimationSpeed(1);
-            // _anim.Play($"Base Layer.Player-{stateName}");
-        }
-
-        public void SetAnimationSpeed(float speed) => _anim.speed = speed;
 
         public void SetFacing(bool isFacingRight)
         {
@@ -168,6 +162,8 @@ namespace PlayerStateMachine
 
         public void SetSelectedGrapplePoint(GameObject go) => SelectedGrapplePoint = go;
 
+        #region LERPING
+
         private float _lerpMovementStartTime = float.MinValue;
         private float _lerpMovementDuration;
         public float CurrentMovementLerpValue => (ElapsedTime - _lerpMovementStartTime) / _lerpMovementDuration;
@@ -194,6 +190,15 @@ namespace PlayerStateMachine
         {
             if (Time.timeScale != _lerpTimeScaleTarget)
                 Time.timeScale = Mathf.Lerp(_lerpTimeScaleStart, _lerpTimeScaleTarget, CurrentTimeScaleLerpValue);
+        }
+
+        #endregion
+
+        private void HandleAnimations()
+        {
+            _anim.SetBool("IsRunning", Mathf.Abs(Velocity.x) > 0.01f);
+            _anim.SetBool("InAir", !_trigs.OnGround);
+            _anim.SetFloat("VerticalVelocity", Velocity.y);
         }
     }
 }

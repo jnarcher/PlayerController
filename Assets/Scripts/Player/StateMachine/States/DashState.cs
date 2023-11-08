@@ -28,12 +28,11 @@ namespace PlayerStateMachine
                 _dashDirection *= -1;
                 _cachedXSpeed = DashSpeed;
                 Player.SetFacing(!Player.IsFacingRight);
+                Player.ResetAirJumps();
             }
 
             Player.SetVelocity(_dashDirection * DashSpeed, 0);
             Player.SetGravity(0);
-
-            Player.SetAnimation("Dash");
         }
 
         public override void UpdateState() { }

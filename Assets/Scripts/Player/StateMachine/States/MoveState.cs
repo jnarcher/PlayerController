@@ -19,7 +19,6 @@ namespace PlayerStateMachine
         {
             if (InputInfo.JumpPressedThisFrame) _jumpPressedThisFrame = true;
 
-            HandleAnimation();
             CheckStateTransitions();
         }
 
@@ -141,7 +140,5 @@ namespace PlayerStateMachine
             else if (InputInfo.AttackPressedThisFrame && Player.CanAttack)
                 Player.SetState(PlayerStateType.LightAttack);
         }
-
-        private void HandleAnimation() => Player.SetAnimation(Player.Velocity.x >= 0.1f ? "Run" : "Idle");
     }
 }
