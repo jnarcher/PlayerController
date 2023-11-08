@@ -1,3 +1,4 @@
+using PlayerStateMachine;
 using UnityEngine;
 
 public class GrapplePointController : MonoBehaviour
@@ -12,10 +13,11 @@ public class GrapplePointController : MonoBehaviour
     private SpriteRenderer _sprite;
     private Transform _playerTransform;
     private PlayerStats PlayerStats => GameManager.Instance.PlayerStats;
-    private PlayerStateMachine.Player _playerController;
+    private Player _playerController;
 
     private bool _outOfCooldown = true;
     private float _cooldownTimer;
+    private GameObject _indicator;
 
     // tracks whether the player is in range of this grapple point
     public bool IsOn => _isOn;
@@ -26,8 +28,9 @@ public class GrapplePointController : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player == null) Debug.LogError("GrapplePointController: No object found with tag `Player`");
         _playerTransform = player.transform;
-        _playerController = player.GetComponent<PlayerStateMachine.Player>();
+        _playerController = player.GetComponent<Player>();
         _sprite = GetComponent<SpriteRenderer>();
+        _indicator = transform.GetChild(0).gameObject;
     }
 
     private void FixedUpdate()
@@ -38,6 +41,7 @@ public class GrapplePointController : MonoBehaviour
 
         CheckDistance();
         ChangeSprite();
+        SetTargeted();
     }
 
     private void CheckDistance()
@@ -80,5 +84,13 @@ public class GrapplePointController : MonoBehaviour
     {
         _outOfCooldown = false;
         _cooldownTimer = GrapplePointCooldown;
+    }
+
+    private void SetTargeted()
+    {
+        _indicator.SetActive(
+            _playerController.StateType == PlayerStateType.GrappleAim &&
+            _playerController.SelectedGrapplePoint == gameObject
+        );
     }
 }
