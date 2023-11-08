@@ -14,6 +14,7 @@ namespace PlayerStateMachine
                 Debug.LogWarning("No grapple point selected for launch.");
                 return;
             }
+            Player.SetFacing(Player.transform.position.x < Player.SelectedGrapplePoint.transform.position.x);
         }
 
         private Vector3 PointPosition => Player.SelectedGrapplePoint.transform.position;

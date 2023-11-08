@@ -15,7 +15,7 @@ MonoBehaviour:
   SnapInput: 1
   HorizontalDeadzone: 0.25
   VerticalDeadzone: 0.25
-  MoveSpeed: 13
+  MoveSpeed: 15
   MoveAcceleration: 200
   MaxFallSpeed: 40
   QuickFallSpeed: 70
@@ -48,7 +48,7 @@ MonoBehaviour:
   GrappleTimeSlowTransitionSpeed: 0.1
   GrappleStopDistance: 0.5
   GrappleInputFreezeTime: 0.7
-  GrappleAssistAngle: 45
+  GrappleAssistAngle: 60
   MaxHealth: 5
   LightAttackDamage: 1
   LightAttackCooldown: 0.2

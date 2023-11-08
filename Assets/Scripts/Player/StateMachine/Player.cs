@@ -200,6 +200,7 @@ namespace PlayerStateMachine
             _anim.SetBool("InAir", !_trigs.OnGround);
             _anim.SetBool("OnWall", _trigs.OnWall);
             _anim.SetFloat("VerticalVelocity", Velocity.y);
+            _anim.SetBool("Dashing", StateType == PlayerStateType.Dash);
         }
     }
 }
