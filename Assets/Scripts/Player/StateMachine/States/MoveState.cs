@@ -1,4 +1,3 @@
-using UnityEditor.MPE;
 using UnityEngine;
 
 namespace PlayerStateMachine
@@ -85,7 +84,7 @@ namespace PlayerStateMachine
                 GroundJump();
             else if (_jumpPressedThisFrame)
             {
-                if (HasBufferedWallJump || TriggerInfo.OnWall)
+                if (Stats.WallSlideJumpToggle && (HasBufferedWallJump || TriggerInfo.OnWall))
                     WallJump();
                 else if (WithinCoyoteBuffer)
                     GroundJump();
