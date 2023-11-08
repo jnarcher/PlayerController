@@ -198,6 +198,7 @@ namespace PlayerStateMachine
         {
             _anim.SetBool("IsRunning", Mathf.Abs(Velocity.x) > 0.01f);
             _anim.SetBool("InAir", !_trigs.OnGround);
+            _anim.SetBool("OnWall", _trigs.OnWall);
             _anim.SetFloat("VerticalVelocity", Velocity.y);
         }
     }
