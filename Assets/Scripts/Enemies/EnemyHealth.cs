@@ -6,10 +6,10 @@ using UnityEngine;
 public class EnemyHealth : Health
 {
     public int StartHealth = 2;
-    public int _currentHealth;
+    public bool CanBeDamaged = true;
 
+    private int _currentHealth;
     private SpriteRenderer _sprite;
-
     private float _flashTimer;
 
     private void Awake()
@@ -21,9 +21,12 @@ public class EnemyHealth : Health
 
     public override void Damage(int damage)
     {
-        _currentHealth -= damage;
-        if (_currentHealth <= 0) Destroy(gameObject);
         _flashTimer = 0.1f;
+        if (CanBeDamaged)
+        {
+            _currentHealth -= damage;
+            if (_currentHealth <= 0) Destroy(gameObject);
+        }
     }
 
     public override void Kill()
