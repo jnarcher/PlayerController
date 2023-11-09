@@ -1,5 +1,6 @@
 using PlayerStateMachine;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class GrapplePointController : MonoBehaviour
 {
@@ -33,6 +34,11 @@ public class GrapplePointController : MonoBehaviour
         _indicator = transform.GetChild(0).gameObject;
     }
 
+    private void Update()
+    {
+        SetTargeted();
+    }
+
     private void FixedUpdate()
     {
         _cooldownTimer -= Time.deltaTime;
@@ -41,7 +47,6 @@ public class GrapplePointController : MonoBehaviour
 
         CheckDistance();
         ChangeSprite();
-        SetTargeted();
     }
 
     private void CheckDistance()
