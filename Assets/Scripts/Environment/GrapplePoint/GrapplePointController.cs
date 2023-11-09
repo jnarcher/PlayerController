@@ -37,6 +37,7 @@ public class GrapplePointController : MonoBehaviour
     private void Update()
     {
         SetTargeted();
+        ChangeSprite();
     }
 
     private void FixedUpdate()
@@ -46,7 +47,6 @@ public class GrapplePointController : MonoBehaviour
             _outOfCooldown = true;
 
         CheckDistance();
-        ChangeSprite();
     }
 
     private void CheckDistance()
@@ -94,6 +94,7 @@ public class GrapplePointController : MonoBehaviour
     private void SetTargeted()
     {
         _indicator.SetActive(
+            _isOn &&
             _playerController.StateType == PlayerStateType.GrappleAim &&
             _playerController.SelectedGrapplePoint == gameObject
         );
