@@ -1,6 +1,7 @@
 using PlayerStateMachine;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
 public class Hazard : MonoBehaviour
 {
     public int HazardDamage = 1;

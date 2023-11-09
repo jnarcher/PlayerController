@@ -60,8 +60,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GrappleIndicatorRotate, Assembly-CSharp
+      - m_Target: {fileID: 6316439966176813300, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
+        m_TargetAssemblyTypeName: InputInfo, Assembly-CSharp
         m_MethodName: OnMovement
         m_Mode: 0
         m_Arguments:
@@ -76,8 +76,8 @@ MonoBehaviour:
     m_ActionName: Player/Movement[/DualSenseGamepadHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/DualSenseGamepadHID/dpad]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 6316439966176813300, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
+        m_TargetAssemblyTypeName: InputInfo, Assembly-CSharp
         m_MethodName: OnJump
         m_Mode: 0
         m_Arguments:
@@ -92,8 +92,8 @@ MonoBehaviour:
     m_ActionName: Player/Jump[/Keyboard/space,/DualSenseGamepadHID/buttonSouth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 6316439966176813300, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
+        m_TargetAssemblyTypeName: InputInfo, Assembly-CSharp
         m_MethodName: OnDash
         m_Mode: 0
         m_Arguments:
@@ -124,8 +124,8 @@ MonoBehaviour:
     m_ActionName: Player/Quit[/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 6316439966176813300, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
+        m_TargetAssemblyTypeName: InputInfo, Assembly-CSharp
         m_MethodName: OnGrapple
         m_Mode: 0
         m_Arguments:
