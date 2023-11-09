@@ -10,6 +10,8 @@ public class PlayerStats : ScriptableObject
     public float HorizontalDeadzone = 0f;
     [Tooltip("Sets the minimum of vertical input for movement that is needed to register."), Range(0f, 0.99f)]
     public float VerticalDeadzone = 0f;
+    [Tooltip("Sets the minimum input magnitude (in a direction) that registers as input for aiming."), Range(0f, 0.99f)]
+    public float AimDeadzone = 0.5f;
 
     [Header("Horizontal Movement")]
     [Tooltip("Maximum horizontal move speed.")]

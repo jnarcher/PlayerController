@@ -49,11 +49,10 @@ public class InputInfo : MonoBehaviour
     {
         Vector2 ipt = context.ReadValue<Vector2>();
 
+        Aim = ipt.magnitude > GameSettings.AimDeadzone ? ipt.normalized : Vector2.zero;
 
         ipt.x = Mathf.Abs(ipt.x) >= GameSettings.HorizontalDeadzone ? ipt.x : 0;
         ipt.y = Mathf.Abs(ipt.y) >= GameSettings.VerticalDeadzone ? ipt.y : 0;
-
-        Aim = ipt.normalized;
 
         if (GameSettings.SnapInput)
         {

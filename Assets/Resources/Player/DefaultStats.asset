@@ -15,6 +15,7 @@ MonoBehaviour:
   SnapInput: 1
   HorizontalDeadzone: 0.25
   VerticalDeadzone: 0.25
+  AimDeadzone: 0.5
   MoveSpeed: 15
   MoveAcceleration: 200
   MaxFallSpeed: 40
