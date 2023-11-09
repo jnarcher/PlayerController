@@ -12,11 +12,19 @@ namespace PlayerStateMachine
         private SpriteRenderer _sprite;
 
         private float _attackTime;
+        private float _animLength;
 
         public LightAttackState(Player player) : base(player)
         {
             _playerWeapon = Player.transform.GetComponentInChildren<PlayerWeapon>();
             _sprite = _playerWeapon.gameObject.GetComponent<SpriteRenderer>();
+
+            AnimationClip[] clips = Player.Animator.runtimeAnimatorController.animationClips;
+            foreach (var clip in clips)
+            {
+                if (clip.name == "Player-Attack")
+                    _animLength = clip.length;
+            }
         }
 
         public override void EnterState()
@@ -33,19 +41,17 @@ namespace PlayerStateMachine
 
             Player.Animator.SetTrigger("Attack1");
 
-            AnimationClip[] clips = Player.Animator.runtimeAnimatorController.animationClips;
-            foreach (var clip in clips)
-            {
-                if (clip.name == "Player-Attack")
-                    _attackTime = clip.length;
-            }
-
             if (!TriggerInfo.OnGround)
             {
                 Player.SetGravity(0);
                 Player.SetVelocity(Player.Velocity.x, 0);
+                _attackTime = _animLength;
             }
-            else Player.SetVelocity(0, 0);
+            else
+            {
+                // Player.SetVelocity(0, 0);
+                _attackTime = 0.05f;
+            }
         }
 
         public override void UpdateState()
