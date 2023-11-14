@@ -116,7 +116,7 @@ namespace PlayerStateMachine
 
         private void HandleGravity()
         {
-            if (TriggerInfo.OnGround && Player.Velocity.y <= 0)
+            if (TriggerInfo.OnGround)
             {
                 Player.SetGravity(Stats.GroundingForce);
                 return;

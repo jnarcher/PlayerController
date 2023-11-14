@@ -93,7 +93,7 @@ namespace PlayerStateMachine
         }
 
         public void SetGravity(float gravity) => _gravity = gravity;
-        private void ApplyGravity() => AddVelocity(_gravity * Time.deltaTime * Vector2.down);
+        private void ApplyGravity() => AddVelocity(_gravity * Time.fixedDeltaTime * Vector2.down);
 
         public void SetVelocity(float x, float y) => _rb.velocity = new Vector2(x, y);
         public void SetVelocity(Vector2 v) => SetVelocity(v.x, v.y);

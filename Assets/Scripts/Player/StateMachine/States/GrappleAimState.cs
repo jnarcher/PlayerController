@@ -32,6 +32,14 @@ namespace PlayerStateMachine
             }
         }
 
+        public override void FixedUpdateState()
+        {
+            if (TriggerInfo.OnGround)
+                Player.SetGravity(Stats.GroundingForce);
+            else
+                Player.SetGravity(Player.Velocity.y >= 0 ? Stats.RisingGravity : Stats.FallingGravity);
+        }
+
         private GameObject FindGrappleFromInput()
         {
             if (InputInfo.Aim == Vector2.zero) return null;
