@@ -202,5 +202,11 @@ namespace PlayerStateMachine
             _anim.SetFloat("VerticalVelocity", Velocity.y);
             _anim.SetBool("Dashing", StateType == PlayerStateType.Dash);
         }
+
+        public void Respawn()
+        {
+            GameObject checkpoint = CheckpointManager.Instance.GetRespawnCheckpoint();
+            transform.position = checkpoint.transform.GetChild(0).position;
+        }
     }
 }

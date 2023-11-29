@@ -23,10 +23,9 @@ public class GrapplePointController : MonoBehaviour
     public bool IsOn => _isOn;
     private bool _isOn;
 
-    private void Awake()
+    private void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player == null) Debug.LogError("GrapplePointController: No object found with tag `Player`");
+        GameObject player = GameManager.Instance.Player;
         _playerTransform = player.transform;
         _playerController = player.GetComponent<Player>();
         _sprite = GetComponent<SpriteRenderer>();
