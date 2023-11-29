@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace StaticEnemy
@@ -11,17 +9,18 @@ namespace StaticEnemy
         public override void EnterState()
         {
             base.EnterState();
-            TimeEntered = _controller.ElapsedTime;
-        }
-
-        public override void UpdateState()
-        {
-            base.UpdateState();
         }
 
         public override void FixedUpdateState()
         {
             base.FixedUpdateState();
+            // Debug.Log(_controller.Velocity.x);
+            float newXVel = Mathf.MoveTowards(
+                _controller.Velocity.x,
+                0, // this enemy stands still in patrol state
+                100 * Time.fixedDeltaTime
+            );
+            _controller.SetVelocity(newXVel, _controller.Velocity.y);
         }
     }
 }
