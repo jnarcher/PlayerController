@@ -28,5 +28,6 @@ namespace StaticEnemy
     public enum StaticEnemyStateType
     {
         Patrol,
+        Pursue,
     }
 }

@@ -10,11 +10,18 @@ namespace StaticEnemy
         private Rigidbody2D _rb;
         private Animator _anim;
 
+        public LayerMask LineOfSightLayers;
+
         public StaticEnemyState State { get; protected set; }
         private Dictionary<StaticEnemyStateType, StaticEnemyState> _stateDict;
 
         public float ElapsedTime { get; private set; }
         public Vector2 Velocity => _rb.velocity;
+        public Vector2 Position => _rb.position;
+
+        public Vector2 TargetPosition = Vector2.zero;
+
+        public float AgroRange = 10f; // ! NEEDS TO BE MOVED TO A STAT SHEET
 
         private void Awake()
         {
@@ -24,8 +31,7 @@ namespace StaticEnemy
             _stateDict = new()
             {
                 [StaticEnemyStateType.Patrol] = new PatrolState(this, StaticEnemyStateType.Patrol),
-                // [EnemyStateType.Search] = new SearchState(this),
-                // [EnemyStateType.Pursue] = new PursueState(this),
+                [StaticEnemyStateType.Pursue] = new PursueState(this, StaticEnemyStateType.Pursue),
                 // [EnemyStateType.Attack] = new AttackState(this),
                 // [EnemyStateType.Damaged] = new DamagedState(this),
                 // [EnemyStateType.Death] = new DeathState(this),
@@ -64,5 +70,16 @@ namespace StaticEnemy
         public void AddVelocity(Vector2 v) => AddVelocity(v.x, v.y);
 
         private void ApplyGravity() => AddVelocity(200 * Time.fixedDeltaTime * Vector2.down);
+
+        private void OnDrawGizmos()
+        {
+            if (Application.isPlaying)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(Position, AgroRange);
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawWireSphere(TargetPosition, 0.3f);
+            }
+        }
     }
 }
