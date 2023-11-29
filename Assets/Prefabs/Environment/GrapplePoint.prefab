@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 316730734956660539}
   m_Layer: 7
   m_Name: GrapplePoint
-  m_TagString: GrapplePoint
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -185,7 +185,7 @@ MonoBehaviour:
   ActiveColor: {r: 0.90588236, g: 0.6784314, b: 0.39607844, a: 1}
   InactiveColor: {r: 0.49056602, g: 0.38525254, b: 0.25222498, a: 1}
   CooldownColor: {r: 1, g: 0, b: 0, a: 1}
-  PlayerLayer:
+  LineOfSightLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   GrapplePointCooldown: 2
