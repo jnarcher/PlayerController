@@ -10446,10 +10446,10 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 119
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -42337,10 +42337,6 @@ PrefabInstance:
     - target: {fileID: 985533610314179714, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1148998754268707377, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
-      propertyPath: GroundLayer.m_Bits
-      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 1148998754268707377, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
       propertyPath: PlayerLayer.m_Bits

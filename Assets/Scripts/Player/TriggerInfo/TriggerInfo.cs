@@ -8,7 +8,7 @@ using UnityEngine;
 public class TriggerInfo : MonoBehaviour
 {
 
-    [SerializeField] private LayerMask PlayerLayer;
+    [SerializeField] private LayerMask GroundLayer;
 
     [Space]
     [SerializeField] private BoxCollider2D _groundCheck;
@@ -34,13 +34,11 @@ public class TriggerInfo : MonoBehaviour
         LandedThisFrame = false;
         HitWallThisFrame = false;
 
-        ContactFilter2D filter = new() { useLayerMask = true, layerMask = PlayerLayer };
+        ContactFilter2D filter = new() { useLayerMask = true, layerMask = GroundLayer };
         List<Collider2D> hits = new();
 
-        // this will always be at least 1 since it will hit the player itself
-        bool groundHit = _groundCheck.OverlapCollider(filter, hits) > 1;
-        bool wallHit = _wallCheck.OverlapCollider(filter, hits) > 1;
-
+        bool groundHit = _groundCheck.OverlapCollider(filter, hits) > 0;
+        bool wallHit = _wallCheck.OverlapCollider(filter, hits) > 0;
 
         // player just left ground
         if (!groundHit && OnGround)

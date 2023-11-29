@@ -397,10 +397,10 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 119
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -442,9 +442,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0704b29f2dfe46dcbfa3c4ccf9e7107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerLayer:
+  GroundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 128
   _groundCheck: {fileID: 1000584906714311614}
   _wallCheck: {fileID: 5803549863384928352}
 --- !u!114 &6316439966176813300
