@@ -567,7 +567,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4767334469084999941}
   - component: {fileID: 1479889765531078165}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: GrappleIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

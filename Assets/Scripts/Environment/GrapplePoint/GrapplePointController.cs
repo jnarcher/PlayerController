@@ -7,7 +7,7 @@ public class GrapplePointController : MonoBehaviour
     [SerializeField] private Color InactiveColor;
     [SerializeField] private Color CooldownColor;
 
-    public LayerMask PlayerLayer;
+    public LayerMask LineOfSightLayers;
     public float GrapplePointCooldown;
 
     private SpriteRenderer _sprite;
@@ -54,7 +54,7 @@ public class GrapplePointController : MonoBehaviour
         if (_outOfCooldown && PlayerStats.GrappleToggle && Vector2.Distance(_playerTransform.position, transform.position) <= PlayerStats.GrappleRange)
         {
             Vector2 dir = (_playerTransform.position - transform.position).normalized;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, PlayerStats.GrappleRange, PlayerLayer);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, PlayerStats.GrappleRange, LineOfSightLayers);
 
             if ((bool)hit)
                 newStatus = hit.collider.CompareTag("Player");
