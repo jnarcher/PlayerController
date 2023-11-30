@@ -208,5 +208,11 @@ namespace PlayerStateMachine
             GameObject checkpoint = CheckpointManager.Instance.GetRespawnCheckpoint();
             transform.position = checkpoint.transform.GetChild(0).position;
         }
+
+        public void Knockback(Vector2 knockback)
+        {
+            LerpMoveAcceleration(0.2f);
+            SetVelocity(knockback);
+        }
     }
 }

@@ -24,10 +24,14 @@ public class PlayerHealth : Health
         HealthText.text = _currentHealth.ToString();
     }
 
-    public override void Damage(int damage)
+    public override void Damage(int damage, Vector2 knockback)
     {
         _currentHealth -= damage;
         if (_currentHealth <= 0) Kill();
+        else
+        {
+            Player.Knockback(knockback);
+        }
     }
 
     public void DamageAndRespawn(int damage)

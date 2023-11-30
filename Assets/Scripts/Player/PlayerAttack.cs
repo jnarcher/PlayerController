@@ -19,7 +19,7 @@ public class PlayerAttack : MonoBehaviour
             var hits = GetHitColliders();
 
             foreach (var col in hits)
-                col.gameObject.GetComponent<EnemyHealth>().Damage(1);
+                col.gameObject.GetComponent<EnemyHealth>().Damage(1, Vector2.zero);
         }
         else
         {

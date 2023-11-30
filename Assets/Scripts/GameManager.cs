@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     #region Player Health
 
-    public void DamagePlayer(int damage) => PlayerHealth.Damage(damage);
+    public void DamagePlayer(int damage, Vector2 knockback) => PlayerHealth.Damage(damage, knockback);
     public void DamageAndRespawn(int damage) => PlayerHealth.DamageAndRespawn(damage); // for hazards
     public void KillPlayer() => PlayerHealth.Kill();
 
