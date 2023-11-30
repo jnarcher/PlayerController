@@ -3,15 +3,15 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class EnemyContactDamage : MonoBehaviour
 {
-    public int Damage;
-    public float KnockbackStrength;
+    public EnemyStats Stats;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             Vector2 knockbackDir = (other.transform.position - transform.position).normalized;
-            other.gameObject.GetComponent<PlayerHealth>().Damage(Damage, KnockbackStrength * knockbackDir);
+
+            other.gameObject.GetComponent<PlayerHealth>().Damage(Stats.ContactDamage, Stats.KnockbackStrength * knockbackDir);
         }
     }
 }

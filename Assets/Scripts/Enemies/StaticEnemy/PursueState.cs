@@ -24,13 +24,7 @@ namespace StaticEnemy
 
         private void UpdateTarget()
         {
-            // Vector2 dir = (targetPosition - _controller.Position).normalized;
-            // RaycastHit2D hit = Physics2D.Raycast(_controller.Position, dir, _controller.AgroRange, _controller.LineOfSightLayers);
-
-            // if ((bool)hit)
-            // targetPosition = hit.collider.transform.position;
-
-            if (Vector2.Distance(GameManager.Instance.Player.transform.position, _controller.Position) < _controller.AgroRange)
+            if (_controller.TriggerInfo.CanSeePlayer)
             {
                 targetPosition = GameManager.Instance.Player.transform.position;
                 _controller.TargetPosition = targetPosition;
@@ -40,7 +34,7 @@ namespace StaticEnemy
         private void MoveTowardsTarget()
         {
             float xDirection = targetPosition.x < _controller.Position.x ? -1 : 1;
-            _controller.SetVelocity(10f * xDirection, _controller.Velocity.y); // ! MAKE THIS VELOCITY IN A STATS SHEET
+            _controller.SetVelocity(_controller.Stats.Speed * xDirection, _controller.Velocity.y); // ! MAKE THIS VELOCITY IN A STATS SHEET
 
             // TODO: REMOVE THIS LATER
 

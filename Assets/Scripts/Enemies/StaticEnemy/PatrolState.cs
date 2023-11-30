@@ -34,7 +34,7 @@ namespace StaticEnemy
             Vector2 playerPos = GameManager.Instance.Player.transform.position;
             float distToPlayer = Vector2.Distance(playerPos, _controller.Position);
 
-            if (distToPlayer <= _controller.AgroRange)
+            if (_controller.TriggerInfo.CanSeePlayer)
                 _controller.SetState(StaticEnemyStateType.Pursue);
         }
     }
