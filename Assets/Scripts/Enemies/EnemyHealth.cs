@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class EnemyHealth : Health
@@ -19,7 +16,7 @@ public class EnemyHealth : Health
 
     private void Start() => _currentHealth = StartHealth;
 
-    public override void Damage(int damage)
+    public override void Damage(int damage, Vector2 knockback)
     {
         _flashTimer = 0.1f;
         if (CanBeDamaged)
