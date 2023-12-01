@@ -1,3 +1,4 @@
+using System.Runtime.ExceptionServices;
 using PlayerStateMachine;
 using Unity.Collections;
 using UnityEngine;
@@ -10,17 +11,13 @@ namespace StaticEnemy
 
         private Vector2 targetPosition;
 
-        public override void UpdateState()
-        {
-            base.UpdateState();
-        }
-
         public override void FixedUpdateState()
         {
             base.FixedUpdateState();
             UpdateTarget();
             MoveTowardsTarget();
             HandleTurn();
+            HandleStateChange();
         }
 
         private void UpdateTarget()
@@ -43,12 +40,12 @@ namespace StaticEnemy
             }
 
             float xDirection = targetPosition.x < _controller.Position.x ? -1 : 1;
-            _controller.SetVelocity(_controller.Stats.Speed * xDirection, _controller.Velocity.y); // ! MAKE THIS VELOCITY IN A STATS SHEET
-
-            // TODO: REMOVE THIS LATER
-
-            if (Mathf.Abs(_controller.Position.x - targetPosition.x) < 1f)
-                _controller.SetState(StaticEnemyStateType.Patrol);
+            float newXVel = Mathf.MoveTowards(
+                _controller.Velocity.x,
+                xDirection * _controller.Stats.Speed,
+                _controller.Stats.Acceleration * Time.fixedDeltaTime
+            );
+            _controller.SetVelocity(newXVel, _controller.Velocity.y);
         }
 
         private void HandleTurn()
@@ -57,6 +54,12 @@ namespace StaticEnemy
                 _controller.SetFacing(false);
             else if (!_controller.IsFacingRight && _controller.Velocity.x > 0)
                 _controller.SetFacing(true);
+        }
+
+        private void HandleStateChange()
+        {
+            if (Mathf.Abs(_controller.Position.x - targetPosition.x) < 1f)
+                _controller.SetState(StaticEnemyStateType.Patrol);
         }
     }
 }
