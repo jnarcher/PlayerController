@@ -139,6 +139,7 @@ namespace PlayerStateMachine
             _timeLightAttacked = ElapsedTime;
             CanAttack = false;
         }
+
         private void HandleLightAttackCooldown()
         {
             if (!CanAttack && ElapsedTime >= _timeLightAttacked + Stats.LightAttackCooldown)
@@ -191,6 +192,8 @@ namespace PlayerStateMachine
 
         #endregion
 
+        #region ANIMATION
+
         private void HandleAnimations()
         {
             _anim.SetBool("IsRunning", Mathf.Abs(Velocity.x) > 0.01f);
@@ -199,6 +202,8 @@ namespace PlayerStateMachine
             _anim.SetFloat("VerticalVelocity", Velocity.y);
             _anim.SetBool("Dashing", StateType == PlayerStateType.Dash);
         }
+
+        #endregion
 
         public void Respawn()
         {
