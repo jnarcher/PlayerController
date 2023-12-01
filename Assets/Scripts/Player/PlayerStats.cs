@@ -101,9 +101,17 @@ public class PlayerStats : ScriptableObject
     [Tooltip("The maximum number of health the player can have.")]
     public int MaxHealth = 5;
 
-    [Header("Attack")]
+    [Header("Ground Attacks")]
     [Tooltip("The amount of damage a light attack does to enemies.")]
     public int LightAttackDamage = 1;
+    [Tooltip("The amount of knockback enemies take from being hit by the light attacks.")]
+    public float LightAttackKnockbackStrength = 10f;
     [Tooltip("The amount of time between light attacks.")]
     public float LightAttackCooldown = 0.2f;
+    [Tooltip("How long in seconds is the attack")]
+    public float LightAttack1Length = 0.2f;
+    [Tooltip("The strength of the movement during the player's first attack")]
+    public float LightAttack1MovementStrength = 10f;
+    [Tooltip("The movement of the player during the player's first attack")]
+    public AnimationCurve LightAttack1MovementCurve;
 }

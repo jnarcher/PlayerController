@@ -6,6 +6,7 @@ namespace PlayerStateMachine
         Dash,
         GrappleAim,
         GrappleLaunch,
-        LightAttack,
+        GroundAttack1,
+        GroundAttack2,
     }
 }

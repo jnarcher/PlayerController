@@ -15,6 +15,7 @@ namespace PlayerStateMachine
         private TriggerInfo _trigs;
         private PlayerStats Stats => GameManager.Instance.PlayerStats;
         public GameObject GrappleAimIndicator;
+        public Collider2D LightAttack1Hitbox;
         public Animator Animator => _anim;
 
         // State Management
@@ -47,7 +48,8 @@ namespace PlayerStateMachine
                 [PlayerStateType.Dash] = new DashState(this),
                 [PlayerStateType.GrappleAim] = new GrappleAimState(this),
                 [PlayerStateType.GrappleLaunch] = new GrappleLaunchState(this),
-                [PlayerStateType.LightAttack] = new LightAttackState(this),
+                [PlayerStateType.GroundAttack1] = new GroundAttack1State(this),
+                [PlayerStateType.GroundAttack2] = new GroundAttack2State(this),
             };
             ActiveGrapplePoints = new();
         }
