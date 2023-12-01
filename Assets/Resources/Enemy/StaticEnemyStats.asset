@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b876adb431a448ebb7ec7fed2b9d50e, type: 3}
   m_Name: StaticEnemyStats
   m_EditorClassIdentifier: 
-  Acceleration: 20
-  Speed: 5
+  Acceleration: 100
+  Speed: 4
   Gravity: 200
   ContactDamage: 1
   KnockbackStrength: 30
+  MaxHealth: 1000

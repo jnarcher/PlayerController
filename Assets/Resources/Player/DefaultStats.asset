@@ -52,4 +52,40 @@ MonoBehaviour:
   GrappleAssistAngle: 60
   MaxHealth: 5
   LightAttackDamage: 1
-  LightAttackCooldown: 0.2
+  LightAttackKnockbackStrength: 30
+  LightAttackCooldown: 0.1
+  LightAttack1Length: 0.2
+  LightAttack1MovementStrength: 10
+  LightAttack1MovementCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.06540292
+      outSlope: -0.06540292
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.10984474
+    - serializedVersion: 3
+      time: 0.65658176
+      value: 0.8081869
+      inSlope: -1.3336701
+      outSlope: -1.3336701
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9958496
+      value: 0.002357483
+      inSlope: 0.25619897
+      outSlope: 0.25619897
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.29846257
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
