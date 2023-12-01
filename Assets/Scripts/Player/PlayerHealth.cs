@@ -1,17 +1,22 @@
+using PlayerStateMachine;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth : Health
 {
-    public Collider2D Hitbox;
+    public Collider2D Hurtbox;
     public Text HealthText;
     private int _currentHealth;
+
+    private Player Player;
+
 
     private PlayerStats Stats => GameManager.Instance.PlayerStats;
 
     private void Start()
     {
         _currentHealth = Stats.MaxHealth;
+        Player = GetComponentInParent<Player>();
     }
 
     private void Update()
@@ -19,10 +24,14 @@ public class PlayerHealth : Health
         HealthText.text = _currentHealth.ToString();
     }
 
-    public override void Damage(int damage)
+    public override void Damage(int damage, Vector2 knockback)
     {
         _currentHealth -= damage;
         if (_currentHealth <= 0) Kill();
+        else
+        {
+            Player.Knockback(knockback);
+        }
     }
 
     public void DamageAndRespawn(int damage)
@@ -31,21 +40,15 @@ public class PlayerHealth : Health
         if (_currentHealth <= 0)
             Kill();
         else
-            Respawn();
+            Player.Respawn();
 
-    }
-
-    public void Respawn()
-    {
-        GameObject checkpoint = CheckpointManager.Instance.GetRespawnCheckpoint();
-        transform.position = checkpoint.transform.GetChild(0).position;
     }
 
     public override void Kill()
     {
         Debug.Log("Player has died.");
         _currentHealth = Stats.MaxHealth; // ! only for debugging
-        Respawn();
+        Player.Respawn();
     }
 
 }

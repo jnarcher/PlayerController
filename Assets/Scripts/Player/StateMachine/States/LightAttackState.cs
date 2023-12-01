@@ -36,7 +36,7 @@ namespace PlayerStateMachine
 
             foreach (var enemy in hitEnemies)
             {
-                enemy.Damage(Stats.LightAttackDamage);
+                enemy.Damage(Stats.LightAttackDamage, Vector2.zero); // TODO: Add correct knockback
             }
 
             Player.Animator.SetTrigger("Attack1");
