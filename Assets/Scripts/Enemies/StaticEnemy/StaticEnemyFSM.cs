@@ -1,14 +1,22 @@
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 namespace StaticEnemy
 {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(Animator))]
-    public class StaticEnemyFSM : MonoBehaviour
+    public class StaticEnemyFSM : MonoBehaviour, IEnemyController
     {
-
         public EnemyStats Stats;
+
+        #region INTERFACE
+
+        public void Kill() => Destroy(gameObject); // TODO: update later
+        public void Knockback(Vector2 knockback) => AddVelocity(knockback);
+        public EnemyStats GetStats() => Stats;
+
+        #endregion
 
         private Rigidbody2D _rb;
         private Animator _anim;
