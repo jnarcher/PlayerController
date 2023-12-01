@@ -216,7 +216,7 @@ namespace PlayerStateMachine
         public void Knockback(Vector2 knockback)
         {
             LerpMoveAcceleration(0.2f);
-            AddVelocity(knockback);
+            SetVelocity(knockback);
         }
     }
 }
