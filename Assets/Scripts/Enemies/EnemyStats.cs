@@ -9,4 +9,6 @@ public class EnemyStats : ScriptableObject
 
     public int ContactDamage = 1;
     public float KnockbackStrength = 30f;
+
+    public int MaxHealth = 2;
 }
