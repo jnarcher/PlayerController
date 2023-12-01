@@ -23,7 +23,7 @@ namespace StaticEnemy
             float newXVel = Mathf.MoveTowards(
                 _controller.Velocity.x,
                 0, // this enemy stands still in patrol state
-                100 * Time.fixedDeltaTime
+                _controller.Stats.Acceleration * Time.fixedDeltaTime
             );
             _controller.SetVelocity(newXVel, _controller.Velocity.y);
         }
@@ -31,11 +31,10 @@ namespace StaticEnemy
 
         private void CheckForPlayer()
         {
-            Vector2 playerPos = GameManager.Instance.Player.transform.position;
-            float distToPlayer = Vector2.Distance(playerPos, _controller.Position);
-
+            bool targetIsTowardsRight = GameManager.Instance.Player.transform.position.x - _controller.Position.x > 0;
             if (_controller.TriggerInfo.CanSeePlayer)
-                _controller.SetState(StaticEnemyStateType.Pursue);
+                if (!_controller.TriggerInfo.IsNearLedge || _controller.IsFacingRight != targetIsTowardsRight)
+                    _controller.SetState(StaticEnemyStateType.Pursue);
         }
     }
 }

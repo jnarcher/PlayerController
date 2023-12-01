@@ -19,6 +19,7 @@ namespace StaticEnemy
         public float ElapsedTime { get; private set; }
         public Vector2 Velocity => _rb.velocity;
         public Vector2 Position => _rb.position;
+        public bool IsFacingRight { get; private set; } = true;
 
         public EnemyTriggerInfo TriggerInfo { get; private set; }
 
@@ -70,6 +71,16 @@ namespace StaticEnemy
         public void AddVelocity(Vector2 v) => AddVelocity(v.x, v.y);
 
         private void ApplyGravity() => AddVelocity(Stats.Gravity * Time.fixedDeltaTime * Vector2.down);
+
+        public void SetFacing(bool isFacingRight)
+        {
+            transform.localEulerAngles = new Vector3(
+                transform.rotation.x,
+                isFacingRight ? 0 : 180,
+                transform.rotation.z
+            );
+            IsFacingRight = isFacingRight;
+        }
 
         private void OnDrawGizmos()
         {

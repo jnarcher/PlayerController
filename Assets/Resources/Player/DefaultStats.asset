@@ -42,7 +42,7 @@ MonoBehaviour:
   DashTime: 0.15
   DashDistance: 4
   GroundDashCooldown: 0.3
-  GrappleToggle: 1
+  GrappleToggle: 0
   GrappleSpeed: 40
   GrappleRange: 10
   GrappleTimeSlow: 0.132

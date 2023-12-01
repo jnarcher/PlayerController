@@ -5,13 +5,17 @@ public class EnemyTriggerInfo : MonoBehaviour
 {
     public LayerMask PlayerLayer;
     public LayerMask LineOfSightLayers;
+    public LayerMask GroundLayer;
     public Collider2D SearchZone;
+    public Collider2D LedgeCheck;
 
     public bool CanSeePlayer { get; private set; }
+    public bool IsNearLedge { get; private set; }
 
     private void FixedUpdate()
     {
         CheckSearchZone();
+        CheckLedge();
     }
 
     private void CheckSearchZone()
@@ -38,5 +42,16 @@ public class EnemyTriggerInfo : MonoBehaviour
 
         if ((bool)rayData)
             CanSeePlayer = rayData.collider.CompareTag("Player");
+    }
+
+    private void CheckLedge()
+    {
+        ContactFilter2D filter = new ContactFilter2D()
+        {
+            useLayerMask = true,
+            layerMask = GroundLayer,
+        };
+        int hits = Physics2D.OverlapCollider(LedgeCheck, filter, new List<Collider2D>());
+        IsNearLedge = hits == 0;
     }
 }
