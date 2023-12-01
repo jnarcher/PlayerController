@@ -69,8 +69,8 @@ namespace PlayerStateMachine
 
         private void HandleTurn()
         {
-            if (Player.IsFacingRight && InputInfo.Move.x < 0) Player.SetFacing(false);
-            else if (!Player.IsFacingRight && InputInfo.Move.x > 0) Player.SetFacing(true);
+            if (Player.IsFacingRight && Player.Velocity.x < 0) Player.SetFacing(false);
+            else if (!Player.IsFacingRight && Player.Velocity.x > 0) Player.SetFacing(true);
         }
 
         #region JUMPING
