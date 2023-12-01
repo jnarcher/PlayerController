@@ -1,7 +1,4 @@
 using System.Collections.Generic;
-using JetBrains.Annotations;
-using Unity.VisualScripting;
-using UnityEditor.Search;
 using UnityEngine;
 
 namespace PlayerStateMachine
