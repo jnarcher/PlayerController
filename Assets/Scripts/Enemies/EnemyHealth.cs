@@ -5,7 +5,7 @@ public class EnemyHealth : Health
 {
     public bool CanBeDamaged = true;
     public float InvincibilityTime = 0.2f;
-    public IEnemyController _controller;
+    private IEnemyController _controller;
     private EnemyStats _stats;
 
     private int _currentHealth;
@@ -16,13 +16,13 @@ public class EnemyHealth : Health
 
     private void Awake()
     {
-        _stats = _controller.GetStats();
         _sprite = GetComponentInParent<SpriteRenderer>();
     }
 
     private void Start()
     {
-
+        _controller = GetComponentInParent<IEnemyController>();
+        _stats = _controller.GetStats();
         _currentHealth = _stats.MaxHealth;
     }
 
