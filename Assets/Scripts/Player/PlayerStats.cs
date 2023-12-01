@@ -102,16 +102,18 @@ public class PlayerStats : ScriptableObject
     public int MaxHealth = 5;
 
     [Header("Ground Attacks")]
-    [Tooltip("The amount of damage a light attack does to enemies.")]
-    public int LightAttackDamage = 1;
-    [Tooltip("The amount of knockback enemies take from being hit by the light attacks.")]
-    public float LightAttackKnockbackStrength = 10f;
-    [Tooltip("The amount of time between light attacks.")]
-    public float LightAttackCooldown = 0.2f;
-    [Tooltip("How long in seconds is the attack")]
-    public float LightAttack1Length = 0.2f;
-    [Tooltip("The strength of the movement during the player's first attack")]
-    public float LightAttack1MovementStrength = 10f;
-    [Tooltip("The movement of the player during the player's first attack")]
-    public AnimationCurve LightAttack1MovementCurve;
+    [Tooltip("The amount of damage a ground attack does to enemies.")]
+    public int GroundAttackDamage = 1;
+    [Tooltip("The amount of time between ground attacks.")]
+    public float GroundAttackCooldown = 0.2f;
+    [Tooltip("The amount of knockback enemies take from being hit by the first ground attacks.")]
+    public float GroundAttack1KnockbackStrength = 15f;
+    [Tooltip("How long in seconds is the first ground attack")]
+    public float GroundAttack1Length = 0.2f;
+    [Tooltip("The strength of the movement during the player's first ground attack")]
+    public float GroundAttack1MovementStrength = 10f;
+    [Tooltip("The movement of the player during the player's first ground attack")]
+    public AnimationCurve GroundAttack1MovementCurve;
+    [Tooltip("The amount of knockback enemies take from being hit by the second ground attack combo.")]
+    public float GroundAttack2KnockbackStrength = 30f;
 }

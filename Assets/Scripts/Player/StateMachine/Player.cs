@@ -144,7 +144,7 @@ namespace PlayerStateMachine
 
         private void HandleLightAttackCooldown()
         {
-            if (!CanAttack && ElapsedTime >= _timeLightAttacked + Stats.LightAttackCooldown)
+            if (!CanAttack && ElapsedTime >= _timeLightAttacked + Stats.GroundAttackCooldown)
                 CanAttack = true;
         }
 

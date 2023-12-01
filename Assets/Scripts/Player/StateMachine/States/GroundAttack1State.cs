@@ -28,8 +28,8 @@ namespace PlayerStateMachine
 
         public override void FixedUpdateState()
         {
-            float curveSample = Stats.LightAttack1MovementCurve.Evaluate(1 - _attackTimer / Stats.LightAttack1Length);
-            Player.SetVelocity((Player.IsFacingRight ? 1 : -1) * curveSample * Stats.LightAttack1MovementStrength, 0);
+            float curveSample = Stats.GroundAttack1MovementCurve.Evaluate(1 - _attackTimer / Stats.GroundAttack1Length);
+            Player.SetVelocity((Player.IsFacingRight ? 1 : -1) * curveSample * Stats.GroundAttack1MovementStrength, 0);
         }
 
         public override void ExitState()
@@ -39,7 +39,7 @@ namespace PlayerStateMachine
 
         private void HandleStateChange()
         {
-            if (_attackTimer > Stats.LightAttack1Length)
+            if (_attackTimer > Stats.GroundAttack1Length)
             {
                 if (_attackPressedAgain) // Start combo
                 {
@@ -80,8 +80,8 @@ namespace PlayerStateMachine
             foreach (var enemy in enemies)
             {
                 enemy.Damage(
-                    Stats.LightAttackDamage,
-                    Stats.LightAttackKnockbackStrength * (Player.IsFacingRight ? 1 : -1) * Vector2.right
+                    Stats.GroundAttackDamage,
+                    Stats.GroundAttack1KnockbackStrength * (Player.IsFacingRight ? 1 : -1) * Vector2.right
                 );
             }
         }
