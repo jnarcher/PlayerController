@@ -40,9 +40,11 @@ namespace PlayerStateMachine
 
             if (TriggerInfo.HitWallThisFrame)
             {
-                _lastWallDirection = Player.IsFacingRight ? 1 : -1;
                 Player.ResetDash();
             }
+
+            if (TriggerInfo.OnWall)
+                _lastWallDirection = Player.IsFacingRight ? 1 : -1;
 
             Player.SetFallSpeed(
                 Stats.WallSlideJumpToggle && TriggerInfo.OnWall
