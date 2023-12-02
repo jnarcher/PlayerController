@@ -31,5 +31,6 @@ namespace StaticEnemy
         Pursue,
         AirLaunched,
         Stunned,
+        GrappleFreeze,
     }
 }

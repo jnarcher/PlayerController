@@ -7,4 +7,6 @@ public interface IEnemyController
     public void AirLaunch(bool toRight);
     public EnemyStats GetStats();
     public void Stun();
+    public void Freeze();
+    public void UnFreeze();
 }

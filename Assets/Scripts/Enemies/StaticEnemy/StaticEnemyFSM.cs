@@ -15,6 +15,8 @@ namespace StaticEnemy
         public void Kill() => Destroy(gameObject); // TODO: update later
         public void Knockback(Vector2 knockback) => AddVelocity(knockback);
         public EnemyStats GetStats() => Stats;
+        public void Freeze() => SetState(StaticEnemyStateType.GrappleFreeze);
+        public void UnFreeze() => SetState(StaticEnemyStateType.Patrol);
 
         public void AirLaunch(bool toRight)
         {
@@ -57,6 +59,7 @@ namespace StaticEnemy
                 [StaticEnemyStateType.Pursue] = new PursueState(this, StaticEnemyStateType.Pursue),
                 [StaticEnemyStateType.AirLaunched] = new AirLaunchedState(this, StaticEnemyStateType.AirLaunched),
                 [StaticEnemyStateType.Stunned] = new StunnedState(this, StaticEnemyStateType.Stunned),
+                [StaticEnemyStateType.GrappleFreeze] = new GrappleFreezeState(this, StaticEnemyStateType.GrappleFreeze),
             };
         }
 

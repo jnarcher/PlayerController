@@ -9,6 +9,8 @@ public class GrapplePointController : MonoBehaviour
 
     public LayerMask LineOfSightLayers;
     public float GrapplePointCooldown;
+    [Tooltip("This references a class responsible for controlling the movement of whatever this grapple point is attached to.")]
+    public Grappleable Grappleable;
 
     private SpriteRenderer _sprite;
     private Transform _playerTransform;
