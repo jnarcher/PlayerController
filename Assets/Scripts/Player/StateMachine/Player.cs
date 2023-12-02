@@ -16,6 +16,7 @@ namespace PlayerStateMachine
         private PlayerStats Stats => GameManager.Instance.PlayerStats;
         public GameObject GrappleAimIndicator;
         public Collider2D GroundAttack1Hitbox;
+        public Collider2D Hurtbox;
         public Animator Animator => _anim;
 
         // State Management
@@ -73,6 +74,7 @@ namespace PlayerStateMachine
             HandleAttackCooldown();
             HandleLerpTimeScale();
             HandleAnimations();
+            HandleInvincibility();
             State.UpdateState();
         }
 
@@ -222,6 +224,21 @@ namespace PlayerStateMachine
         {
             LerpMoveAcceleration(0.2f);
             SetVelocity(knockback);
+        }
+
+        private float _timeInvincibilityStart = float.MinValue;
+        private float _timeInvincibilityStop;
+        public void GiveInvincibility(float time)
+        {
+            Hurtbox.enabled = false;
+            _timeInvincibilityStart = ElapsedTime;
+            _timeInvincibilityStop = _timeInvincibilityStart + time;
+        }
+
+        private void HandleInvincibility()
+        {
+            if (ElapsedTime > _timeInvincibilityStop)
+                Hurtbox.enabled = true;
         }
     }
 }

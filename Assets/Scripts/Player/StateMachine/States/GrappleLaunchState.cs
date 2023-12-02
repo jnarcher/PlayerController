@@ -15,6 +15,7 @@ namespace PlayerStateMachine
                 return;
             }
             Player.SetFacing(Player.transform.position.x < Player.SelectedGrapplePoint.transform.position.x);
+            Player.GiveInvincibility(100f); // the time is arbitrary as long as it's greater than the time it takes to get to the grapple point
         }
 
         private Vector3 PointPosition => Player.SelectedGrapplePoint.transform.position;
@@ -37,6 +38,7 @@ namespace PlayerStateMachine
             Player.ResetAttack();
             Player.LerpMoveAcceleration(Stats.GrappleInputFreezeTime);
             Player.SelectedGrapplePoint?.GetComponent<GrapplePointController>().StartCooldown();
+            Player.GiveInvincibility(0.2f);
         }
     }
 }

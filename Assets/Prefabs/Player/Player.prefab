@@ -385,6 +385,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GrappleAimIndicator: {fileID: 3051681179509865518}
   GroundAttack1Hitbox: {fileID: 9024629397959529973}
+  Hurtbox: {fileID: 6155604243638324290}
   StateType: 0
 --- !u!1 &2364883184856354044
 GameObject:
