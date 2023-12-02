@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Acceleration: 100
   Speed: 4
-  Gravity: 200
+  Gravity: 150
   ContactDamage: 1
   KnockbackStrength: 30
   MaxHealth: 1000

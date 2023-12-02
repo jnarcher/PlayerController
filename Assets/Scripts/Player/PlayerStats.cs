@@ -124,4 +124,8 @@ public class PlayerStats : ScriptableObject
     public float AirAttack1MovementStrength = 10f;
     [Tooltip("The movement of the player during the player's first ground attack")]
     public AnimationCurve AirAttack1MovementCurve;
+
+    [Header("Slide Attack")]
+    [Tooltip("The knockback vector for hit enemies.")]
+    public Vector2 SlideAttackKnockback;
 }
