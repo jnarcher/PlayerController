@@ -53,7 +53,7 @@ MonoBehaviour:
   MaxHealth: 5
   GroundAttackDamage: 1
   GroundAttackCooldown: 0.2
-  GroundAttack1KnockbackStrength: 15
+  GroundAttack1KnockbackStrength: 10
   GroundAttack1Length: 0.2
   GroundAttack1MovementStrength: 10
   GroundAttack1MovementCurve:
@@ -80,7 +80,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  GroundAttack2KnockbackStrength: 35
+  GroundAttack2KnockbackStrength: 15
   AirAttackDamage: 1
   AirAttack1MovementStrength: 10
   AirAttack1MovementCurve:

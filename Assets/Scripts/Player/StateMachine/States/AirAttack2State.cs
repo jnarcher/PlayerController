@@ -3,20 +3,18 @@ using UnityEngine;
 
 namespace PlayerStateMachine
 {
-    public class AirAttack1State : PlayerState
+    public class AirAttack2State : PlayerState
     {
         private float _attackTimer;
-        private bool _attackPressedAgain;
 
-        public AirAttack1State(Player player) : base(player) { }
+        public AirAttack2State(Player player) : base(player) { }
 
         public override void EnterState()
         {
             _attackTimer = 0;
-            Player.Animator.SetTrigger("AirAttack1");
-            Player.GroundAttack1Hitbox.enabled = true;
+            Player.Animator.SetTrigger("AirAttack2");
+            Player.GroundAttack1Hitbox.enabled = true; // TODO: use attack specific hitbox
             Player.SetGravity(0f);
-            _attackPressedAgain = false;
             Player.UseAttack();
         }
 
@@ -24,7 +22,6 @@ namespace PlayerStateMachine
         {
             _attackTimer += Time.deltaTime;
             DealDamage();
-            CheckForComboInput();
             HandleStateChange();
         }
 
@@ -44,14 +41,9 @@ namespace PlayerStateMachine
         {
             if (_attackTimer > Stats.GroundAttack1Length)
             {
-                if (_attackPressedAgain)
-                    Player.SetState(PlayerStateType.AirAttack2);
-                else
-                {
-                    Player.SetGravity(Stats.RisingGravity);
-                    Player.UseAttack();
-                    Player.SetState(PlayerStateType.Move);
-                }
+                Player.SetGravity(Stats.RisingGravity);
+                Player.UseAttack();
+                Player.SetState(PlayerStateType.Move);
             }
         }
 
@@ -67,12 +59,5 @@ namespace PlayerStateMachine
                 );
             }
         }
-
-        private void CheckForComboInput()
-        {
-            if (InputInfo.AttackPressedThisFrame)
-                _attackPressedAgain = true;
-        }
     }
 }
-
