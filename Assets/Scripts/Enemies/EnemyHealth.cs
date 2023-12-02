@@ -41,6 +41,8 @@ public class EnemyHealth : Health
 
     public override void Kill() => _controller.Kill();
 
+    public void AirLaunch(bool toRight) => _controller.AirLaunch(toRight);
+
     private void Update()
     {
         _invincibilityTimer -= Time.deltaTime;

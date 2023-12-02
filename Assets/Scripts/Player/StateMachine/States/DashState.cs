@@ -93,13 +93,7 @@ namespace PlayerStateMachine
             List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(Player.SlideAttackHitbox);
             foreach (var enemy in enemies)
             {
-                enemy.Damage(
-                    0,
-                    new Vector2(
-                        _dashDirection * Stats.SlideAttackKnockback.x,
-                        Stats.SlideAttackKnockback.y
-                    )
-                );
+                enemy.AirLaunch(Player.IsFacingRight);
             }
         }
     }

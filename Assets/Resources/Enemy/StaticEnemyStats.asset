@@ -16,5 +16,65 @@ MonoBehaviour:
   Speed: 4
   Gravity: 150
   ContactDamage: 1
-  KnockbackStrength: 30
+  ContactKnockbackStrength: 30
   MaxHealth: 1000
+  AirLaunchedStateLength: 0.5
+  AirLaunchCurveStrengthX: 40
+  AirLaunchVelocityX:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.06893763
+      outSlope: 0.06893763
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.10306298
+    - serializedVersion: 3
+      time: 0.39389738
+      value: 0.4061823
+      inSlope: -1.531902
+      outSlope: -1.531902
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9958496
+      value: -0.002357483
+      inSlope: 0.035436038
+      outSlope: 0.035436038
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.06686221
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  AirLaunchCurveStrengthY: 30
+  AirLaunchVelocityY:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0000015872065
+      value: 0.995282
+      inSlope: -2.1786363
+      outSlope: -2.1786363
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.04438419
+    - serializedVersion: 3
+      time: 1
+      value: -0.007075472
+      inSlope: 0.110900834
+      outSlope: 0.110900834
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.063800536
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

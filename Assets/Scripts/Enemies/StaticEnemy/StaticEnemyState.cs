@@ -29,5 +29,6 @@ namespace StaticEnemy
     {
         Patrol,
         Pursue,
+        AirLaunched,
     }
 }

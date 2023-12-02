@@ -11,7 +11,7 @@ public class EnemyContactDamage : MonoBehaviour
         {
             Vector2 knockbackDir = (other.transform.position - transform.position).normalized;
 
-            other.gameObject.GetComponent<PlayerHealth>().Damage(Stats.ContactDamage, Stats.KnockbackStrength * knockbackDir);
+            other.gameObject.GetComponent<PlayerHealth>().Damage(Stats.ContactDamage, Stats.ContactKnockbackStrength * knockbackDir);
         }
     }
 }

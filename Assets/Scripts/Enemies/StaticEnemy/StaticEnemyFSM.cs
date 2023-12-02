@@ -16,6 +16,12 @@ namespace StaticEnemy
         public void Knockback(Vector2 knockback) => AddVelocity(knockback);
         public EnemyStats GetStats() => Stats;
 
+        public void AirLaunch(bool toRight)
+        {
+            AirLaunchIsRight = toRight;
+            SetState(StaticEnemyStateType.AirLaunched);
+        }
+
         #endregion
 
         private Rigidbody2D _rb;
@@ -28,6 +34,8 @@ namespace StaticEnemy
         public Vector2 Velocity => _rb.velocity;
         public Vector2 Position => _rb.position;
         public bool IsFacingRight { get; private set; } = true;
+
+        public bool AirLaunchIsRight;
 
         public EnemyTriggerInfo TriggerInfo { get; private set; }
 
@@ -44,6 +52,7 @@ namespace StaticEnemy
             {
                 [StaticEnemyStateType.Patrol] = new PatrolState(this, StaticEnemyStateType.Patrol),
                 [StaticEnemyStateType.Pursue] = new PursueState(this, StaticEnemyStateType.Pursue),
+                [StaticEnemyStateType.AirLaunched] = new AirLaunchedState(this, StaticEnemyStateType.AirLaunched),
             };
         }
 
