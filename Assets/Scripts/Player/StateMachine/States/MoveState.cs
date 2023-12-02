@@ -41,6 +41,7 @@ namespace PlayerStateMachine
             if (TriggerInfo.HitWallThisFrame)
             {
                 Player.ResetDash();
+                Player.ResetAttack();
             }
 
             if (TriggerInfo.OnWall)
