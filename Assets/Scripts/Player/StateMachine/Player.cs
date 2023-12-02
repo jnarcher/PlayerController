@@ -29,6 +29,7 @@ namespace PlayerStateMachine
 
         // Physics
         public Vector2 Velocity => _rb.velocity;
+        public Vector2 Position => _rb.position;
         public bool IsFacingRight { get; private set; } = true;
         public float ElapsedTime { get; private set; }
         private float _gravity;
