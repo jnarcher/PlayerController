@@ -48,29 +48,9 @@ namespace PlayerStateMachine
             }
         }
 
-        private List<EnemyHealth> GetEnemiesInHitbox()
-        {
-            List<Collider2D> hits = new();
-            ContactFilter2D filter = new()
-            {
-                useTriggers = true,
-            };
-            Physics2D.OverlapCollider(Player.GroundAttack1Hitbox, filter, hits); // TODO: use air attack hitbox
-
-            List<EnemyHealth> enemies = new();
-            foreach (var hit in hits)
-            {
-                EnemyHealth enemyHealth = hit.GetComponent<EnemyHealth>();
-                if (enemyHealth != null)
-                    enemies.Add(enemyHealth);
-            }
-
-            return enemies;
-        }
-
         private void DealDamage()
         {
-            List<EnemyHealth> enemies = GetEnemiesInHitbox();
+            List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(Player.GroundAttack1Hitbox);
             foreach (var enemy in enemies)
             {
                 // TODO: use air attack knockback stats

@@ -59,4 +59,24 @@ public class TriggerInfo : MonoBehaviour
         OnGround = groundHit;
         OnWall = wallHit;
     }
+
+    public List<EnemyHealth> GetEnemiesInHitbox(Collider2D collider)
+    {
+        List<Collider2D> hits = new();
+        ContactFilter2D filter = new()
+        {
+            useTriggers = true,
+        };
+        Physics2D.OverlapCollider(collider, filter, hits); // TODO: use air attack hitbox
+
+        List<EnemyHealth> enemies = new();
+        foreach (var hit in hits)
+        {
+            EnemyHealth enemyHealth = hit.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
+                enemies.Add(enemyHealth);
+        }
+
+        return enemies;
+    }
 }
