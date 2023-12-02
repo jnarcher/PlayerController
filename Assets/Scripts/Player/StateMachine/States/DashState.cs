@@ -19,7 +19,13 @@ namespace PlayerStateMachine
         {
             _dashStartTime = Player.ElapsedTime;
             _cachedXSpeed = Mathf.Abs(Player.Velocity.x);
-            _dashDirection = Player.IsFacingRight ? 1 : -1;
+
+            // Dash goes in direction of input rather than player facing direction
+            if (InputInfo.Move.x == 0)
+                _dashDirection = Player.IsFacingRight ? 1 : -1;
+            else
+                _dashDirection = InputInfo.Move.x > 0 ? 1 : -1;
+
             _hitWall = false;
 
             // if on wall, dash away from the wall
@@ -27,10 +33,10 @@ namespace PlayerStateMachine
             {
                 _dashDirection *= -1;
                 _cachedXSpeed = DashSpeed;
-                Player.SetFacing(!Player.IsFacingRight);
                 Player.ResetAirJumps();
             }
 
+            Player.SetFacing(_dashDirection > 0);
             Player.SetVelocity(_dashDirection * DashSpeed, 0);
             Player.SetGravity(0);
         }
