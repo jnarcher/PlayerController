@@ -8,5 +8,6 @@ namespace PlayerStateMachine
         GrappleLaunch,
         GroundAttack1,
         GroundAttack2,
+        AirAttack1,
     }
 }

@@ -13,7 +13,7 @@ namespace PlayerStateMachine
         {
             _attackTimer = 0;
             Player.Animator.SetTrigger("GroundAttack2");
-            Player.LightAttack1Hitbox.enabled = true;
+            Player.GroundAttack1Hitbox.enabled = true;
         }
 
         public override void UpdateState()
@@ -31,7 +31,7 @@ namespace PlayerStateMachine
 
         public override void ExitState()
         {
-            Player.LightAttack1Hitbox.enabled = false;
+            Player.GroundAttack1Hitbox.enabled = false;
         }
 
         private void HandleStateChange()
@@ -39,7 +39,7 @@ namespace PlayerStateMachine
             if (_attackTimer > Stats.GroundAttack1Length)
             {
                 Player.SetState(PlayerStateType.Move);
-                Player.SetLightAttackCooldown();
+                Player.SetGroundAttackCooldown();
                 Player.SetGravity(GameManager.Instance.PlayerStats.RisingGravity);
             }
         }
@@ -51,7 +51,7 @@ namespace PlayerStateMachine
             {
                 useTriggers = true,
             };
-            Physics2D.OverlapCollider(Player.LightAttack1Hitbox, filter, hits);
+            Physics2D.OverlapCollider(Player.GroundAttack1Hitbox, filter, hits);
 
             List<EnemyHealth> enemies = new();
             foreach (var hit in hits)

@@ -15,7 +15,7 @@ namespace PlayerStateMachine
         private TriggerInfo _trigs;
         private PlayerStats Stats => GameManager.Instance.PlayerStats;
         public GameObject GrappleAimIndicator;
-        public Collider2D LightAttack1Hitbox;
+        public Collider2D GroundAttack1Hitbox;
         public Animator Animator => _anim;
 
         // State Management
@@ -50,6 +50,7 @@ namespace PlayerStateMachine
                 [PlayerStateType.GrappleLaunch] = new GrappleLaunchState(this),
                 [PlayerStateType.GroundAttack1] = new GroundAttack1State(this),
                 [PlayerStateType.GroundAttack2] = new GroundAttack2State(this),
+                [PlayerStateType.AirAttack1] = new AirAttack1State(this),
             };
             ActiveGrapplePoints = new();
         }
@@ -69,7 +70,7 @@ namespace PlayerStateMachine
         {
             ElapsedTime += Time.deltaTime;
             HandleDashCooldown();
-            HandleLightAttackCooldown();
+            HandleAttackCooldown();
             HandleLerpTimeScale();
             HandleAnimations();
             State.UpdateState();
@@ -135,18 +136,23 @@ namespace PlayerStateMachine
 
         public void ResetDash() => DashAvailable = true;
 
-        private float _timeLightAttacked;
-        public void SetLightAttackCooldown()
+        private float _timeGroundAttacked;
+        public void SetGroundAttackCooldown()
         {
-            _timeLightAttacked = ElapsedTime;
+            _timeGroundAttacked = ElapsedTime;
             CanAttack = false;
         }
 
-        private void HandleLightAttackCooldown()
+        public void UseAirAttack() => CanAttack = false;
+
+        private void HandleAttackCooldown()
         {
-            if (!CanAttack && ElapsedTime >= _timeLightAttacked + Stats.GroundAttackCooldown)
+            if (_trigs.LandedThisFrame || _trigs.LeftGroundThisFrame)
+                CanAttack = true;
+            else if (!CanAttack && _trigs.OnGround && ElapsedTime >= _timeGroundAttacked + Stats.GroundAttackCooldown)
                 CanAttack = true;
         }
+
 
         public void AddActiveGrapplePoint(GameObject grapplePoint)
         {

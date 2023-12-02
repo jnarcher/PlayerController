@@ -138,8 +138,10 @@ namespace PlayerStateMachine
                 Player.SetState(PlayerStateType.Dash);
             else if (Stats.GrappleToggle && InputInfo.Grapple)
                 Player.SetState(PlayerStateType.GrappleAim);
-            else if (InputInfo.AttackPressedThisFrame && Player.CanAttack && !TriggerInfo.OnWall && TriggerInfo.OnGround)
+            else if (InputInfo.AttackPressedThisFrame && Player.CanAttack && TriggerInfo.OnGround)
                 Player.SetState(PlayerStateType.GroundAttack1);
+            else if (InputInfo.AttackPressedThisFrame && Player.CanAttack && !TriggerInfo.OnGround && !TriggerInfo.OnWall)
+                Player.SetState(PlayerStateType.AirAttack1);
         }
     }
 }

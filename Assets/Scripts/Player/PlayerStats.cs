@@ -102,7 +102,7 @@ public class PlayerStats : ScriptableObject
     public int MaxHealth = 5;
 
     [Header("Ground Attacks")]
-    [Tooltip("The amount of damage a ground attack does to enemies.")]
+    [Tooltip("The amount of damage a ground attack does.")]
     public int GroundAttackDamage = 1;
     [Tooltip("The amount of time between ground attacks.")]
     public float GroundAttackCooldown = 0.2f;
@@ -116,4 +116,12 @@ public class PlayerStats : ScriptableObject
     public AnimationCurve GroundAttack1MovementCurve;
     [Tooltip("The amount of knockback enemies take from being hit by the second ground attack combo.")]
     public float GroundAttack2KnockbackStrength = 30f;
+
+    [Header("Air Attacks")]
+    [Tooltip("The amount of damage an air attack does.")]
+    public int AirAttackDamage = 1;
+    [Tooltip("The strength of the movement during the player's first ground attack")]
+    public float AirAttack1MovementStrength = 10f;
+    [Tooltip("The movement of the player during the player's first ground attack")]
+    public AnimationCurve AirAttack1MovementCurve;
 }
