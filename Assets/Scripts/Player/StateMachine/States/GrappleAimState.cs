@@ -28,6 +28,7 @@ namespace PlayerStateMachine
                 {
                     _launched = true;
                     Player.SetState(PlayerStateType.GrappleLaunch);
+                    selectedGrapplePoint.GetComponent<GrapplePointController>().Grappleable?.Freeze();
                 }
             }
         }

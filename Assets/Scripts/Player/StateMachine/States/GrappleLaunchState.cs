@@ -6,6 +6,8 @@ namespace PlayerStateMachine
     {
         public GrappleLaunchState(Player player) : base(player) { }
 
+        private Vector2 _gpDirection;
+
         public override void EnterState()
         {
             if (Player.SelectedGrapplePoint == null)
@@ -27,8 +29,9 @@ namespace PlayerStateMachine
                 Player.SetState(PlayerStateType.Move);
                 return;
             }
-            Vector2 grapplePointDirection = (PointPosition - Player.transform.position).normalized;
-            Player.SetVelocity(Stats.GrappleSpeed * grapplePointDirection);
+
+            _gpDirection = (PointPosition - Player.transform.position).normalized;
+            Player.SetVelocity(Stats.GrappleSpeed * _gpDirection);
         }
 
         public override void ExitState()
@@ -41,6 +44,7 @@ namespace PlayerStateMachine
             gpController.StartCooldown();
             gpController.Grappleable?.UnFreeze();
             Player.GiveInvincibility(0.2f);
+            Player.SetVelocity(Stats.GrappleLaunchBoostMultiplier * Stats.GrappleSpeed * _gpDirection);
         }
     }
 }

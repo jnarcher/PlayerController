@@ -84,6 +84,8 @@ public class PlayerStats : ScriptableObject
     public bool GrappleToggle = true;
     [Tooltip("The speed at which the grapple launches you.")]
     public float GrappleSpeed = 30f;
+    [Tooltip("A speed multiplier on grapple release."), Range(1f, 4f)]
+    public float GrappleLaunchBoostMultiplier = 1.5f;
     [Tooltip("The range of the grapple.")]
     public float GrappleRange = 10f;
     [Tooltip("How much time slows while aiming the grapple."), Range(0.01f, 1f)]

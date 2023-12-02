@@ -20,22 +20,22 @@ MonoBehaviour:
   MaxHealth: 1000
   StunTime: 0.2
   AirLaunchedStateLength: 0.3
-  AirLaunchCurveStrengthX: 50
+  AirLaunchCurveStrengthX: 40
   AirLaunchVelocityX:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: 0.06893763
-      outSlope: 0.06893763
+      inSlope: -0.39350402
+      outSlope: -0.39350402
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.10306298
+      outWeight: 0.47081298
     - serializedVersion: 3
-      time: 0.39389738
-      value: 0.4061823
+      time: 0.49930513
+      value: 0.5406275
       inSlope: -1.531902
       outSlope: -1.531902
       tangentMode: 0
@@ -45,36 +45,36 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.9958496
       value: -0.002357483
-      inSlope: 0.035436038
-      outSlope: 0.035436038
+      inSlope: -0.04047494
+      outSlope: -0.04047494
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.06686221
+      inWeight: 0.20590183
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  AirLaunchCurveStrengthY: 40
+  AirLaunchCurveStrengthY: 50
   AirLaunchVelocityY:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: -0.0000015872065
       value: 0.995282
-      inSlope: -2.1786363
-      outSlope: -2.1786363
+      inSlope: -2.5704193
+      outSlope: -2.5704193
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.04438419
+      outWeight: 0.051855326
     - serializedVersion: 3
-      time: 1
-      value: -0.007075472
-      inSlope: 0.110900834
-      outSlope: 0.110900834
+      time: 0.99768066
+      value: 0.0035642385
+      inSlope: -0.048847288
+      outSlope: -0.048847288
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.063800536
+      inWeight: 0.07333473
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
