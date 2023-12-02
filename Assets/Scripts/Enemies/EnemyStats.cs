@@ -14,6 +14,7 @@ public class EnemyStats : ScriptableObject
 
     [Header("Health")]
     public int MaxHealth = 2;
+    public float StunTime = 0.2f;
 
     [Header("Air Launched State")]
     public float AirLaunchedStateLength = 0.5f;

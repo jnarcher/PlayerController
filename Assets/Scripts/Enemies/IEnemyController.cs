@@ -6,4 +6,5 @@ public interface IEnemyController
     public void Kill();
     public void AirLaunch(bool toRight);
     public EnemyStats GetStats();
+    public void Stun();
 }

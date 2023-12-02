@@ -22,6 +22,8 @@ namespace StaticEnemy
             SetState(StaticEnemyStateType.AirLaunched);
         }
 
+        public void Stun() => SetState(StaticEnemyStateType.Stunned);
+
         #endregion
 
         private Rigidbody2D _rb;
@@ -34,6 +36,7 @@ namespace StaticEnemy
         public Vector2 Velocity => _rb.velocity;
         public Vector2 Position => _rb.position;
         public bool IsFacingRight { get; private set; } = true;
+        private float _gravity;
 
         public bool AirLaunchIsRight;
 
@@ -53,11 +56,14 @@ namespace StaticEnemy
                 [StaticEnemyStateType.Patrol] = new PatrolState(this, StaticEnemyStateType.Patrol),
                 [StaticEnemyStateType.Pursue] = new PursueState(this, StaticEnemyStateType.Pursue),
                 [StaticEnemyStateType.AirLaunched] = new AirLaunchedState(this, StaticEnemyStateType.AirLaunched),
+                [StaticEnemyStateType.Stunned] = new StunnedState(this, StaticEnemyStateType.Stunned),
             };
         }
 
         private void Start()
         {
+            _gravity = Stats.Gravity;
+
             State = _stateDict[StaticEnemyStateType.Patrol];
             State.EnterState();
         }
@@ -87,7 +93,8 @@ namespace StaticEnemy
         public void AddVelocity(float x, float y) => _rb.velocity += new Vector2(x, y);
         public void AddVelocity(Vector2 v) => AddVelocity(v.x, v.y);
 
-        private void ApplyGravity() => AddVelocity(Stats.Gravity * Time.fixedDeltaTime * Vector2.down);
+        private void ApplyGravity() => AddVelocity(_gravity * Time.fixedDeltaTime * Vector2.down);
+        public void SetGravity(float gravity) => _gravity = gravity;
 
         public void SetFacing(bool isFacingRight)
         {

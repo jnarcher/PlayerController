@@ -35,6 +35,7 @@ public class EnemyHealth : Health
             _currentHealth -= damage;
             CanBeDamaged = false;
             _controller.Knockback(knockback);
+            _controller.Stun();
             if (_currentHealth <= 0) Kill();
         }
     }
