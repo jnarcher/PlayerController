@@ -44,6 +44,7 @@ MonoBehaviour:
   GroundDashCooldown: 0.3
   GrappleToggle: 1
   GrappleSpeed: 40
+  GrappleLaunchBoostMultiplier: 1.2
   GrappleRange: 10
   GrappleTimeSlow: 0.132
   GrappleTimeSlowTransitionSpeed: 0.1
