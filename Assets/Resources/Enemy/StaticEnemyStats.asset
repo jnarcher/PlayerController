@@ -16,9 +16,9 @@ MonoBehaviour:
   Speed: 7
   Gravity: 150
   ContactDamage: 1
-  ContactKnockbackStrength: 30
+  ContactKnockbackStrength: 40
   MaxHealth: 1000
-  StunTime: 0.3
+  StunTime: 0.2
   AirLaunchedStateLength: 0.3
   AirLaunchCurveStrengthX: 50
   AirLaunchVelocityX:

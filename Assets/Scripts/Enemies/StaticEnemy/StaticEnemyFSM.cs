@@ -77,6 +77,7 @@ namespace StaticEnemy
         private void FixedUpdate()
         {
             State.FixedUpdateState();
+            Animator.SetFloat("Speed", Mathf.Abs(Velocity.x));
             ApplyGravity();
         }
 
