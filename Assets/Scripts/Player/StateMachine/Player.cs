@@ -15,8 +15,11 @@ namespace PlayerStateMachine
         private TriggerInfo _trigs;
         private PlayerStats Stats => GameManager.Instance.PlayerStats;
         public GameObject GrappleAimIndicator;
+
         public Collider2D GroundAttack1Hitbox;
+        public Collider2D SlideAttackHitbox;
         public Collider2D Hurtbox;
+
         public Animator Animator => _anim;
 
         // State Management
@@ -209,7 +212,6 @@ namespace PlayerStateMachine
             _anim.SetBool("InAir", !_trigs.OnGround);
             _anim.SetBool("OnWall", _trigs.OnWall);
             _anim.SetFloat("VerticalVelocity", Velocity.y);
-            _anim.SetBool("Dashing", StateType == PlayerStateType.Dash);
         }
 
         #endregion
@@ -234,6 +236,8 @@ namespace PlayerStateMachine
             _timeInvincibilityStart = ElapsedTime;
             _timeInvincibilityStop = _timeInvincibilityStart + time;
         }
+
+        public void StopInvincibility() => Hurtbox.enabled = true;
 
         private void HandleInvincibility()
         {
