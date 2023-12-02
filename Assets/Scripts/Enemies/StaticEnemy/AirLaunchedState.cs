@@ -12,6 +12,7 @@ namespace StaticEnemy
         {
             base.EnterState();
             _stateTimer = _controller.Stats.AirLaunchedStateLength;
+            _controller.Animator.SetBool("Stunned", true);
         }
 
         public override void UpdateState()
@@ -31,6 +32,12 @@ namespace StaticEnemy
                     _controller.Stats.AirLaunchCurveStrengthY * _controller.Stats.AirLaunchVelocityY.Evaluate(1 - _stateTimer / _controller.Stats.AirLaunchedStateLength)
                 )
             );
+        }
+
+        public override void ExitState()
+        {
+            base.ExitState();
+            _controller.Animator.SetBool("Stunned", false);
         }
 
         private void CheckStateTransition()

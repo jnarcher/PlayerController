@@ -27,7 +27,7 @@ namespace StaticEnemy
         #endregion
 
         private Rigidbody2D _rb;
-        private Animator _anim;
+        public Animator Animator { get; private set; }
 
         public StaticEnemyState State { get; protected set; }
         private Dictionary<StaticEnemyStateType, StaticEnemyState> _stateDict;
@@ -47,7 +47,7 @@ namespace StaticEnemy
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _anim = GetComponent<Animator>();
+            Animator = GetComponent<Animator>();
 
             TriggerInfo = GetComponent<EnemyTriggerInfo>();
 

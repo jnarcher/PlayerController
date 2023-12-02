@@ -13,6 +13,7 @@ namespace StaticEnemy
             base.EnterState();
             _stateTimer = _controller.Stats.StunTime;
             _controller.SetGravity(0f);
+            _controller.Animator.SetBool("Stunned", true);
         }
 
         public override void UpdateState()
@@ -33,6 +34,7 @@ namespace StaticEnemy
         {
             base.ExitState();
             _controller.SetGravity(_controller.Stats.Gravity);
+            _controller.Animator.SetBool("Stunned", false);
         }
 
         private void CheckStateTransitions()
