@@ -7,12 +7,14 @@ namespace PlayerStateMachine
     {
         private float _attackTimer;
         private bool _attackPressedAgain;
+        private bool _enemyHit;
 
         public AirAttack1State(Player player) : base(player) { }
 
         public override void EnterState()
         {
             _attackTimer = 0;
+            _enemyHit = false;
             Player.Animator.SetTrigger("AirAttack1");
             Player.GroundAttack1Hitbox.enabled = true;
             Player.SetGravity(0f);
@@ -44,7 +46,7 @@ namespace PlayerStateMachine
         {
             if (_attackTimer > Stats.GroundAttack1Length)
             {
-                if (_attackPressedAgain)
+                if (_attackPressedAgain && _enemyHit)
                     Player.SetState(PlayerStateType.AirAttack2);
                 else
                 {
@@ -58,6 +60,7 @@ namespace PlayerStateMachine
         private void DealDamage()
         {
             List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(Player.GroundAttack1Hitbox);
+            if (enemies.Count > 0) _enemyHit = true;
             foreach (var enemy in enemies)
             {
                 // TODO: use air attack knockback stats
