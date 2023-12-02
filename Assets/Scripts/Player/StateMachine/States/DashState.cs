@@ -8,9 +8,10 @@ namespace PlayerStateMachine
     /// </summary>
     public class DashState : PlayerState
     {
-        private float _dashStartTime;
+        private float _dashTimer;
         private float _dashDirection;
         private float _cachedXSpeed;
+
         private float DashSpeed => Stats.DashDistance / Stats.DashTime;
         private bool _hitWall;
 
@@ -20,8 +21,8 @@ namespace PlayerStateMachine
 
         public override void EnterState()
         {
-            _dashStartTime = Player.ElapsedTime;
             _cachedXSpeed = Mathf.Abs(Player.Velocity.x);
+            _dashTimer = Stats.DashTime;
 
             // Dash goes in direction of input rather than player facing direction
             if (InputInfo.Move.x == 0)
@@ -58,17 +59,19 @@ namespace PlayerStateMachine
 
         public override void UpdateState()
         {
-            if (Player.ElapsedTime >= _dashStartTime + Stats.DashTime)
-                Player.SetState(PlayerStateType.Move);
-
             if (_isSlide)
                 DealDamage();
         }
 
         public override void FixedUpdateState()
         {
+            if (_dashTimer < 0f)
+                Player.SetState(PlayerStateType.Move);
+
             if (TriggerInfo.HitWallThisFrame && !TriggerInfo.OnGround)
                 _hitWall = true;
+
+            _dashTimer -= Time.fixedDeltaTime;
         }
 
         public override void ExitState()
