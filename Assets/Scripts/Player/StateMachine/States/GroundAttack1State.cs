@@ -48,7 +48,7 @@ namespace PlayerStateMachine
                 else // Combo ended
                 {
                     Player.SetState(PlayerStateType.Move);
-                    Player.SetGroundAttackCooldown();
+                    Player.UseAttack();
                     Player.SetGravity(GameManager.Instance.PlayerStats.RisingGravity);
                 }
             }

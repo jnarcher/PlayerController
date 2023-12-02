@@ -136,20 +136,19 @@ namespace PlayerStateMachine
 
         public void ResetDash() => DashAvailable = true;
 
-        private float _timeGroundAttacked;
-        public void SetGroundAttackCooldown()
+        private float _timeAttacked;
+        public void UseAttack()
         {
-            _timeGroundAttacked = ElapsedTime;
+            _timeAttacked = ElapsedTime;
             CanAttack = false;
         }
-
-        public void UseAirAttack() => CanAttack = false;
+        public void ResetAttack() => CanAttack = true;
 
         private void HandleAttackCooldown()
         {
             if (_trigs.LandedThisFrame || _trigs.LeftGroundThisFrame)
                 CanAttack = true;
-            else if (!CanAttack && _trigs.OnGround && ElapsedTime >= _timeGroundAttacked + Stats.GroundAttackCooldown)
+            else if (!CanAttack && _trigs.OnGround && ElapsedTime >= _timeAttacked + Stats.GroundAttackCooldown)
                 CanAttack = true;
         }
 

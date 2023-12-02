@@ -17,7 +17,7 @@ namespace PlayerStateMachine
             Player.GroundAttack1Hitbox.enabled = true;
             Player.SetGravity(0f);
             _attackPressedAgain = false;
-            Player.UseAirAttack();
+            Player.UseAttack();
         }
 
         public override void UpdateState()

@@ -39,7 +39,7 @@ namespace PlayerStateMachine
             if (_attackTimer > Stats.GroundAttack1Length)
             {
                 Player.SetState(PlayerStateType.Move);
-                Player.SetGroundAttackCooldown();
+                Player.UseAttack();
                 Player.SetGravity(GameManager.Instance.PlayerStats.RisingGravity);
             }
         }
