@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 359180909540090322}
   - component: {fileID: 9024629397959529973}
   m_Layer: 0
-  m_Name: LightAttack1Hitbox
+  m_Name: GroundAttack1Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -384,7 +384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GrappleAimIndicator: {fileID: 3051681179509865518}
-  LightAttack1Hitbox: {fileID: 9024629397959529973}
+  GroundAttack1Hitbox: {fileID: 9024629397959529973}
   StateType: 0
 --- !u!1 &2364883184856354044
 GameObject:
