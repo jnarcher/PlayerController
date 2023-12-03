@@ -23,7 +23,7 @@ MonoBehaviour:
   FallingGravity: 170
   RisingGravity: 100
   GroundingForce: 1.5
-  JumpPower: 32
+  JumpPower: 25
   AirJumpPower: 25
   AirJumpCount: 1
   EarlyJumpReleaseModifier: 2
@@ -40,7 +40,7 @@ MonoBehaviour:
   DashToggle: 1
   AirDashToggle: 1
   DashTime: 0.15
-  DashDistance: 4
+  DashDistance: 5
   GroundDashCooldown: 0.3
   GrappleToggle: 1
   GrappleSpeed: 40
