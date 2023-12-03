@@ -13,14 +13,16 @@ public class EnemyStats : ScriptableObject
     public float ContactKnockbackStrength = 30f;
 
     [Header("Health")]
+    public bool Damageable = true;
     public int MaxHealth = 2;
     public float StunTime = 0.2f;
 
     [Header("Air Launched State")]
     public float AirLaunchedStateLength = 0.5f;
+    [Space]
     public float AirLaunchCurveStrengthX = 40f;
     public AnimationCurve AirLaunchVelocityX;
+    [Space]
     public float AirLaunchCurveStrengthY = 40f;
     public AnimationCurve AirLaunchVelocityY;
-
 }

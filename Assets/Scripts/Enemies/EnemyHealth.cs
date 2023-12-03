@@ -1,9 +1,7 @@
-using StaticEnemy;
 using UnityEngine;
 
 public class EnemyHealth : Health
 {
-    public bool CanBeDamaged = true;
     public float InvincibilityTime = 0.2f;
     private IEnemyController _controller;
     private EnemyStats _stats;
@@ -13,6 +11,7 @@ public class EnemyHealth : Health
     private float _flashTimer;
 
     private float _invincibilityTimer;
+    private bool _canTakeDamage;
 
     private void Awake()
     {
@@ -24,16 +23,17 @@ public class EnemyHealth : Health
         _controller = GetComponentInParent<IEnemyController>();
         _stats = _controller.GetStats();
         _currentHealth = _stats.MaxHealth;
+        _canTakeDamage = _stats.Damageable;
     }
 
     public override void Damage(int damage, Vector2 knockback)
     {
-        if (CanBeDamaged)
+        if (_stats.Damageable && _canTakeDamage)
         {
             _flashTimer = 0.1f;
             _invincibilityTimer = InvincibilityTime;
             _currentHealth -= damage;
-            CanBeDamaged = false;
+            _canTakeDamage = false;
             _controller.Knockback(knockback);
             _controller.Stun();
             if (_currentHealth <= 0) Kill();
@@ -50,7 +50,7 @@ public class EnemyHealth : Health
         _flashTimer -= Time.deltaTime;
 
         if (_invincibilityTimer < 0)
-            CanBeDamaged = true;
+            _canTakeDamage = true;
 
         if (_flashTimer > 0)
             _sprite.color = Color.white;
