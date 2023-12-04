@@ -11,7 +11,6 @@ namespace PlayerStateMachine
         // The update function of the InputInfo might reset the JumpPressedThisFrame variable before the FixedUpdate
         // in this class is run
         private bool _jumpPressedThisFrame;
-        private float _lastWallDirection; // -1 or 1
 
         private GameObject _wallSlideEffect;
         private ParticleSystem _wallSlideParticles;
@@ -66,7 +65,7 @@ namespace PlayerStateMachine
             }
 
             if (TriggerInfo.OnWall)
-                _lastWallDirection = Player.IsFacingRight ? 1 : -1;
+                Player.SetLastWallDirection(Player.IsFacingRight);
             else
                 _wallSlideParticles?.Stop();
 
@@ -139,7 +138,7 @@ namespace PlayerStateMachine
         {
             if (Player.WallJumpEffect != null)
                 Object.Instantiate(Player.WallJumpEffect, Player.Position, Quaternion.identity);
-            Player.SetVelocity(-_lastWallDirection * Stats.WallJumpVelocity.x, Stats.WallJumpVelocity.y);
+            Player.SetVelocity(-(Player.LastWallRight ? 1 : -1) * Stats.WallJumpVelocity.x, Stats.WallJumpVelocity.y);
             Player.ResetAirJumps();
             Player.LerpMoveAcceleration(Stats.WallJumpInputFreezeTime);
         }

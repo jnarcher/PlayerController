@@ -32,7 +32,7 @@ namespace PlayerStateMachine
             _hitWall = false;
 
             // if on wall, dash away from the wall
-            if (TriggerInfo.OnWall)
+            if (TriggerInfo.OnWall && _dashDirection == (Player.LastWallRight ? 1 : -1))
             {
                 _dashDirection *= -1;
                 _cachedXSpeed = DashSpeed;

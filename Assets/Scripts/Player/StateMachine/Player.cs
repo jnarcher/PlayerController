@@ -56,6 +56,7 @@ namespace PlayerStateMachine
         public List<GameObject> ActiveGrapplePoints { get; private set; }
         public GameObject SelectedGrapplePoint { get; private set; }
         public bool AttackOffCooldown { get; private set; }
+        public bool LastWallRight { get; private set; }
         [HideInInspector] public Vector2 HitDirection;
         [HideInInspector] public bool IsInIFrames;
 
@@ -153,6 +154,8 @@ namespace PlayerStateMachine
             );
             IsFacingRight = isFacingRight;
         }
+
+        public void SetLastWallDirection(bool lastWallRight) => LastWallRight = lastWallRight;
 
         public void DecrementAirJump() => AirJumpsRemaining--;
         public void ResetAirJumps() => AirJumpsRemaining = Stats.AirJumpCount;
