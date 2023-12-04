@@ -25,10 +25,9 @@ namespace PlayerStateMachine
             _dashTimer = Stats.DashTime;
 
             // Dash goes in direction of input rather than player facing direction
-            if (InputInfo.Move.x == 0)
-                _dashDirection = Player.IsFacingRight ? 1 : -1;
-            else
-                _dashDirection = InputInfo.Move.x > 0 ? 1 : -1;
+            _dashDirection = (InputInfo.Move.x == 0)
+                ? (Player.IsFacingRight ? 1 : -1)
+                : (InputInfo.Move.x > 0 ? 1 : -1);
 
             _hitWall = false;
 
