@@ -5,39 +5,38 @@ namespace PlayerStateMachine
 {
     public class GroundAttack2State : PlayerState
     {
-        private float _attackTimer;
+        private float _cachedXSpeed;
 
         public GroundAttack2State(Player player) : base(player) { }
 
         public override void EnterState()
         {
-            _attackTimer = 0;
+            _cachedXSpeed = Player.Velocity.x;
             Player.Animator.SetTrigger("GroundAttack2");
-            Player.GroundAttack1Hitbox.enabled = true;
         }
 
         public override void UpdateState()
         {
-            _attackTimer += Time.deltaTime;
             DealDamage();
             HandleStateChange();
         }
 
         public override void FixedUpdateState()
         {
-            float curveSample = Stats.GroundAttack1MovementCurve.Evaluate(1 - _attackTimer / Stats.GroundAttack1Length);
-            Player.SetVelocity((Player.IsFacingRight ? 1 : -1) * curveSample * Stats.GroundAttack1MovementStrength, 0);
+            float xDirection = Player.IsFacingRight ? 1 : -1;
+            float newXVelocity = xDirection * Player.AnimatedVelocity * Stats.GroundAttack2MovementStrength;
+            Player.SetVelocity(newXVelocity + (0.5f * _cachedXSpeed), 0);
         }
 
         public override void ExitState()
         {
-            Player.GroundAttack1Hitbox.enabled = false;
         }
 
         private void HandleStateChange()
         {
-            if (_attackTimer > Stats.GroundAttack1Length)
+            if (Player.AttackAnimationComplete)
             {
+                Player.AttackAnimationComplete = false; // reset trigger
                 Player.SetState(PlayerStateType.Move);
                 Player.UseAttack();
                 Player.SetGravity(GameManager.Instance.PlayerStats.RisingGravity);
@@ -46,7 +45,7 @@ namespace PlayerStateMachine
 
         private void DealDamage()
         {
-            List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(Player.GroundAttack1Hitbox);
+            List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(TriggerInfo.GroundAttack1);
             foreach (var enemy in enemies)
             {
                 enemy.Damage(

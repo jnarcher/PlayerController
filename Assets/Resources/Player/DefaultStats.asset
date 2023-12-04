@@ -55,57 +55,12 @@ MonoBehaviour:
   GroundAttackDamage: 1
   GroundAttackCooldown: 0.2
   GroundAttack1KnockbackStrength: 10
-  GroundAttack1Length: 0.2
-  GroundAttack1MovementStrength: 10
-  GroundAttack1MovementCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0.16350646
-      outSlope: 0.16350646
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.072320685
-    - serializedVersion: 3
-      time: 0.9972534
-      value: -0.0047187805
-      inSlope: 0.13329333
-      outSlope: 0.13329333
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.07095735
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  GroundAttack1MovementStrength: 6
   GroundAttack2KnockbackStrength: 15
+  GroundAttack2MovementStrength: 20
   AirAttackDamage: 1
-  AirAttack1MovementStrength: 10
-  AirAttack1MovementCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  SlideAttackKnockback: {x: 40, y: 40}
+  AirAttack1KnockbackStrength: 30
+  AirAttack1MovementStrength: 15
+  AirAttack2KnockbackStrength: 30
+  AirAttack2MovementStrength: 10
+  SlideAttackKnockback: {x: 600, y: 40}

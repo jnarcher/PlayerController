@@ -16,10 +16,6 @@ namespace PlayerStateMachine
         private PlayerStats Stats => GameManager.Instance.PlayerStats;
         public GameObject GrappleAimIndicator;
 
-        public Collider2D GroundAttack1Hitbox;
-        public Collider2D SlideAttackHitbox;
-        public Collider2D Hurtbox;
-
         public Animator Animator => _anim;
 
         // State Management
@@ -34,6 +30,11 @@ namespace PlayerStateMachine
         public float ElapsedTime { get; private set; }
         private float _gravity;
         private float _maxFallSpeed;
+
+        // Set by animations for attacks
+        [HideInInspector] public float AnimatedVelocity;
+        // Set by animations to signal a state change
+        [HideInInspector] public bool AttackAnimationComplete;
 
         // Tracked Stats
         public int AirJumpsRemaining { get; private set; }
@@ -234,17 +235,17 @@ namespace PlayerStateMachine
         private float _timeInvincibilityStop;
         public void GiveInvincibility(float time)
         {
-            Hurtbox.enabled = false;
+            _trigs.PlayerHurtbox.enabled = false;
             _timeInvincibilityStart = ElapsedTime;
             _timeInvincibilityStop = _timeInvincibilityStart + time;
         }
 
-        public void StopInvincibility() => Hurtbox.enabled = true;
+        public void StopInvincibility() => _trigs.PlayerHurtbox.enabled = true;
 
         private void HandleInvincibility()
         {
             if (ElapsedTime > _timeInvincibilityStop)
-                Hurtbox.enabled = true;
+                _trigs.PlayerHurtbox.enabled = true;
         }
     }
 }

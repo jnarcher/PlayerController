@@ -14,6 +14,16 @@ public class TriggerInfo : MonoBehaviour
     [SerializeField] private BoxCollider2D _groundCheck;
     [SerializeField] private BoxCollider2D _wallCheck;
 
+
+    [Header("Hitboxes")]
+    public Collider2D PlayerHurtbox;
+    public Collider2D GroundAttack1;
+    public Collider2D GroundAttack2;
+    public Collider2D AirAttack1;
+    public Collider2D AirAttack2;
+    public Collider2D SlideAttack;
+    public Collider2D GrappleAttack;
+
     public bool OnGround { get; private set; }
     public bool OnWall { get; private set; }
     public float TimeLeftGround { get; private set; } = float.MinValue;

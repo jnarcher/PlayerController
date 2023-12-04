@@ -5,22 +5,23 @@ namespace PlayerStateMachine
 {
     public class GroundAttack1State : PlayerState
     {
-        private float _attackTimer;
+        // private float _attackTimer;
         private bool _attackPressedAgain;
+        private float _cachedXSpeed;
 
         public GroundAttack1State(Player player) : base(player) { }
 
         public override void EnterState()
         {
-            _attackTimer = 0;
+            // _attackTimer = 0;
             Player.Animator.SetTrigger("GroundAttack1");
-            Player.GroundAttack1Hitbox.enabled = true;
             _attackPressedAgain = false;
+            _cachedXSpeed = Player.Velocity.x;
         }
 
         public override void UpdateState()
         {
-            _attackTimer += Time.deltaTime;
+            // _attackTimer += Time.deltaTime;
             DealDamage();
             CheckForComboInput();
             HandleStateChange();
@@ -28,23 +29,20 @@ namespace PlayerStateMachine
 
         public override void FixedUpdateState()
         {
-            float curveSample = Stats.GroundAttack1MovementCurve.Evaluate(1 - _attackTimer / Stats.GroundAttack1Length);
-            Player.SetVelocity((Player.IsFacingRight ? 1 : -1) * curveSample * Stats.GroundAttack1MovementStrength, 0);
-        }
-
-        public override void ExitState()
-        {
-            Player.GroundAttack1Hitbox.enabled = false;
+            float xDirection = Player.IsFacingRight ? 1 : -1;
+            float newXVelocity = xDirection * Player.AnimatedVelocity * Stats.GroundAttack1MovementStrength;
+            Player.SetVelocity(newXVelocity + (0.5f * _cachedXSpeed), 0);
         }
 
         private void HandleStateChange()
         {
-            if (_attackTimer > Stats.GroundAttack1Length)
+            // if (_attackTimer > Stats.GroundAttack1Length)
+            if (Player.AttackAnimationComplete)
             {
+                Player.AttackAnimationComplete = false; // reset trigger
+
                 if (_attackPressedAgain) // Start combo
-                {
                     Player.SetState(PlayerStateType.GroundAttack2);
-                }
                 else // Combo ended
                 {
                     Player.SetState(PlayerStateType.Move);
@@ -61,7 +59,7 @@ namespace PlayerStateMachine
             {
                 useTriggers = true,
             };
-            Physics2D.OverlapCollider(Player.GroundAttack1Hitbox, filter, hits);
+            Physics2D.OverlapCollider(TriggerInfo.GroundAttack1, filter, hits);
 
             List<EnemyHealth> enemies = new();
             foreach (var hit in hits)
@@ -76,7 +74,7 @@ namespace PlayerStateMachine
 
         private void DealDamage()
         {
-            List<EnemyHealth> enemies = GetEnemiesInHitbox();
+            List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(TriggerInfo.GroundAttack1);
             foreach (var enemy in enemies)
             {
                 enemy.Damage(

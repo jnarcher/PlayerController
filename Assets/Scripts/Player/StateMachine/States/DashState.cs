@@ -49,7 +49,6 @@ namespace PlayerStateMachine
             if (_isSlide)
             {
                 Player.Animator.SetBool("Sliding", true);
-                Player.SlideAttackHitbox.enabled = true;
             }
             else
                 Player.Animator.SetBool("Dashing", true);
@@ -86,14 +85,12 @@ namespace PlayerStateMachine
             Player.Animator.SetBool("Dashing", false);
             Player.Animator.SetBool("Sliding", false);
 
-            Player.SlideAttackHitbox.enabled = false;
-
             Player.StopInvincibility();
         }
 
         private void DealDamage()
         {
-            List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(Player.SlideAttackHitbox);
+            List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(TriggerInfo.SlideAttack);
             foreach (var enemy in enemies)
             {
                 enemy.AirLaunch(Player.IsFacingRight);

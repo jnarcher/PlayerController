@@ -6,14 +6,15 @@ namespace PlayerStateMachine
     public class AirAttack2State : PlayerState
     {
         private float _attackTimer;
+        private float _cachedXSpeed;
 
         public AirAttack2State(Player player) : base(player) { }
 
         public override void EnterState()
         {
             _attackTimer = 0;
+            _cachedXSpeed = Player.Velocity.x;
             Player.Animator.SetTrigger("AirAttack2");
-            Player.GroundAttack1Hitbox.enabled = true; // TODO: use attack specific hitbox
             Player.SetGravity(0f);
             Player.UseAttack();
         }
@@ -27,20 +28,19 @@ namespace PlayerStateMachine
 
         public override void FixedUpdateState()
         {
-            float curveSample = Stats.AirAttack1MovementCurve.Evaluate(1 - _attackTimer / Stats.GroundAttack1Length); // TODO: change to air attack length
-            Player.SetVelocity((Player.IsFacingRight ? 1 : -1) * curveSample * Stats.AirAttack1MovementStrength, 0);
+            Player.SetVelocity(0.5f * _cachedXSpeed, 0);
         }
 
         public override void ExitState()
         {
-            Player.GroundAttack1Hitbox.enabled = false; // TODO: change to air attack
             Player.SetGravity(Stats.FallingGravity);
         }
 
         private void HandleStateChange()
         {
-            if (_attackTimer > Stats.GroundAttack1Length)
+            if (Player.AttackAnimationComplete)
             {
+                Player.AttackAnimationComplete = false;
                 Player.SetGravity(Stats.RisingGravity);
                 Player.UseAttack();
                 Player.SetState(PlayerStateType.Move);
@@ -49,7 +49,7 @@ namespace PlayerStateMachine
 
         private void DealDamage()
         {
-            List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(Player.GroundAttack1Hitbox);
+            List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(TriggerInfo.AirAttack2);
             foreach (var enemy in enemies)
             {
                 // TODO: use air attack knockback stats
