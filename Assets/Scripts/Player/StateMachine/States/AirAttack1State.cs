@@ -71,7 +71,6 @@ namespace PlayerStateMachine
             if (enemies.Count > 0) _enemyHit = true;
             foreach (var enemy in enemies)
             {
-                // TODO: use air attack knockback stats
                 enemy.Damage(
                     Stats.AirAttackDamage,
                     Stats.AirAttack1KnockbackStrength * (Player.IsFacingRight ? 1 : -1) * Vector2.right

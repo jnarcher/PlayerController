@@ -56,10 +56,9 @@ namespace PlayerStateMachine
             List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(TriggerInfo.AirAttack2);
             foreach (var enemy in enemies)
             {
-                // TODO: use air attack knockback stats
                 enemy.Damage(
-                    Stats.GroundAttackDamage,
-                    Stats.GroundAttack1KnockbackStrength * (Player.IsFacingRight ? 1 : -1) * Vector2.right
+                    Stats.AirAttackDamage,
+                    Stats.AirAttack2KnockbackStrength * (Player.IsFacingRight ? 1 : -1) * Vector2.right
                 );
             }
         }
