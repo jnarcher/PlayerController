@@ -41,7 +41,7 @@ namespace PlayerStateMachine
         public bool DashAvailable { get; private set; }
         public List<GameObject> ActiveGrapplePoints { get; private set; }
         public GameObject SelectedGrapplePoint { get; private set; }
-        public bool CanAttack { get; private set; }
+        public bool AttackOffCooldown { get; private set; }
 
         private void Awake()
         {
@@ -148,16 +148,16 @@ namespace PlayerStateMachine
         public void UseAttack()
         {
             _timeAttacked = ElapsedTime;
-            CanAttack = false;
+            AttackOffCooldown = false;
         }
-        public void ResetAttack() => CanAttack = true;
+        public void ResetAttack() => AttackOffCooldown = true;
 
         private void HandleAttackCooldown()
         {
             if (_trigs.LandedThisFrame || _trigs.LeftGroundThisFrame)
-                CanAttack = true;
-            else if (!CanAttack && _trigs.OnGround && ElapsedTime >= _timeAttacked + Stats.GroundAttackCooldown)
-                CanAttack = true;
+                AttackOffCooldown = true;
+            else if (!AttackOffCooldown && _trigs.OnGround && ElapsedTime >= _timeAttacked + Stats.GroundAttackCooldown)
+                AttackOffCooldown = true;
         }
 
 
