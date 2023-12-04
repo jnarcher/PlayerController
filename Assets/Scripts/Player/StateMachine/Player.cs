@@ -50,6 +50,7 @@ namespace PlayerStateMachine
             _trigs = GetComponent<TriggerInfo>();
             _stateDict = new()
             {
+                [PlayerStateType.Hit] = new HitState(this),
                 [PlayerStateType.Move] = new MoveState(this),
                 [PlayerStateType.Dash] = new DashState(this),
                 [PlayerStateType.GrappleAim] = new GrappleAimState(this),
