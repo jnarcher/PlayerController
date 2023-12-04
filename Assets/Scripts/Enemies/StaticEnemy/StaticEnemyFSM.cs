@@ -13,7 +13,7 @@ namespace StaticEnemy
         #region INTERFACE
 
         public void Kill() => Destroy(gameObject); // TODO: update later
-        public void Knockback(Vector2 knockback) => AddVelocity(knockback);
+        public void Knockback(Vector2 knockback) => SetVelocity(knockback);
         public EnemyStats GetStats() => Stats;
         public void Freeze() => SetState(StaticEnemyStateType.GrappleFreeze);
         public void UnFreeze() => SetState(StaticEnemyStateType.Patrol);
