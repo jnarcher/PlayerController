@@ -58,9 +58,7 @@ namespace PlayerStateMachine
         {
             float acceleration = Stats.MoveAcceleration;
 
-            // ? This might not need to be a ternary, could just use lerp. Good for knockback
-            float x = TriggerInfo.OnGround ? 1 : Mathf.Lerp(0, 1, Player.CurrentMovementLerpValue);
-
+            float x = Mathf.Lerp(0, 1, Player.CurrentMovementLerpValue);
             float newXVelocity = Mathf.MoveTowards(
                 Player.Velocity.x,
                 InputInfo.Move.x * Stats.MoveSpeed,
