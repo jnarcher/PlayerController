@@ -17,6 +17,10 @@ namespace PlayerStateMachine
         public GameObject GrappleAimIndicator;
 
         public Animator Animator => _anim;
+        // Set by animations for attacks
+        [HideInInspector] public Vector2 AnimatedVelocity;
+        // Set by animations to signal a state change
+        [HideInInspector] public bool AnimationCompleteTrigger;
 
         // State Management
         public PlayerState State { get; private set; }
@@ -31,17 +35,14 @@ namespace PlayerStateMachine
         private float _gravity;
         private float _maxFallSpeed;
 
-        // Set by animations for attacks
-        [HideInInspector] public float AnimatedVelocity;
-        // Set by animations to signal a state change
-        [HideInInspector] public bool AttackAnimationComplete;
-
         // Tracked Stats
         public int AirJumpsRemaining { get; private set; }
         public bool DashAvailable { get; private set; }
         public List<GameObject> ActiveGrapplePoints { get; private set; }
         public GameObject SelectedGrapplePoint { get; private set; }
         public bool AttackOffCooldown { get; private set; }
+        public Vector2 HitDirection;
+        public bool IsInIFrames;
 
         private void Awake()
         {
@@ -99,6 +100,17 @@ namespace PlayerStateMachine
             State.ExitState();
             State = _stateDict[stateType];
             State.EnterState();
+        }
+
+        public void ResetPhysics()
+        {
+            SetVelocity(Vector2.zero);
+            SetGravity(Stats.FallingGravity);
+            ResetDash();
+            ResetAirJumps();
+            ResetAttack();
+            SelectedGrapplePoint = null;
+            HitDirection = Vector2.zero;
         }
 
         public void SetGravity(float gravity) => _gravity = gravity;
@@ -223,6 +235,7 @@ namespace PlayerStateMachine
         public void Respawn()
         {
             GameObject checkpoint = CheckpointManager.Instance.GetRespawnCheckpoint();
+            ResetPhysics();
             transform.position = checkpoint.transform.GetChild(0).position;
         }
 
@@ -239,14 +252,30 @@ namespace PlayerStateMachine
             _trigs.PlayerHurtbox.enabled = false;
             _timeInvincibilityStart = ElapsedTime;
             _timeInvincibilityStop = _timeInvincibilityStart + time;
+            IsInIFrames = true;
         }
 
-        public void StopInvincibility() => _trigs.PlayerHurtbox.enabled = true;
+        public void Hit(Vector2 direction)
+        {
+            HitDirection = direction;
+            SetState(PlayerStateType.Hit);
+        }
+
+        public void StopInvincibility()
+        {
+            _trigs.PlayerHurtbox.enabled = true;
+            IsInIFrames = false;
+        }
 
         private void HandleInvincibility()
         {
             if (ElapsedTime > _timeInvincibilityStop)
                 _trigs.PlayerHurtbox.enabled = true;
+
+            if (IsInIFrames)
+            {
+                Debug.Log("Invincible");
+            }
         }
     }
 }

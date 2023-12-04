@@ -124,6 +124,9 @@ public class PlayerStats : ScriptableObject
     [Header("Health")]
     [Tooltip("The maximum number of health the player can have.")]
     public int MaxHealth = 5;
+    [Tooltip("The amount of time after taking a hit where the player is invincible.")]
+    public float HitInvincibilityTime = 1.5f;
+    public float HitKnockbackStrength;
 
     [Header("Combat")]
     [Tooltip("The amount of time an attack input can be used after being pressed.")]

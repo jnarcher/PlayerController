@@ -56,9 +56,9 @@ namespace PlayerStateMachine
 
         private void HandleStateChange()
         {
-            if (Player.AttackAnimationComplete)
+            if (Player.AnimationCompleteTrigger)
             {
-                Player.AttackAnimationComplete = false;
+                Player.AnimationCompleteTrigger = false;
                 Player.SetState(PlayerStateType.Move);
             }
         }

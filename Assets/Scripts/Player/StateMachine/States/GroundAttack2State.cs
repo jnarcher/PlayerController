@@ -37,7 +37,7 @@ namespace PlayerStateMachine
         public override void FixedUpdateState()
         {
             float xDirection = Player.IsFacingRight ? 1 : -1;
-            float newXSpeed = (0.5f * _cachedXSpeed) + Player.AnimatedVelocity * Stats.GroundAttack2MovementStrength;
+            float newXSpeed = (0.5f * _cachedXSpeed) + Player.AnimatedVelocity.x * Stats.GroundAttack2MovementStrength;
             Player.SetVelocity(xDirection * newXSpeed, 0);
         }
 
@@ -56,9 +56,9 @@ namespace PlayerStateMachine
 
         private void HandleStateChange()
         {
-            if (Player.AttackAnimationComplete)
+            if (Player.AnimationCompleteTrigger)
             {
-                Player.AttackAnimationComplete = false; // reset trigger
+                Player.AnimationCompleteTrigger = false; // reset trigger
                 Player.SetState(PlayerStateType.Move);
             }
         }

@@ -52,9 +52,11 @@ MonoBehaviour:
   GrappleInputFreezeTime: 0.7
   GrappleAssistAngle: 60
   MaxHealth: 5
+  HitInvincibilityTime: 1.5
+  HitKnockbackStrength: 30
   AttackInputBufferTime: 0.15
   GroundAttackDamage: 1
-  GroundAttackCooldown: 0.1
+  GroundAttackCooldown: 0.2
   GroundAttack1KnockbackStrength: 1
   GroundAttack1MovementStrength: 0
   GroundAttack2KnockbackStrength: 1.5
