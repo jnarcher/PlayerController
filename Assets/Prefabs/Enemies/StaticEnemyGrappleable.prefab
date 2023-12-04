@@ -418,7 +418,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06c2b6794018e48e5b3bc7cfd519097d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InvincibilityTime: 0.2
 --- !u!1 &8475957136928068980
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,6 +507,10 @@ PrefabInstance:
       propertyPath: Grappleable
       value: 
       objectReference: {fileID: 7188046185906043233}
+    - target: {fileID: 4255939302837167701, guid: 30066304ba0a247968ecd0889bda3624, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4977682727973071008, guid: 30066304ba0a247968ecd0889bda3624, type: 3}
       propertyPath: m_Name
       value: GrapplePoint
