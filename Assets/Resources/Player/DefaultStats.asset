@@ -39,7 +39,7 @@ MonoBehaviour:
   WallJumpInputFreezeTime: 0.3
   DashToggle: 1
   AirDashToggle: 1
-  DashTime: 0.15
+  DashTime: 0.2
   DashDistance: 5
   GroundDashCooldown: 0.3
   GrappleToggle: 1
@@ -53,14 +53,13 @@ MonoBehaviour:
   GrappleAssistAngle: 60
   MaxHealth: 5
   GroundAttackDamage: 1
-  GroundAttackCooldown: 0.2
+  GroundAttackCooldown: 0.1
   GroundAttack1KnockbackStrength: 10
-  GroundAttack1MovementStrength: 6
+  GroundAttack1MovementStrength: 0
   GroundAttack2KnockbackStrength: 15
   GroundAttack2MovementStrength: 20
   AirAttackDamage: 1
-  AirAttack1KnockbackStrength: 30
+  AirAttack1KnockbackStrength: 10
   AirAttack1MovementStrength: 15
-  AirAttack2KnockbackStrength: 30
+  AirAttack2KnockbackStrength: 20
   AirAttack2MovementStrength: 10
-  SlideAttackKnockback: {x: 600, y: 40}
