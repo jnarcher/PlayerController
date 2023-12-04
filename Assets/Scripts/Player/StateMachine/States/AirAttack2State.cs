@@ -8,7 +8,12 @@ namespace PlayerStateMachine
         private float _attackTimer;
         private float _cachedXVelocity;
 
-        public AirAttack2State(Player player) : base(player) { }
+        private List<EnemyHealth> _hitEnemies;
+
+        public AirAttack2State(Player player) : base(player)
+        {
+            _hitEnemies = new();
+        }
 
         public override void EnterState()
         {
@@ -37,7 +42,15 @@ namespace PlayerStateMachine
 
         public override void ExitState()
         {
+            ResetEnemyHitables();
             Player.SetGravity(Stats.FallingGravity);
+            Player.UseAttack();
+        }
+
+        private void ResetEnemyHitables()
+        {
+            foreach (var enemy in _hitEnemies)
+                enemy.HasTakenDamage = false;
         }
 
         private void HandleStateChange()
@@ -45,8 +58,6 @@ namespace PlayerStateMachine
             if (Player.AttackAnimationComplete)
             {
                 Player.AttackAnimationComplete = false;
-                Player.SetGravity(Stats.RisingGravity);
-                Player.UseAttack();
                 Player.SetState(PlayerStateType.Move);
             }
         }
@@ -56,10 +67,14 @@ namespace PlayerStateMachine
             List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(TriggerInfo.AirAttack2);
             foreach (var enemy in enemies)
             {
-                enemy.Damage(
-                    Stats.AirAttackDamage,
-                    Stats.AirAttack2KnockbackStrength * (Player.IsFacingRight ? 1 : -1) * Vector2.right
-                );
+                if (!enemy.HasTakenDamage)
+                {
+                    _hitEnemies.Add(enemy);
+                    enemy.Damage(
+                        Stats.AirAttackDamage,
+                        Stats.AirAttack2KnockbackStrength * (Player.IsFacingRight ? 1 : -1) * Vector2.right
+                    );
+                }
             }
         }
     }

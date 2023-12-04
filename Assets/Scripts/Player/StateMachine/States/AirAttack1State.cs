@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,12 @@ namespace PlayerStateMachine
         private bool _enemyHit;
         private float _cachedXVelocity;
 
-        public AirAttack1State(Player player) : base(player) { }
+        private List<EnemyHealth> _hitEnemies;
+
+        public AirAttack1State(Player player) : base(player)
+        {
+            _hitEnemies = new();
+        }
 
         public override void EnterState()
         {
@@ -39,7 +45,14 @@ namespace PlayerStateMachine
 
         public override void ExitState()
         {
+            ResetEnemyHitables();
             Player.SetGravity(Stats.FallingGravity);
+        }
+
+        private void ResetEnemyHitables()
+        {
+            foreach (var enemy in _hitEnemies)
+                enemy.HasTakenDamage = false;
         }
 
         private void HandleStateChange()
@@ -58,7 +71,6 @@ namespace PlayerStateMachine
                 }
                 else
                 {
-                    Player.SetGravity(Stats.RisingGravity);
                     Player.UseAttack();
                     Player.SetState(PlayerStateType.Move);
                 }
@@ -71,10 +83,14 @@ namespace PlayerStateMachine
             if (enemies.Count > 0) _enemyHit = true;
             foreach (var enemy in enemies)
             {
-                enemy.Damage(
-                    Stats.AirAttackDamage,
-                    Stats.AirAttack1KnockbackStrength * (Player.IsFacingRight ? 1 : -1) * Vector2.right
-                );
+                if (!enemy.HasTakenDamage)
+                {
+                    _hitEnemies.Add(enemy);
+                    enemy.Damage(
+                        Stats.AirAttackDamage,
+                        Stats.AirAttack1KnockbackStrength * (Player.IsFacingRight ? 1 : -1) * Vector2.right
+                    );
+                }
             }
         }
 

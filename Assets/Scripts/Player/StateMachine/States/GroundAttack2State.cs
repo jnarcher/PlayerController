@@ -7,7 +7,12 @@ namespace PlayerStateMachine
     {
         private float _cachedXSpeed;
 
-        public GroundAttack2State(Player player) : base(player) { }
+        private List<EnemyHealth> _hitEnemies;
+
+        public GroundAttack2State(Player player) : base(player)
+        {
+            _hitEnemies = new();
+        }
 
         public override void EnterState()
         {
@@ -37,6 +42,15 @@ namespace PlayerStateMachine
 
         public override void ExitState()
         {
+            ResetEnemyHitables();
+            Player.UseAttack();
+            Player.SetGravity(GameManager.Instance.PlayerStats.RisingGravity);
+        }
+
+        private void ResetEnemyHitables()
+        {
+            foreach (var enemy in _hitEnemies)
+                enemy.HasTakenDamage = false;
         }
 
         private void HandleStateChange()
@@ -45,8 +59,6 @@ namespace PlayerStateMachine
             {
                 Player.AttackAnimationComplete = false; // reset trigger
                 Player.SetState(PlayerStateType.Move);
-                Player.UseAttack();
-                Player.SetGravity(GameManager.Instance.PlayerStats.RisingGravity);
             }
         }
 
@@ -55,10 +67,14 @@ namespace PlayerStateMachine
             List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(TriggerInfo.GroundAttack1);
             foreach (var enemy in enemies)
             {
-                enemy.Damage(
-                    Stats.GroundAttackDamage,
-                    Stats.GroundAttack2KnockbackStrength * (Player.IsFacingRight ? 1 : -1) * Vector2.right
-                );
+                if (!enemy.HasTakenDamage)
+                {
+                    _hitEnemies.Add(enemy);
+                    enemy.Damage(
+                        Stats.GroundAttackDamage,
+                        Stats.GroundAttack2KnockbackStrength * (Player.IsFacingRight ? 1 : -1) * Vector2.right
+                    );
+                }
             }
         }
     }
