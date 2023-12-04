@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b876adb431a448ebb7ec7fed2b9d50e, type: 3}
-  m_Name: StaticEnemyStats
+  m_Name: StaticEnemyStatsALOTOFHEALTH
   m_EditorClassIdentifier: 
   Acceleration: 100
   Speed: 10
@@ -18,7 +18,7 @@ MonoBehaviour:
   ContactDamage: 1
   ContactKnockbackStrength: 40
   Damageable: 1
-  MaxHealth: 4
+  MaxHealth: 1000
   StunTime: 0.25
   AirLaunchedStateLength: 0.3
   AirLaunchCurveStrengthX: 50
