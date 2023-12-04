@@ -10,12 +10,25 @@ namespace PlayerStateMachine
     public class Player : MonoBehaviour
     {
         // Component References
+        [Header("Component References")]
         private Rigidbody2D _rb;
         private Animator _anim;
         private TriggerInfo _trigs;
         private PlayerStats Stats => GameManager.Instance.PlayerStats;
         public GameObject GrappleAimIndicator;
         private SpriteRenderer _sprite;
+
+        [Header("Effects")]
+        public GameObject RunEffect;
+        public GameObject LandingEffect;
+        public GameObject GroundJumpEffect;
+        public GameObject AirJumpEffect;
+        public GameObject WallJumpEffect;
+        public GameObject WallSlideEffect;
+        public GameObject SlideEffect;
+        public GameObject DashEffect;
+        public GameObject GrappleEffect;
+
 
         public Animator Animator => _anim;
         // Set by animations for attacks
@@ -25,7 +38,7 @@ namespace PlayerStateMachine
 
         // State Management
         public PlayerState State { get; private set; }
-        public PlayerStateType StateType;
+        public PlayerStateType StateType { get; private set; }
         private Dictionary<PlayerStateType, PlayerState> _stateDict;
 
         // Physics
@@ -42,8 +55,8 @@ namespace PlayerStateMachine
         public List<GameObject> ActiveGrapplePoints { get; private set; }
         public GameObject SelectedGrapplePoint { get; private set; }
         public bool AttackOffCooldown { get; private set; }
-        public Vector2 HitDirection;
-        public bool IsInIFrames;
+        [HideInInspector] public Vector2 HitDirection;
+        [HideInInspector] public bool IsInIFrames;
 
         private void Awake()
         {

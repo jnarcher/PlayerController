@@ -44,6 +44,20 @@ namespace PlayerStateMachine
             Player.SetGravity(0);
 
             _isSlide = TriggerInfo.OnGround;
+            GameObject effectObject;
+            if (TriggerInfo.OnGround)
+            {
+                if (Player.SlideEffect != null)
+                {
+                    effectObject = GameObject.Instantiate(Player.SlideEffect);
+                    effectObject.transform.parent = Player.gameObject.transform;
+                }
+            }
+            else if (Player.DashEffect != null)
+            {
+                effectObject = GameObject.Instantiate(Player.DashEffect);
+                effectObject.transform.parent = Player.gameObject.transform;
+            }
 
             if (_isSlide)
             {

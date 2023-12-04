@@ -34,7 +34,11 @@ namespace PlayerStateMachine
         private void HandleCollision()
         {
             if (TriggerInfo.LandedThisFrame)
+            {
                 Player.ResetAirJumps();
+                if (Player.LandingEffect != null)
+                    Object.Instantiate(Player.LandingEffect, Player.Position, Quaternion.identity);
+            }
             else if (TriggerInfo.LeftGroundThisFrame)
                 Player.ResetDash();
 
@@ -45,7 +49,14 @@ namespace PlayerStateMachine
             }
 
             if (TriggerInfo.OnWall)
+            {
                 _lastWallDirection = Player.IsFacingRight ? 1 : -1;
+                if (Player.Velocity.y < 0 && Player.WallSlideEffect != null)
+                {
+                    GameObject wallSlideEffectObject = GameObject.Instantiate(Player.WallJumpEffect);
+                    wallSlideEffectObject.transform.parent = Player.gameObject.transform;
+                }
+            }
 
             Player.SetFallSpeed(
                 Stats.WallSlideJumpToggle && TriggerInfo.OnWall
@@ -99,16 +110,23 @@ namespace PlayerStateMachine
         private void GroundJump()
         {
             Player.SetVelocity(Player.Velocity.x, Stats.JumpPower);
+
+            if (Player.GroundJumpEffect != null)
+                Object.Instantiate(Player.GroundJumpEffect, Player.Position, Quaternion.identity);
         }
 
         private void AirJump()
         {
+            if (Player.AirJumpEffect != null)
+                Object.Instantiate(Player.AirJumpEffect, Player.Position, Quaternion.identity);
             Player.SetVelocity(Player.Velocity.x, Stats.JumpPower);
             Player.DecrementAirJump();
         }
 
         private void WallJump()
         {
+            if (Player.WallJumpEffect != null)
+                Object.Instantiate(Player.WallJumpEffect, Player.Position, Quaternion.identity);
             Player.SetVelocity(-_lastWallDirection * Stats.WallJumpVelocity.x, Stats.WallJumpVelocity.y);
             Player.ResetAirJumps();
             Player.LerpMoveAcceleration(Stats.WallJumpInputFreezeTime);
