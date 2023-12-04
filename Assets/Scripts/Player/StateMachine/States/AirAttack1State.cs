@@ -7,7 +7,7 @@ namespace PlayerStateMachine
     {
         private bool _attackPressedAgain;
         private bool _enemyHit;
-        private float _cachedXSpeed;
+        private float _cachedXVelocity;
 
         public AirAttack1State(Player player) : base(player) { }
 
@@ -15,10 +15,14 @@ namespace PlayerStateMachine
         {
             _enemyHit = false;
             _attackPressedAgain = false;
-            _cachedXSpeed = Player.Velocity.x;
+            _cachedXVelocity = Player.Velocity.x;
             Player.Animator.SetTrigger("AirAttack1");
             Player.SetGravity(0f);
             Player.UseAttack();
+
+            // Allow quick turn attacks
+            if (InputInfo.Move.x != 0 && InputInfo.Move.x > 0 != Player.IsFacingRight)
+                Player.SetFacing(InputInfo.Move.x > 0);
         }
 
         public override void UpdateState()
@@ -30,7 +34,7 @@ namespace PlayerStateMachine
 
         public override void FixedUpdateState()
         {
-            Player.SetVelocity(0.5f * _cachedXSpeed, 0);
+            Player.SetVelocity(0.5f * _cachedXVelocity, 0);
         }
 
         public override void ExitState()

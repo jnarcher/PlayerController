@@ -16,7 +16,14 @@ namespace PlayerStateMachine
             // _attackTimer = 0;
             Player.Animator.SetTrigger("GroundAttack1");
             _attackPressedAgain = false;
-            _cachedXSpeed = Player.Velocity.x;
+            _cachedXSpeed = Mathf.Abs(Player.Velocity.x);
+
+            // Allows quick turn attacks
+            if (InputInfo.Move.x != 0 && InputInfo.Move.x > 0 != Player.IsFacingRight)
+            {
+                Player.SetFacing(InputInfo.Move.x > 0);
+                _cachedXSpeed = 0f;
+            }
         }
 
         public override void UpdateState()
@@ -30,8 +37,8 @@ namespace PlayerStateMachine
         public override void FixedUpdateState()
         {
             float xDirection = Player.IsFacingRight ? 1 : -1;
-            float newXVelocity = xDirection * Player.AnimatedVelocity * Stats.GroundAttack1MovementStrength;
-            Player.SetVelocity(newXVelocity + (0.5f * _cachedXSpeed), 0);
+            float newXSpeed = (0.5f * _cachedXSpeed) + Player.AnimatedVelocity * Stats.GroundAttack1MovementStrength;
+            Player.SetVelocity(xDirection * newXSpeed, 0);
         }
 
         private void HandleStateChange()
