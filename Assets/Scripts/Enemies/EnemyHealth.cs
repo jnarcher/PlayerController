@@ -1,4 +1,5 @@
 using UnityEngine;
+using Cinemachine;
 
 public class EnemyHealth : Health
 {
@@ -11,9 +12,11 @@ public class EnemyHealth : Health
 
     public bool HasTakenDamage { get; set; }
 
+    private CinemachineImpulseSource _impulseSource;
 
     private void Start()
     {
+        _impulseSource = GetComponent<CinemachineImpulseSource>();
         _controller = GetComponentInParent<IEnemyController>();
         _sprite = GetComponentInParent<SpriteRenderer>();
         _stats = _controller.GetStats();
@@ -24,6 +27,7 @@ public class EnemyHealth : Health
     {
         if (_stats.Damageable)
         {
+            CameraShakeManager.Instance.CameraShake(_impulseSource);
             _flashTimer = 0.1f;
             _currentHealth -= damage;
             HasTakenDamage = true;
