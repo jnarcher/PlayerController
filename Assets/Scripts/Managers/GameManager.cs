@@ -37,4 +37,56 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(HitFreezeDuration);
         Time.timeScale = cachedTimeScale;
     }
+
+    private float _lerpTimeScaleDuration;
+    private float _lerpTimeScaleStartTime;
+    private float _lerpTimeScaleTarget = 1;
+    private float _lerpTimeScaleStart = 1;
+    private float _time;
+    private bool _lerping;
+    private IEnumerator timeScaleLerpCoroutine;
+
+    private void Update()
+    {
+        _time += Time.fixedDeltaTime;
+    }
+
+    private void FixedUpdate()
+    {
+        HandleTimeScaleLerp();
+    }
+
+    private void HandleTimeScaleLerp()
+    {
+        if (!_lerping)
+            return;
+
+        if (_time > _lerpTimeScaleStartTime + _lerpTimeScaleDuration)
+        {
+            _lerping = false;
+            Time.timeScale = _lerpTimeScaleTarget;
+            return;
+        }
+
+        Time.timeScale = Mathf.Lerp(
+            _lerpTimeScaleStart,
+            _lerpTimeScaleTarget,
+            (_time - _lerpTimeScaleStartTime) / _lerpTimeScaleDuration
+        );
+    }
+
+    public void LerpTimeScale(float targetTimeScale, float transitionTime)
+    {
+        _lerpTimeScaleDuration = transitionTime;
+        _lerpTimeScaleTarget = targetTimeScale;
+        _lerpTimeScaleStart = Time.timeScale;
+        _lerpTimeScaleStartTime = _time;
+        _lerping = true;
+    }
+
+    public void ResetTimeScale()
+    {
+        Time.timeScale = 1;
+        _lerping = false;
+    }
 }

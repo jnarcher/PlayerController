@@ -96,7 +96,6 @@ namespace PlayerStateMachine
             ElapsedTime += Time.deltaTime;
             HandleDashCooldown();
             HandleAttackCooldown();
-            HandleLerpTimeScale();
             HandleAnimations();
             HandleInvincibility();
             State.UpdateState();
@@ -213,25 +212,6 @@ namespace PlayerStateMachine
         {
             _lerpMovementStartTime = ElapsedTime;
             _lerpMovementDuration = duration;
-        }
-
-        private float _lerpTimeScaleStartTime = float.MinValue;
-        private float _lerpTimeScaleDuration;
-        private float _lerpTimeScaleTarget = 1;
-        private float _lerpTimeScaleStart = 1;
-        public float CurrentTimeScaleLerpValue => (ElapsedTime - _lerpTimeScaleStartTime) / _lerpTimeScaleDuration;
-        public void LerpTimeScale(float targetTimeScale, float transitionSpeed)
-        {
-            _lerpTimeScaleStartTime = ElapsedTime;
-            _lerpTimeScaleDuration = transitionSpeed;
-            _lerpTimeScaleTarget = targetTimeScale;
-            _lerpTimeScaleStart = Time.timeScale;
-        }
-
-        private void HandleLerpTimeScale()
-        {
-            if (ElapsedTime < _lerpTimeScaleStartTime + _lerpTimeScaleDuration && Time.timeScale != _lerpTimeScaleTarget)
-                Time.timeScale = Mathf.Lerp(_lerpTimeScaleStart, _lerpTimeScaleTarget, CurrentTimeScaleLerpValue);
         }
 
         #endregion
