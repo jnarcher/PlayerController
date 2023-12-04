@@ -19,6 +19,7 @@ namespace PlayerStateMachine
         private SpriteRenderer _sprite;
 
         [Header("Effects")]
+        public GameObject HitEffect;
         public GameObject RunEffect;
         public GameObject LandingEffect;
         public GameObject GroundJumpEffect;

@@ -13,6 +13,9 @@ namespace PlayerStateMachine
             Player.Animator.SetTrigger("Hit");
             knockbackDirectionX = Player.HitDirection.x > 0f ? 1f : -1f;
             GameManager.Instance.HitFreeze();
+
+            if (Player.HitEffect != null)
+                GameObject.Instantiate(Player.HitEffect, Player.Position, Quaternion.identity);
         }
 
         public override void FixedUpdateState()

@@ -123,6 +123,71 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &148183234
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 501337314513589835, guid: 853c71bf7af62475cb434219ff3432a8, type: 3}
+      propertyPath: m_Name
+      value: WallSlideEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 809850222608418147, guid: 853c71bf7af62475cb434219ff3432a8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 809850222608418147, guid: 853c71bf7af62475cb434219ff3432a8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 809850222608418147, guid: 853c71bf7af62475cb434219ff3432a8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 809850222608418147, guid: 853c71bf7af62475cb434219ff3432a8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 809850222608418147, guid: 853c71bf7af62475cb434219ff3432a8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 809850222608418147, guid: 853c71bf7af62475cb434219ff3432a8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 809850222608418147, guid: 853c71bf7af62475cb434219ff3432a8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 809850222608418147, guid: 853c71bf7af62475cb434219ff3432a8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 809850222608418147, guid: 853c71bf7af62475cb434219ff3432a8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 809850222608418147, guid: 853c71bf7af62475cb434219ff3432a8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4296360045825833486, guid: 853c71bf7af62475cb434219ff3432a8, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4296360045825833486, guid: 853c71bf7af62475cb434219ff3432a8, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 40
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 853c71bf7af62475cb434219ff3432a8, type: 3}
 --- !u!1001 &157849629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6089,6 +6154,38 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8278712579897378213, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
+      propertyPath: HitEffect
+      value: 
+      objectReference: {fileID: 1299347968722792943, guid: 259d28ba199bc48809fcfbe0e3a4decf, type: 3}
+    - target: {fileID: 8278712579897378213, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
+      propertyPath: DashEffect
+      value: 
+      objectReference: {fileID: 1299347968722792943, guid: 259d28ba199bc48809fcfbe0e3a4decf, type: 3}
+    - target: {fileID: 8278712579897378213, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
+      propertyPath: SlideEffect
+      value: 
+      objectReference: {fileID: 1299347968722792943, guid: 259d28ba199bc48809fcfbe0e3a4decf, type: 3}
+    - target: {fileID: 8278712579897378213, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
+      propertyPath: AirJumpEffect
+      value: 
+      objectReference: {fileID: 1299347968722792943, guid: 259d28ba199bc48809fcfbe0e3a4decf, type: 3}
+    - target: {fileID: 8278712579897378213, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
+      propertyPath: LandingEffect
+      value: 
+      objectReference: {fileID: 1299347968722792943, guid: 259d28ba199bc48809fcfbe0e3a4decf, type: 3}
+    - target: {fileID: 8278712579897378213, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
+      propertyPath: WallJumpEffect
+      value: 
+      objectReference: {fileID: 1299347968722792943, guid: 259d28ba199bc48809fcfbe0e3a4decf, type: 3}
+    - target: {fileID: 8278712579897378213, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
+      propertyPath: WallSlideEffect
+      value: 
+      objectReference: {fileID: 501337314513589835, guid: 853c71bf7af62475cb434219ff3432a8, type: 3}
+    - target: {fileID: 8278712579897378213, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
+      propertyPath: GroundJumpEffect
+      value: 
+      objectReference: {fileID: 1299347968722792943, guid: 259d28ba199bc48809fcfbe0e3a4decf, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16939,3 +17036,4 @@ SceneRoots:
   - {fileID: 541855887}
   - {fileID: 1610158929}
   - {fileID: 1490722080}
+  - {fileID: 148183234}

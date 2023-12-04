@@ -18,7 +18,6 @@ namespace PlayerStateMachine
         public override void UpdateState()
         {
             if (InputInfo.JumpPressedThisFrame) _jumpPressedThisFrame = true;
-
             CheckStateTransitions();
         }
 
@@ -46,16 +45,16 @@ namespace PlayerStateMachine
             {
                 Player.ResetDash();
                 Player.ResetAttack();
+                if (Player.WallSlideEffect != null)
+                {
+                    GameObject wallSlideEffectObject = GameObject.Instantiate(Player.WallSlideEffect, Player.Position, Quaternion.identity);
+                    wallSlideEffectObject.transform.parent = Player.gameObject.transform;
+                }
             }
 
             if (TriggerInfo.OnWall)
             {
                 _lastWallDirection = Player.IsFacingRight ? 1 : -1;
-                if (Player.Velocity.y < 0 && Player.WallSlideEffect != null)
-                {
-                    GameObject wallSlideEffectObject = GameObject.Instantiate(Player.WallJumpEffect);
-                    wallSlideEffectObject.transform.parent = Player.gameObject.transform;
-                }
             }
 
             Player.SetFallSpeed(

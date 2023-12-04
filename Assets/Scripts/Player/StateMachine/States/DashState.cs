@@ -49,13 +49,13 @@ namespace PlayerStateMachine
             {
                 if (Player.SlideEffect != null)
                 {
-                    effectObject = GameObject.Instantiate(Player.SlideEffect);
+                    effectObject = GameObject.Instantiate(Player.SlideEffect, Player.Position, Quaternion.identity);
                     effectObject.transform.parent = Player.gameObject.transform;
                 }
             }
             else if (Player.DashEffect != null)
             {
-                effectObject = GameObject.Instantiate(Player.DashEffect);
+                effectObject = GameObject.Instantiate(Player.DashEffect, Player.Position, Quaternion.identity);
                 effectObject.transform.parent = Player.gameObject.transform;
             }
 
