@@ -18,6 +18,7 @@ namespace PlayerStateMachine
         public override void EnterState()
         {
             Player.Animator.SetTrigger("GroundAttack1");
+            InputInfo.UseAttack();
             _attackPressedAgain = false;
             _cachedXSpeed = Mathf.Abs(Player.Velocity.x);
 

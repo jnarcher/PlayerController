@@ -125,6 +125,10 @@ public class PlayerStats : ScriptableObject
     [Tooltip("The maximum number of health the player can have.")]
     public int MaxHealth = 5;
 
+    [Header("Combat")]
+    [Tooltip("The amount of time an attack input can be used after being pressed.")]
+    public float AttackInputBufferTime = 0.2f;
+
     [Header("Ground Attacks")]
     [Tooltip("The amount of damage a ground attack does.")]
     public int GroundAttackDamage = 1;

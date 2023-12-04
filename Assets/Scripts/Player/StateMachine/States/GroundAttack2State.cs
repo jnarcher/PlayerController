@@ -17,6 +17,7 @@ namespace PlayerStateMachine
         public override void EnterState()
         {
             _cachedXSpeed = Mathf.Abs(Player.Velocity.x);
+            InputInfo.UseAttack();
             Player.Animator.SetTrigger("GroundAttack2");
 
             // Allows quick turn attacks

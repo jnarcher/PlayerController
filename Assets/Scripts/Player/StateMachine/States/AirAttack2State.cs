@@ -22,6 +22,7 @@ namespace PlayerStateMachine
             Player.Animator.SetTrigger("AirAttack2");
             Player.SetGravity(0f);
             Player.UseAttack();
+            InputInfo.UseAttack();
 
             // Allow quick turn attacks
             if (InputInfo.Move.x != 0 && InputInfo.Move.x > 0 != Player.IsFacingRight)

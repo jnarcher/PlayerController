@@ -14,6 +14,7 @@ public class InputInfo : MonoBehaviour
     public bool DashPressedThisFrame { get; private set; }
     public bool GrapplePressedThisFrame { get; private set; }
     public bool AttackPressedThisFrame { get; private set; }
+    public bool AttackUsable { get; private set; }
 
     public float TimeJumpPressed { get; private set; }
     public float TimeDashPressed { get; private set; }
@@ -39,6 +40,9 @@ public class InputInfo : MonoBehaviour
         DashPressedThisFrame = false;
         GrapplePressedThisFrame = false;
         AttackPressedThisFrame = false;
+
+        if (_time > TimeAttackPressed + GameManager.Instance.PlayerStats.AttackInputBufferTime)
+            AttackUsable = false;
     }
 
     /// <summary>
@@ -122,6 +126,7 @@ public class InputInfo : MonoBehaviour
         if (context.performed)
         {
             AttackPressedThisFrame = true;
+            AttackUsable = true;
             TimeAttackPressed = _time;
             Attack = true;
         }
@@ -130,4 +135,6 @@ public class InputInfo : MonoBehaviour
             Attack = false;
         }
     }
+
+    public void UseAttack() => AttackUsable = false;
 }
