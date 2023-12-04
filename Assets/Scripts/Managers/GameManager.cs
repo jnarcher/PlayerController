@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject Player;
     public PlayerHealth PlayerHealth;
+
+    public float HitFreezeDuration;
 
     private void Awake()
     {
@@ -25,4 +28,13 @@ public class GameManager : MonoBehaviour
     public void KillPlayer() => PlayerHealth.Kill();
 
     #endregion
+
+    public void HitFreeze() => StartCoroutine(DoFreeze());
+    private IEnumerator DoFreeze()
+    {
+        float cachedTimeScale = Time.timeScale;
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(HitFreezeDuration);
+        Time.timeScale = cachedTimeScale;
+    }
 }

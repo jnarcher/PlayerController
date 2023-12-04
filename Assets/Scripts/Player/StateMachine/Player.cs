@@ -15,6 +15,7 @@ namespace PlayerStateMachine
         private TriggerInfo _trigs;
         private PlayerStats Stats => GameManager.Instance.PlayerStats;
         public GameObject GrappleAimIndicator;
+        private SpriteRenderer _sprite;
 
         public Animator Animator => _anim;
         // Set by animations for attacks
@@ -49,6 +50,7 @@ namespace PlayerStateMachine
             _rb = GetComponent<Rigidbody2D>();
             _anim = GetComponent<Animator>();
             _trigs = GetComponent<TriggerInfo>();
+            _sprite = GetComponent<SpriteRenderer>();
             _stateDict = new()
             {
                 [PlayerStateType.Hit] = new HitState(this),
@@ -214,7 +216,7 @@ namespace PlayerStateMachine
 
         private void HandleLerpTimeScale()
         {
-            if (Time.timeScale != _lerpTimeScaleTarget)
+            if (ElapsedTime < _lerpTimeScaleStartTime + _lerpTimeScaleDuration && Time.timeScale != _lerpTimeScaleTarget)
                 Time.timeScale = Mathf.Lerp(_lerpTimeScaleStart, _lerpTimeScaleTarget, CurrentTimeScaleLerpValue);
         }
 
@@ -270,12 +272,15 @@ namespace PlayerStateMachine
         private void HandleInvincibility()
         {
             if (ElapsedTime > _timeInvincibilityStop)
-                _trigs.PlayerHurtbox.enabled = true;
+                StopInvincibility();
 
             if (IsInIFrames)
             {
-                Debug.Log("Invincible");
+                _sprite.color = Color.grey;
+                // TODO: Implement logic for I frame animation (flashing character or something)
             }
+            else
+                _sprite.color = Color.white;
         }
     }
 }

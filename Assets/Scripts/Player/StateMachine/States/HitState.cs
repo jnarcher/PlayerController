@@ -12,6 +12,7 @@ namespace PlayerStateMachine
             Player.GiveInvincibility(Stats.HitInvincibilityTime);
             Player.Animator.SetTrigger("Hit");
             knockbackDirectionX = Player.HitDirection.x > 0f ? 1f : -1f;
+            GameManager.Instance.HitFreeze();
         }
 
         public override void FixedUpdateState()
@@ -24,10 +25,6 @@ namespace PlayerStateMachine
         public override void UpdateState()
         {
             CheckTransitionState();
-        }
-
-        public override void ExitState()
-        {
         }
 
         private void CheckTransitionState()

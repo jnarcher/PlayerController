@@ -35,6 +35,8 @@ public class EnemyHealth : Health
             _controller.DirectionHitFrom = direction;
             _controller.HitStrength = knockbackStrength;
 
+            GameManager.Instance.HitFreeze();
+
             _controller.Stun();
             if (_currentHealth <= 0) Kill();
         }

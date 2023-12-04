@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StaticEnemyStatsALOTOFHEALTH
   m_EditorClassIdentifier: 
   Acceleration: 100
-  Speed: 12
+  Speed: 10
   Gravity: 150
   ContactDamage: 1
   ContactKnockbackStrength: 30

@@ -5963,6 +5963,10 @@ PrefabInstance:
       propertyPath: PlayerHealth
       value: 
       objectReference: {fileID: 987417360}
+    - target: {fileID: 3792206703534239066, guid: 4e01e93a3a7b343ebaeaed1b9a158313, type: 3}
+      propertyPath: HitFreezeDuration
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

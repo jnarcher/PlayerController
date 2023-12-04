@@ -65,7 +65,7 @@ namespace PlayerStateMachine
 
         private void DealDamage()
         {
-            List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(TriggerInfo.GroundAttack1);
+            List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(TriggerInfo.GroundAttack2);
             foreach (var enemy in enemies)
             {
                 if (!enemy.HasTakenDamage)

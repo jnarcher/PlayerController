@@ -77,7 +77,7 @@ namespace PlayerStateMachine
             if (!_launched)
                 Player.LerpTimeScale(1, Stats.GrappleTimeSlowTransitionSpeed);
             else
-                Player.LerpTimeScale(1, 0);
+                Player.LerpTimeScale(1, 0.01f);
             Player.GrappleAimIndicator.SetActive(false);
         }
     }
