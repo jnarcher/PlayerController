@@ -582,9 +582,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GrappleAimIndicator: {fileID: 3051681179509865518}
+  HitEffect: {fileID: 0}
+  RunEffect: {fileID: 0}
+  LandingEffect: {fileID: 0}
+  GroundJumpEffect: {fileID: 0}
+  AirJumpEffect: {fileID: 0}
+  WallJumpEffect: {fileID: 0}
+  WallSlideEffect: {fileID: 501337314513589835, guid: 853c71bf7af62475cb434219ff3432a8, type: 3}
+  SlideEffect: {fileID: 0}
+  DashEffect: {fileID: 0}
+  GrappleEffect: {fileID: 0}
   AnimatedVelocity: {x: 0, y: 0}
   AnimationCompleteTrigger: 0
-  StateType: 0
   HitDirection: {x: 0, y: 0}
   IsInIFrames: 0
 --- !u!114 &3952703644199494746
@@ -989,7 +998,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0056096315, y: -0.100972}
+  m_Offset: {x: 0.0056096315, y: -0.12627196}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1000,7 +1009,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.36050963, y: 1.7853385}
+  m_Size: {x: 0.36050963, y: 1.5323389}
   m_EdgeRadius: 0
 --- !u!114 &620376702678100335
 MonoBehaviour:

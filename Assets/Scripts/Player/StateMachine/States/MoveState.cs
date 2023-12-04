@@ -13,6 +13,9 @@ namespace PlayerStateMachine
         private bool _jumpPressedThisFrame;
         private float _lastWallDirection; // -1 or 1
 
+        private GameObject _wallSlideEffect;
+        private ParticleSystem _wallSlideParticles;
+
         public MoveState(Player player) : base(player) { }
 
         public override void UpdateState()
@@ -28,6 +31,11 @@ namespace PlayerStateMachine
             HandleTurn();
             HandleJump();
             HandleGravity();
+        }
+
+        public override void ExitState()
+        {
+            _wallSlideParticles?.Stop();
         }
 
         private void HandleCollision()
@@ -47,15 +55,20 @@ namespace PlayerStateMachine
                 Player.ResetAttack();
                 if (Player.WallSlideEffect != null)
                 {
-                    GameObject wallSlideEffectObject = GameObject.Instantiate(Player.WallSlideEffect, Player.Position, Quaternion.identity);
-                    wallSlideEffectObject.transform.parent = Player.gameObject.transform;
+                    if (_wallSlideEffect == null)
+                    {
+                        _wallSlideEffect = GameObject.Instantiate(Player.WallSlideEffect, Player.Position, Quaternion.identity);
+                        _wallSlideEffect.transform.parent = Player.gameObject.transform;
+                        _wallSlideParticles = _wallSlideEffect.GetComponentInChildren<ParticleSystem>();
+                    }
+                    _wallSlideParticles?.Play();
                 }
             }
 
             if (TriggerInfo.OnWall)
-            {
                 _lastWallDirection = Player.IsFacingRight ? 1 : -1;
-            }
+            else
+                _wallSlideParticles?.Stop();
 
             Player.SetFallSpeed(
                 Stats.WallSlideJumpToggle && TriggerInfo.OnWall
