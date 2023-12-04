@@ -16,6 +16,7 @@ public class EnemyStats : ScriptableObject
     public bool Damageable = true;
     public int MaxHealth = 2;
     public float StunTime = 0.2f;
+    public float KnockbackWeight = 10f;
 
     [Header("Air Launched State")]
     public float AirLaunchedStateLength = 0.5f;

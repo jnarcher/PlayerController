@@ -72,7 +72,8 @@ namespace PlayerStateMachine
                     _hitEnemies.Add(enemy);
                     enemy.Damage(
                         Stats.AirAttackDamage,
-                        Stats.AirAttack2KnockbackStrength * (Player.IsFacingRight ? 1 : -1) * Vector2.right
+                        (Player.IsFacingRight ? 1 : -1) * Vector2.right,
+                        Stats.AirAttack2KnockbackStrength
                     );
                 }
             }

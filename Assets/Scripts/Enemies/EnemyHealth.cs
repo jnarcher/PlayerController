@@ -23,7 +23,7 @@ public class EnemyHealth : Health
         _currentHealth = _stats.MaxHealth;
     }
 
-    public override void Damage(int damage, Vector2 knockback)
+    public override void Damage(int damage, Vector2 direction, float knockbackStrength)
     {
         if (_stats.Damageable)
         {
@@ -31,7 +31,10 @@ public class EnemyHealth : Health
             _flashTimer = 0.1f;
             _currentHealth -= damage;
             HasTakenDamage = true;
-            _controller.Knockback(knockback);
+
+            _controller.DirectionHitFrom = direction;
+            _controller.HitStrength = knockbackStrength;
+
             _controller.Stun();
             if (_currentHealth <= 0) Kill();
         }

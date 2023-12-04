@@ -18,7 +18,7 @@ MonoBehaviour:
   AimDeadzone: 0.5
   MoveSpeed: 15
   MoveAcceleration: 200
-  MaxFallSpeed: 40
+  MaxFallSpeed: 30
   QuickFallSpeed: 70
   FallingGravity: 170
   RisingGravity: 100
@@ -54,12 +54,12 @@ MonoBehaviour:
   MaxHealth: 5
   GroundAttackDamage: 1
   GroundAttackCooldown: 0.1
-  GroundAttack1KnockbackStrength: 10
+  GroundAttack1KnockbackStrength: 1
   GroundAttack1MovementStrength: 0
-  GroundAttack2KnockbackStrength: 15
+  GroundAttack2KnockbackStrength: 1.5
   GroundAttack2MovementStrength: 20
   AirAttackDamage: 1
-  AirAttack1KnockbackStrength: 10
+  AirAttack1KnockbackStrength: 1
   AirAttack1MovementStrength: 15
-  AirAttack2KnockbackStrength: 20
+  AirAttack2KnockbackStrength: 1.5
   AirAttack2MovementStrength: 10

@@ -67,13 +67,14 @@ namespace PlayerStateMachine
                     Player.ResetAirJumps();
 
                     if (_attackPressedAgain)
+                    {
                         Player.SetState(PlayerStateType.AirAttack2);
+                        return;
+                    }
                 }
-                else
-                {
-                    Player.UseAttack();
-                    Player.SetState(PlayerStateType.Move);
-                }
+
+                Player.UseAttack();
+                Player.SetState(PlayerStateType.Move);
             }
         }
 
@@ -88,7 +89,8 @@ namespace PlayerStateMachine
                     _hitEnemies.Add(enemy);
                     enemy.Damage(
                         Stats.AirAttackDamage,
-                        Stats.AirAttack1KnockbackStrength * (Player.IsFacingRight ? 1 : -1) * Vector2.right
+                        (Player.IsFacingRight ? 1 : -1) * Vector2.right,
+                        Stats.AirAttack1KnockbackStrength
                     );
                 }
             }

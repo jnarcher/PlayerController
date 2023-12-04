@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: StaticEnemyStatsALOTOFHEALTH
   m_EditorClassIdentifier: 
   Acceleration: 100
-  Speed: 10
+  Speed: 12
   Gravity: 150
   ContactDamage: 1
-  ContactKnockbackStrength: 40
+  ContactKnockbackStrength: 30
   Damageable: 1
   MaxHealth: 1000
   StunTime: 0.25
+  KnockbackWeight: 25
   AirLaunchedStateLength: 0.3
   AirLaunchCurveStrengthX: 50
   AirLaunchVelocityX:

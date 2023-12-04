@@ -5,6 +5,7 @@ namespace StaticEnemy
     public class StunnedState : StaticEnemyState
     {
         private float _stateTimer;
+        private Vector2 _stunDirection;
 
         public StunnedState(StaticEnemyFSM enemyController, StaticEnemyStateType type) : base(enemyController, type) { }
 
@@ -12,6 +13,7 @@ namespace StaticEnemy
         {
             base.EnterState();
             _stateTimer = _controller.Stats.StunTime;
+            _stunDirection = _controller.DirectionHitFrom;
             _controller.SetGravity(0f);
             _controller.Animator.SetBool("Stunned", true);
         }
@@ -27,7 +29,9 @@ namespace StaticEnemy
         public override void FixedUpdateState()
         {
             base.FixedUpdateState();
-            _controller.SetVelocity(_controller.Velocity.x, 0f);
+            float xVal = GameManager.Instance.KnockbackCurves.Basic.Evaluate(1 - _stateTimer / _controller.Stats.StunTime);
+            float newXSpeed = _controller.HitStrength * _controller.Stats.KnockbackWeight * xVal;
+            _controller.SetVelocity(newXSpeed * _stunDirection.x, 0f);
         }
 
         public override void ExitState()

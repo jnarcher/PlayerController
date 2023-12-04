@@ -24,13 +24,13 @@ public class PlayerHealth : Health
         HealthText.text = _currentHealth.ToString();
     }
 
-    public override void Damage(int damage, Vector2 knockback)
+    public override void Damage(int damage, Vector2 direction, float knockbackStrength)
     {
         _currentHealth -= damage;
         if (_currentHealth <= 0) Kill();
         else
         {
-            Player.Knockback(knockback);
+            Player.Knockback(knockbackStrength * direction);
         }
     }
 

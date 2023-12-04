@@ -44,3 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80c600c4ab6745b88d13a296cdfc1d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerStats: {fileID: 11400000, guid: 5463be961ec114a9a82999b24f6abab9, type: 2}
+  KnockbackCurves: {fileID: 11400000, guid: 1b7dae23b09e446a899d3c2c98916f04, type: 2}
+  Player: {fileID: 0}
+  PlayerHealth: {fileID: 0}

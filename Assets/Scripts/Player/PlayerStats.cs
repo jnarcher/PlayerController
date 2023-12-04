@@ -17,9 +17,9 @@ public class PlayerStats : ScriptableObject
 
     #endregion
 
-    #region HORIZONTAL MOVEMENT
+    #region MOVEMENT
 
-    [Header("Horizontal Movement")]
+    [Header("Movement")]
     [Tooltip("Maximum horizontal move speed.")]
     public float MoveSpeed = 10f;
     [Tooltip("Rate at which the move speed changes.")]
