@@ -48,8 +48,14 @@ namespace PlayerStateMachine
             {
                 Player.AttackAnimationComplete = false;
 
-                if (_attackPressedAgain && _enemyHit)
-                    Player.SetState(PlayerStateType.AirAttack2);
+                if (_enemyHit)
+                {
+                    Player.ResetDash();
+                    Player.ResetAirJumps();
+
+                    if (_attackPressedAgain)
+                        Player.SetState(PlayerStateType.AirAttack2);
+                }
                 else
                 {
                     Player.SetGravity(Stats.RisingGravity);
