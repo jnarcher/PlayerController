@@ -6151,10 +6151,6 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8278712579897378213, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
-      propertyPath: LandingEffect
-      value: 
-      objectReference: {fileID: 1299347968722792943, guid: 259d28ba199bc48809fcfbe0e3a4decf, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
