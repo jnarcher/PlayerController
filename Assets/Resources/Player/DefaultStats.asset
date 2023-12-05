@@ -39,6 +39,7 @@ MonoBehaviour:
   WallJumpInputFreezeTime: 0.3
   DashToggle: 1
   AirDashToggle: 1
+  SlideAirLaunch: 1
   DashTime: 0.2
   DashDistance: 5
   GroundDashCooldown: 0.3
