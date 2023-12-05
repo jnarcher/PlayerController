@@ -168,9 +168,19 @@ namespace PlayerStateMachine
                 Player.SetState(PlayerStateType.Dash);
             else if (Stats.GrappleToggle && InputInfo.Grapple)
                 Player.SetState(PlayerStateType.GrappleAim);
-            else if (InputInfo.AttackUsable && Player.AttackOffCooldown && TriggerInfo.OnGround)
+            else if (InputInfo.AttackUsable && Player.AttackOffCooldown)
+                HandleAttackTransition();
+        }
+
+        private void HandleAttackTransition()
+        {
+            if (!TriggerInfo.OnGround && InputInfo.Move.y == -1)
+                Player.SetState(PlayerStateType.DownAttack);
+            else if (InputInfo.Move.y == 1)
+                Player.SetState(PlayerStateType.UpAttack);
+            else if (TriggerInfo.OnGround)
                 Player.SetState(PlayerStateType.GroundAttack1);
-            else if (InputInfo.AttackUsable && Player.AttackOffCooldown && !TriggerInfo.OnGround && !TriggerInfo.OnWall)
+            else if (!TriggerInfo.OnGround && !TriggerInfo.OnWall)
                 Player.SetState(PlayerStateType.AirAttack1);
         }
     }

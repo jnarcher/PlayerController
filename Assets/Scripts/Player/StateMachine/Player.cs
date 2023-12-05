@@ -77,6 +77,8 @@ namespace PlayerStateMachine
                 [PlayerStateType.GroundAttack2] = new GroundAttack2State(this),
                 [PlayerStateType.AirAttack1] = new AirAttack1State(this),
                 [PlayerStateType.AirAttack2] = new AirAttack2State(this),
+                [PlayerStateType.UpAttack] = new UpAttackState(this),
+                [PlayerStateType.DownAttack] = new DownAttackState(this),
             };
             ActiveGrapplePoints = new();
         }

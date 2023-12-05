@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SnapInput: 1
   HorizontalDeadzone: 0.25
-  VerticalDeadzone: 0.25
+  VerticalDeadzone: 0.75
   AimDeadzone: 0.5
   MoveSpeed: 12
   MoveAcceleration: 200
