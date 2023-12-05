@@ -16,4 +16,18 @@ public class UIManager : MonoBehaviour
         else
             Instance = this;
     }
+
+    private float _time;
+
+    private void Update()
+    {
+        _time += Time.deltaTime;
+    }
+
+    private float _timeDeathTransitionStart = float.MinValue;
+    public void SetDeathScreen()
+    {
+        _currentPanel = DeathPanel;
+        _currentPanel.SetActive(true);
+    }
 }
