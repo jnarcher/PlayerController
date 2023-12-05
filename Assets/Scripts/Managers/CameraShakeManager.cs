@@ -5,8 +5,6 @@ public class CameraShakeManager : MonoBehaviour
 {
     public static CameraShakeManager Instance;
 
-    [SerializeField] private float globalShakeForce = 1f;
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -15,8 +13,8 @@ public class CameraShakeManager : MonoBehaviour
             Instance = this;
     }
 
-    public void CameraShake(CinemachineImpulseSource impulseSource)
+    public void CameraShake(CinemachineImpulseSource impulseSource, float force)
     {
-        impulseSource.GenerateImpulseWithForce(globalShakeForce);
+        impulseSource.GenerateImpulseWithForce(force);
     }
 }

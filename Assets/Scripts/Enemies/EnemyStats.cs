@@ -18,6 +18,9 @@ public class EnemyStats : ScriptableObject
     public float StunTime = 0.2f;
     public float KnockbackWeight = 10f;
 
+    [Range(0f, 1f)]
+    public float HitCameraShakeIntensity = 0.08f;
+
     [Header("Air Launched State")]
     public float AirLaunchedStateLength = 0.5f;
     [Space]

@@ -27,7 +27,7 @@ public class EnemyHealth : Health
     {
         if (_stats.Damageable)
         {
-            CameraShakeManager.Instance.CameraShake(_impulseSource);
+            CameraShakeManager.Instance.CameraShake(_impulseSource, _stats.HitCameraShakeIntensity);
             _flashTimer = 0.1f;
             _currentHealth -= damage;
             HasTakenDamage = true;

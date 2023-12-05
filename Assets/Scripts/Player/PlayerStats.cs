@@ -126,7 +126,10 @@ public class PlayerStats : ScriptableObject
     public int MaxHealth = 5;
     [Tooltip("The amount of time after taking a hit where the player is invincible.")]
     public float HitInvincibilityTime = 1.5f;
+    [Tooltip("The strength of the knockback when the player takes damage.")]
     public float HitKnockbackStrength;
+    [Tooltip("The intensity of the camera shake when the player takes damage."), Range(0f, 1f)]
+    public float HitCameraShakeIntensity = 0.6f;
 
     [Header("Combat")]
     [Tooltip("The amount of time an attack input can be used after being pressed.")]

@@ -30,7 +30,7 @@ public class PlayerHealth : Health
     public override void Damage(int damage, Vector2 direction, float knockbackStrength)
     {
         _currentHealth -= damage;
-        CameraShakeManager.Instance.CameraShake(_impulseSource);
+        CameraShakeManager.Instance.CameraShake(_impulseSource, GameManager.Instance.PlayerStats.HitCameraShakeIntensity);
         if (_currentHealth <= 0)
             Kill();
         else
