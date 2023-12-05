@@ -29,9 +29,10 @@ namespace StaticEnemy
         public override void FixedUpdateState()
         {
             base.FixedUpdateState();
-            float xVal = GameManager.Instance.KnockbackCurves.Basic.Evaluate(1 - _stateTimer / _controller.Stats.StunTime);
-            float newXSpeed = _controller.HitStrength * _controller.Stats.KnockbackWeight * xVal;
-            _controller.SetVelocity(newXSpeed * _stunDirection.x, 0f);
+            float lerpVal = GameManager.Instance.KnockbackCurves.Basic.Evaluate(1 - _stateTimer / _controller.Stats.StunTime);
+            float newXSpeed = _controller.HitStrength * _controller.Stats.KnockbackWeight * lerpVal;
+            float newYSpeed = _controller.HitStrength * _controller.Stats.KnockbackWeight * lerpVal;
+            _controller.SetVelocity(newXSpeed * _stunDirection.x, newYSpeed * _stunDirection.y);
         }
 
         public override void ExitState()

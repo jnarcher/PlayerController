@@ -63,6 +63,9 @@ MonoBehaviour:
   GroundAttack1MovementStrength: 0
   GroundAttack2KnockbackStrength: 1.5
   GroundAttack2MovementStrength: 20
+  UpAttackKnockbackStrength: 1
+  DownAttackKnockbackStrength: 1
+  DownAttackPogoStrength: 35
   AirAttackDamage: 1
   AirAttack1KnockbackStrength: 1
   AirAttack1MovementStrength: 15

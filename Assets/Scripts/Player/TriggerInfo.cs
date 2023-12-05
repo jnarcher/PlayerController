@@ -22,6 +22,8 @@ public class TriggerInfo : MonoBehaviour
     public Collider2D AirAttack1;
     public Collider2D AirAttack2;
     public Collider2D SlideAttack;
+    public Collider2D UpAttack;
+    public Collider2D DownAttack;
     public Collider2D GrappleAttack;
 
     public bool OnGround { get; private set; }

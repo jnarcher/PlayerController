@@ -1,15 +1,79 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace PlayerStateMachine
 {
     public class DownAttackState : PlayerState
     {
-        public DownAttackState(Player player) : base(player) { }
+        private List<EnemyHealth> _hitEnemies;
+        private bool _hitEnemy;
+
+        public DownAttackState(Player player) : base(player)
+        {
+            _hitEnemies = new();
+        }
 
         public override void EnterState()
         {
-            Debug.Log("Down Attack");
-            Player.SetState(PlayerStateType.Move);
+            Player.Animator.SetTrigger("DownAttack");
+            _hitEnemy = false;
+            InputInfo.UseAttack();
+        }
+
+        public override void UpdateState()
+        {
+            DealDamage();
+            CheckStateTransitions();
+        }
+
+        public override void ExitState()
+        {
+            ResetEnemyHitables();
+            if (!_hitEnemy) Player.UseAttack();
+        }
+
+        private void ResetEnemyHitables()
+        {
+            foreach (var enemy in _hitEnemies)
+                enemy.HasTakenDamage = false;
+            _hitEnemies.Clear();
+        }
+
+        private void DealDamage()
+        {
+            List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(TriggerInfo.DownAttack);
+
+            if (enemies.Count > 0)
+                Pogo();
+
+            foreach (var enemy in enemies)
+            {
+                if (!enemy.HasTakenDamage)
+                {
+                    _hitEnemies.Add(enemy);
+                    enemy.Damage(
+                        Stats.AirAttackDamage,
+                        Vector2.down,
+                        Stats.DownAttackKnockbackStrength
+                    );
+                }
+            }
+        }
+
+        private void CheckStateTransitions()
+        {
+            if (Player.AnimationCompleteTrigger)
+            {
+                Player.AnimationCompleteTrigger = false;
+                Player.SetState(PlayerStateType.Move);
+            }
+        }
+
+        private void Pogo()
+        {
+            Player.SetVelocity(Player.Velocity.x, Stats.DownAttackPogoStrength);
+            Player.ResetDash();
+            Player.ResetAirJumps();
         }
     }
 }

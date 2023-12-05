@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7e2d265e86c8142bf89b7611e00ca5dc
+guid: ee0b560937db74a368f5ed1d6e939ec1
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -119,18 +119,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: player_test_attack
+  - name: player_test_up_down_attack_Frame_0
     originalName: 
-    pivot: {x: 3.5, y: -0.55172414}
+    pivot: {x: 0.45833334, y: -0.20000002}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 126
-      y: 72
-      width: 20
-      height: 58
-    spriteID: a6c9f099a650c4ba8b2977e66752c3ca
+      x: 75
+      y: 66
+      width: 24
+      height: 50
+    spriteID: 76e205176af784bb096f110f54e4c937
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -138,39 +138,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 126, y: 72}
-  - name: player_test_attack_Frame_1
+    uvTransform: {x: 75, y: 66}
+  - name: player_test_up_down_attack_Frame_1
     originalName: 
-    pivot: {x: 1.4642857, y: -0.58181816}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 140
-      y: 4
-      width: 56
-      height: 55
-    spriteID: cfc2ae9a515204e58a8f4c0ad76869c6
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 140, y: 4}
-  - name: player_test_attack_Frame_2
-    originalName: 
-    pivot: {x: 0.5087719, y: -0.4848485}
+    pivot: {x: 0.5090909, y: -0.08196722}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 72
-      width: 114
-      height: 66
-    spriteID: 032ca5a463b0d474ca4713309c61e84f
+      y: 126
+      width: 55
+      height: 122
+    spriteID: c8f8b14a2b0a045eb8399aff1e6a870c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -178,19 +158,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 72}
-  - name: player_test_attack_Frame_3
+    uvTransform: {x: 4, y: 126}
+  - name: player_test_up_down_attack_Frame_2
     originalName: 
-    pivot: {x: 1.159091, y: -0.5925926}
+    pivot: {x: 0.40000004, y: -1.3888888}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 204
+      x: 75
       y: 4
-      width: 44
+      width: 30
       height: 54
-    spriteID: 1ee894759f7b24231baacb0eec379ddb
+    spriteID: b0a2c17b201d1467dbdc6ce35fd43ef2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -198,19 +178,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 204, y: 4}
-  - name: player_test_attack_Frame_4
+    uvTransform: {x: 75, y: 4}
+  - name: player_test_up_down_attack_Frame_3
     originalName: 
-    pivot: {x: 0.24999999, y: -0.53333336}
+    pivot: {x: 0.52380955, y: -0.13157894}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 128
-      height: 60
-    spriteID: d97c7244a7abb4e89a7b602d7dbed973
+      width: 63
+      height: 114
+    spriteID: 0577180db32504da49493d31a3eba57d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -222,55 +202,47 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1313879065
-    name: player_test_attack
+    guid: -339427054
+    name: player_test_up_down_attack
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: player_test_attack_Frame_0
+    - name: player_test_up_down_attack_Frame_0
       frameIndex: 0
       cellRect:
-        x: 26
-        y: 32
-        width: 20
-        height: 58
-      spriteId: a6c9f099a650c4ba8b2977e66752c3ca
-    - name: player_test_attack_Frame_1
+        x: 53
+        y: 10
+        width: 24
+        height: 50
+      spriteId: 76e205176af784bb096f110f54e4c937
+    - name: player_test_up_down_attack_Frame_1
       frameIndex: 1
       cellRect:
-        x: 14
-        y: 32
-        width: 56
-        height: 55
-      spriteId: cfc2ae9a515204e58a8f4c0ad76869c6
-    - name: player_test_attack_Frame_2
+        x: 36
+        y: 10
+        width: 55
+        height: 122
+      spriteId: c8f8b14a2b0a045eb8399aff1e6a870c
+    - name: player_test_up_down_attack_Frame_2
       frameIndex: 2
       cellRect:
-        x: 38
-        y: 32
-        width: 114
-        height: 66
-      spriteId: 032ca5a463b0d474ca4713309c61e84f
-    - name: player_test_attack_Frame_3
+        x: 52
+        y: 75
+        width: 30
+        height: 54
+      spriteId: b0a2c17b201d1467dbdc6ce35fd43ef2
+    - name: player_test_up_down_attack_Frame_3
       frameIndex: 3
       cellRect:
-        x: 45
-        y: 32
-        width: 44
-        height: 54
-      spriteId: 1ee894759f7b24231baacb0eec379ddb
-    - name: player_test_attack_Frame_4
-      frameIndex: 4
-      cellRect:
-        x: 64
-        y: 32
-        width: 128
-        height: 60
-      spriteId: d97c7244a7abb4e89a7b602d7dbed973
+        x: 31
+        y: 15
+        width: 63
+        height: 114
+      spriteId: 0577180db32504da49493d31a3eba57d
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 192, y: 128}
+  canvasSize: {x: 128, y: 144}

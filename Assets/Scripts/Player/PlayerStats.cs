@@ -155,6 +155,13 @@ public class PlayerStats : ScriptableObject
     [Tooltip("The strength of the movement during the player's second ground attack")]
     public float GroundAttack2MovementStrength = 10f;
 
+    [Space]
+    [Tooltip("The amount of knockback enemies take from an upwards attack.")]
+    public float UpAttackKnockbackStrength = 15f;
+    [Tooltip("The amount of knockback enemies take from an downwards attack.")]
+    public float DownAttackKnockbackStrength = 1f;
+    public float DownAttackPogoStrength = 1f;
+
     [Header("Air Attacks")]
     [Tooltip("The amount of damage an air attack does.")]
     public int AirAttackDamage = 1;
