@@ -31,7 +31,7 @@ namespace StaticEnemy
 
         private void CheckForPlayer()
         {
-            bool targetIsTowardsRight = GameManager.Instance.Player.transform.position.x - _controller.Position.x > 0;
+            bool targetIsTowardsRight = GameManager.Instance.PlayerController.transform.position.x - _controller.Position.x > 0;
             if (_controller.TriggerInfo.CanSeePlayer)
                 if (!_controller.TriggerInfo.IsNearLedge || _controller.IsFacingRight != targetIsTowardsRight)
                     _controller.SetState(StaticEnemyStateType.Pursue);

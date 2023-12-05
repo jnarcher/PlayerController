@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
     public PlayerStats PlayerStats;
     public KnockbackCurves KnockbackCurves;
 
-    public GameObject Player;
+    public PlayerStateMachine.Player PlayerController;
+    public GameObject PlayerObject;
     public PlayerHealth PlayerHealth;
 
     [SerializeField] private float _hitFreezeDuration;
@@ -25,9 +26,12 @@ public class GameManager : MonoBehaviour
 
     #region Player Health
 
-    public void DamagePlayer(int damage, Vector2 direction, float knockbackStrength) => PlayerHealth.Damage(damage, direction, knockbackStrength);
-    public void DamageAndRespawn(int damage) => PlayerHealth.DamageAndRespawn(damage); // for hazards
     public void KillPlayer() => PlayerHealth.Kill();
+    public void RespawnPlayer()
+    {
+        UIManager.Instance.SetDeathScreen();
+        PlayerController.Respawn();
+    }
 
     #endregion
 

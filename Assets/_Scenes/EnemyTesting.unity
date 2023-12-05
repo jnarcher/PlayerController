@@ -6125,7 +6125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2c141ae7c804b338ddb55db5b47dbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DeathPanel: {fileID: 0}
+  DeathPanel: {fileID: 1796625392}
   PausePanel: {fileID: 0}
 --- !u!4 &972929430
 Transform:

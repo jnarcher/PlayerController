@@ -27,7 +27,7 @@ public class GrapplePointController : MonoBehaviour
 
     private void Start()
     {
-        GameObject player = GameManager.Instance.Player;
+        GameObject player = GameManager.Instance.PlayerObject;
         _playerTransform = player.transform;
         _playerController = player.GetComponent<Player>();
         _sprite = GetComponent<SpriteRenderer>();

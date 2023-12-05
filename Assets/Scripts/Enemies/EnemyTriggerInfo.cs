@@ -37,7 +37,7 @@ public class EnemyTriggerInfo : MonoBehaviour
         }
 
         // Check line of sight
-        Vector2 ray = GameManager.Instance.Player.transform.position - transform.position;
+        Vector2 ray = GameManager.Instance.PlayerController.transform.position - transform.position;
         RaycastHit2D rayData = Physics2D.Raycast(transform.position, ray.normalized, ray.magnitude, LineOfSightLayers);
 
         if ((bool)rayData)

@@ -24,7 +24,7 @@ namespace StaticEnemy
         {
             if (_controller.TriggerInfo.CanSeePlayer)
             {
-                targetPosition = GameManager.Instance.Player.transform.position;
+                targetPosition = GameManager.Instance.PlayerController.transform.position;
                 _controller.TargetPosition = targetPosition;
             }
         }
