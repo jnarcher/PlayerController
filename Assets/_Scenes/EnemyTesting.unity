@@ -6154,7 +6154,7 @@ PrefabInstance:
     - target: {fileID: 8278712579897378213, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
       propertyPath: DashEffect
       value: 
-      objectReference: {fileID: 7420247545697084777, guid: 1b26c7b2bc85446bfba69fba8b6bd558, type: 3}
+      objectReference: {fileID: 8025448690208556, guid: 934d5a9c1d2334412837c721fa1aa8c8, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
