@@ -11,7 +11,7 @@ namespace PlayerStateMachine
         public override void EnterState()
         {
             Player.GrappleAimIndicator.SetActive(true);
-            Player.LerpTimeScale(Stats.GrappleTimeSlow, Stats.GrappleTimeSlowTransitionSpeed);
+            GameManager.Instance.LerpTimeScale(Stats.GrappleTimeSlow, Stats.GrappleTimeSlowTransitionSpeed);
             _launched = false;
         }
 
@@ -73,11 +73,10 @@ namespace PlayerStateMachine
 
         public override void ExitState()
         {
-            // if the player didn't aim at a grapple point, lerp the time scale back
             if (!_launched)
-                Player.LerpTimeScale(1, Stats.GrappleTimeSlowTransitionSpeed);
+                GameManager.Instance.LerpTimeScale(1, Stats.GrappleTimeSlowTransitionSpeed);
             else
-                Player.LerpTimeScale(1, 0);
+                GameManager.Instance.ResetTimeScale();
             Player.GrappleAimIndicator.SetActive(false);
         }
     }

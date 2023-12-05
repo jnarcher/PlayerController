@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: StaticEnemyStats
   m_EditorClassIdentifier: 
   Acceleration: 100
-  Speed: 7
+  Speed: 10
   Gravity: 150
   ContactDamage: 1
   ContactKnockbackStrength: 40
-  MaxHealth: 1000
-  StunTime: 0.2
+  Damageable: 1
+  MaxHealth: 4
+  StunTime: 0.25
   AirLaunchedStateLength: 0.3
-  AirLaunchCurveStrengthX: 40
+  AirLaunchCurveStrengthX: 50
   AirLaunchVelocityX:
     serializedVersion: 2
     m_Curve:

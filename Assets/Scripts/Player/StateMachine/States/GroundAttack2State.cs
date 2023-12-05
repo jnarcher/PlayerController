@@ -5,54 +5,79 @@ namespace PlayerStateMachine
 {
     public class GroundAttack2State : PlayerState
     {
-        private float _attackTimer;
+        private float _cachedXSpeed;
 
-        public GroundAttack2State(Player player) : base(player) { }
+        private List<EnemyHealth> _hitEnemies;
+
+        public GroundAttack2State(Player player) : base(player)
+        {
+            _hitEnemies = new();
+        }
 
         public override void EnterState()
         {
-            _attackTimer = 0;
+            _cachedXSpeed = Mathf.Abs(Player.Velocity.x);
+            InputInfo.UseAttack();
             Player.Animator.SetTrigger("GroundAttack2");
-            Player.GroundAttack1Hitbox.enabled = true;
+
+            // Allows quick turn attacks
+            if (InputInfo.Move.x != 0 && InputInfo.Move.x > 0 != Player.IsFacingRight)
+            {
+                Player.SetFacing(InputInfo.Move.x > 0);
+                _cachedXSpeed = 0f;
+            }
         }
 
         public override void UpdateState()
         {
-            _attackTimer += Time.deltaTime;
             DealDamage();
             HandleStateChange();
         }
 
         public override void FixedUpdateState()
         {
-            float curveSample = Stats.GroundAttack1MovementCurve.Evaluate(1 - _attackTimer / Stats.GroundAttack1Length);
-            Player.SetVelocity((Player.IsFacingRight ? 1 : -1) * curveSample * Stats.GroundAttack1MovementStrength, 0);
+            float xDirection = Player.IsFacingRight ? 1 : -1;
+            float newXSpeed = (0.5f * _cachedXSpeed) + Player.AnimatedVelocity.x * Stats.GroundAttack2MovementStrength;
+            Player.SetVelocity(xDirection * newXSpeed, 0);
         }
 
         public override void ExitState()
         {
-            Player.GroundAttack1Hitbox.enabled = false;
+            ResetEnemyHitables();
+            Player.UseAttack();
+            Player.SetGravity(GameManager.Instance.PlayerStats.RisingGravity);
+        }
+
+        private void ResetEnemyHitables()
+        {
+            foreach (var enemy in _hitEnemies)
+                enemy.HasTakenDamage = false;
+            _hitEnemies.Clear();
         }
 
         private void HandleStateChange()
         {
-            if (_attackTimer > Stats.GroundAttack1Length)
+            if (Player.AnimationCompleteTrigger)
             {
+                Player.AnimationCompleteTrigger = false; // reset trigger
                 Player.SetState(PlayerStateType.Move);
-                Player.UseAttack();
-                Player.SetGravity(GameManager.Instance.PlayerStats.RisingGravity);
             }
         }
 
         private void DealDamage()
         {
-            List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(Player.GroundAttack1Hitbox);
+            List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(TriggerInfo.GroundAttack2);
             foreach (var enemy in enemies)
             {
-                enemy.Damage(
-                    Stats.GroundAttackDamage,
-                    Stats.GroundAttack2KnockbackStrength * (Player.IsFacingRight ? 1 : -1) * Vector2.right
-                );
+                if (!enemy.HasTakenDamage)
+                {
+                    _hitEnemies.Add(enemy);
+                    enemy.Damage(
+                        Stats.GroundAttackDamage,
+                        (Player.IsFacingRight ? 1 : -1) * Vector2.right,
+                        Stats.GroundAttack2KnockbackStrength
+                    );
+                }
             }
         }
     }

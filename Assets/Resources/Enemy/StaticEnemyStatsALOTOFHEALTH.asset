@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b876adb431a448ebb7ec7fed2b9d50e, type: 3}
+  m_Name: StaticEnemyStatsALOTOFHEALTH
+  m_EditorClassIdentifier: 
+  Acceleration: 100
+  Speed: 0
+  Gravity: 150
+  ContactDamage: 1
+  ContactKnockbackStrength: 30
+  Damageable: 1
+  MaxHealth: 1000
+  StunTime: 0.25
+  KnockbackWeight: 25
+  HitCameraShakeIntensity: 0.08
+  AirLaunchedStateLength: 0.5
+  AirLaunchCurveStrengthX: 45
+  AirLaunchVelocityX:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0005836487
+      value: 1
+      inSlope: -1.7981387
+      outSlope: -1.7981387
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.049652845
+    - serializedVersion: 3
+      time: 0.48815155
+      value: 0.29484883
+      inSlope: -1.1680747
+      outSlope: -1.1680747
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.04986135
+    - serializedVersion: 3
+      time: 0.9958496
+      value: -0.002357483
+      inSlope: -0.04047494
+      outSlope: -0.04047494
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.20590183
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  AirLaunchCurveStrengthY: 45
+  AirLaunchVelocityY:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -3.1094933
+      outSlope: -3.1094933
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.017605236
+    - serializedVersion: 3
+      time: 0.80041504
+      value: -0.00034201145
+      inSlope: 0.08329533
+      outSlope: 0.08329533
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.027017314
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

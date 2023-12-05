@@ -10,21 +10,38 @@ namespace PlayerStateMachine
     public class Player : MonoBehaviour
     {
         // Component References
+        [Header("Component References")]
         private Rigidbody2D _rb;
         private Animator _anim;
         private TriggerInfo _trigs;
         private PlayerStats Stats => GameManager.Instance.PlayerStats;
         public GameObject GrappleAimIndicator;
+        private SpriteRenderer _sprite;
 
-        public Collider2D GroundAttack1Hitbox;
-        public Collider2D SlideAttackHitbox;
-        public Collider2D Hurtbox;
+        [Header("Effects")]
+        public GameObject HitEffect;
+        public GameObject RunEffect;
+        public GameObject LandingEffect;
+        public GameObject GroundJumpEffect;
+        public GameObject AirJumpEffect;
+        public GameObject WallJumpEffect;
+
+        public ParticleSystem WallSlideParticles;
+
+        public GameObject SlideEffect;
+        public GameObject DashEffect;
+        public GameObject GrappleEffect;
+
 
         public Animator Animator => _anim;
+        // Set by animations for attacks
+        [HideInInspector] public Vector2 AnimatedVelocity;
+        // Set by animations to signal a state change
+        [HideInInspector] public bool AnimationCompleteTrigger;
 
         // State Management
         public PlayerState State { get; private set; }
-        public PlayerStateType StateType;
+        public PlayerStateType StateType { get; private set; }
         private Dictionary<PlayerStateType, PlayerState> _stateDict;
 
         // Physics
@@ -40,15 +57,20 @@ namespace PlayerStateMachine
         public bool DashAvailable { get; private set; }
         public List<GameObject> ActiveGrapplePoints { get; private set; }
         public GameObject SelectedGrapplePoint { get; private set; }
-        public bool CanAttack { get; private set; }
+        public bool AttackOffCooldown { get; private set; }
+        public bool LastWallRight { get; private set; }
+        [HideInInspector] public Vector2 HitDirection;
+        [HideInInspector] public bool IsInIFrames;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
             _anim = GetComponent<Animator>();
             _trigs = GetComponent<TriggerInfo>();
+            _sprite = GetComponent<SpriteRenderer>();
             _stateDict = new()
             {
+                [PlayerStateType.Hit] = new HitState(this),
                 [PlayerStateType.Move] = new MoveState(this),
                 [PlayerStateType.Dash] = new DashState(this),
                 [PlayerStateType.GrappleAim] = new GrappleAimState(this),
@@ -57,6 +79,8 @@ namespace PlayerStateMachine
                 [PlayerStateType.GroundAttack2] = new GroundAttack2State(this),
                 [PlayerStateType.AirAttack1] = new AirAttack1State(this),
                 [PlayerStateType.AirAttack2] = new AirAttack2State(this),
+                [PlayerStateType.UpAttack] = new UpAttackState(this),
+                [PlayerStateType.DownAttack] = new DownAttackState(this),
             };
             ActiveGrapplePoints = new();
         }
@@ -77,7 +101,6 @@ namespace PlayerStateMachine
             ElapsedTime += Time.deltaTime;
             HandleDashCooldown();
             HandleAttackCooldown();
-            HandleLerpTimeScale();
             HandleAnimations();
             HandleInvincibility();
             State.UpdateState();
@@ -97,6 +120,17 @@ namespace PlayerStateMachine
             State.ExitState();
             State = _stateDict[stateType];
             State.EnterState();
+        }
+
+        public void ResetPhysics()
+        {
+            SetVelocity(Vector2.zero);
+            SetGravity(Stats.FallingGravity);
+            ResetDash();
+            ResetAirJumps();
+            ResetAttack();
+            SelectedGrapplePoint = null;
+            HitDirection = Vector2.zero;
         }
 
         public void SetGravity(float gravity) => _gravity = gravity;
@@ -125,6 +159,8 @@ namespace PlayerStateMachine
             IsFacingRight = isFacingRight;
         }
 
+        public void SetLastWallDirection(bool lastWallRight) => LastWallRight = lastWallRight;
+
         public void DecrementAirJump() => AirJumpsRemaining--;
         public void ResetAirJumps() => AirJumpsRemaining = Stats.AirJumpCount;
 
@@ -147,16 +183,16 @@ namespace PlayerStateMachine
         public void UseAttack()
         {
             _timeAttacked = ElapsedTime;
-            CanAttack = false;
+            AttackOffCooldown = false;
         }
-        public void ResetAttack() => CanAttack = true;
+        public void ResetAttack() => AttackOffCooldown = true;
 
         private void HandleAttackCooldown()
         {
             if (_trigs.LandedThisFrame || _trigs.LeftGroundThisFrame)
-                CanAttack = true;
-            else if (!CanAttack && _trigs.OnGround && ElapsedTime >= _timeAttacked + Stats.GroundAttackCooldown)
-                CanAttack = true;
+                AttackOffCooldown = true;
+            else if (!AttackOffCooldown && _trigs.OnGround && ElapsedTime >= _timeAttacked + Stats.GroundAttackCooldown)
+                AttackOffCooldown = true;
         }
 
 
@@ -185,25 +221,6 @@ namespace PlayerStateMachine
             _lerpMovementDuration = duration;
         }
 
-        private float _lerpTimeScaleStartTime = float.MinValue;
-        private float _lerpTimeScaleDuration;
-        private float _lerpTimeScaleTarget = 1;
-        private float _lerpTimeScaleStart = 1;
-        public float CurrentTimeScaleLerpValue => (ElapsedTime - _lerpTimeScaleStartTime) / _lerpTimeScaleDuration;
-        public void LerpTimeScale(float targetTimeScale, float transitionSpeed)
-        {
-            _lerpTimeScaleStartTime = ElapsedTime;
-            _lerpTimeScaleDuration = transitionSpeed;
-            _lerpTimeScaleTarget = targetTimeScale;
-            _lerpTimeScaleStart = Time.timeScale;
-        }
-
-        private void HandleLerpTimeScale()
-        {
-            if (Time.timeScale != _lerpTimeScaleTarget)
-                Time.timeScale = Mathf.Lerp(_lerpTimeScaleStart, _lerpTimeScaleTarget, CurrentTimeScaleLerpValue);
-        }
-
         #endregion
 
         #region ANIMATION
@@ -221,6 +238,7 @@ namespace PlayerStateMachine
         public void Respawn()
         {
             GameObject checkpoint = CheckpointManager.Instance.GetRespawnCheckpoint();
+            ResetPhysics();
             transform.position = checkpoint.transform.GetChild(0).position;
         }
 
@@ -234,17 +252,36 @@ namespace PlayerStateMachine
         private float _timeInvincibilityStop;
         public void GiveInvincibility(float time)
         {
-            Hurtbox.enabled = false;
+            _trigs.PlayerHurtbox.enabled = false;
             _timeInvincibilityStart = ElapsedTime;
             _timeInvincibilityStop = _timeInvincibilityStart + time;
+            IsInIFrames = true;
         }
 
-        public void StopInvincibility() => Hurtbox.enabled = true;
+        public void Hit(Vector2 direction)
+        {
+            HitDirection = direction;
+            SetState(PlayerStateType.Hit);
+        }
+
+        public void StopInvincibility()
+        {
+            _trigs.PlayerHurtbox.enabled = true;
+            IsInIFrames = false;
+        }
 
         private void HandleInvincibility()
         {
             if (ElapsedTime > _timeInvincibilityStop)
-                Hurtbox.enabled = true;
+                StopInvincibility();
+
+            if (IsInIFrames)
+            {
+                _sprite.color = Color.grey;
+                // TODO: Implement logic for I frame animation (flashing character or something)
+            }
+            else
+                _sprite.color = Color.white;
         }
     }
 }

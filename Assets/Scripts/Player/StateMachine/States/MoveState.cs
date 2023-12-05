@@ -11,14 +11,12 @@ namespace PlayerStateMachine
         // The update function of the InputInfo might reset the JumpPressedThisFrame variable before the FixedUpdate
         // in this class is run
         private bool _jumpPressedThisFrame;
-        private float _lastWallDirection; // -1 or 1
 
         public MoveState(Player player) : base(player) { }
 
         public override void UpdateState()
         {
             if (InputInfo.JumpPressedThisFrame) _jumpPressedThisFrame = true;
-
             CheckStateTransitions();
         }
 
@@ -31,10 +29,19 @@ namespace PlayerStateMachine
             HandleGravity();
         }
 
+        public override void ExitState()
+        {
+            Player.WallSlideParticles?.Stop();
+        }
+
         private void HandleCollision()
         {
             if (TriggerInfo.LandedThisFrame)
+            {
                 Player.ResetAirJumps();
+                if (Player.LandingEffect != null)
+                    Object.Instantiate(Player.LandingEffect, Player.Position, Quaternion.identity);
+            }
             else if (TriggerInfo.LeftGroundThisFrame)
                 Player.ResetDash();
 
@@ -42,10 +49,14 @@ namespace PlayerStateMachine
             {
                 Player.ResetDash();
                 Player.ResetAttack();
+
+                Player.WallSlideParticles?.Play();
             }
 
             if (TriggerInfo.OnWall)
-                _lastWallDirection = Player.IsFacingRight ? 1 : -1;
+                Player.SetLastWallDirection(Player.IsFacingRight);
+            else
+                Player.WallSlideParticles?.Stop();
 
             Player.SetFallSpeed(
                 Stats.WallSlideJumpToggle && TriggerInfo.OnWall
@@ -58,9 +69,7 @@ namespace PlayerStateMachine
         {
             float acceleration = Stats.MoveAcceleration;
 
-            // ? This might not need to be a ternary, could just use lerp. Good for knockback
-            float x = TriggerInfo.OnGround ? 1 : Mathf.Lerp(0, 1, Player.CurrentMovementLerpValue);
-
+            float x = Mathf.Lerp(0, 1, Player.CurrentMovementLerpValue);
             float newXVelocity = Mathf.MoveTowards(
                 Player.Velocity.x,
                 InputInfo.Move.x * Stats.MoveSpeed,
@@ -101,17 +110,24 @@ namespace PlayerStateMachine
         private void GroundJump()
         {
             Player.SetVelocity(Player.Velocity.x, Stats.JumpPower);
+
+            if (Player.GroundJumpEffect != null)
+                Object.Instantiate(Player.GroundJumpEffect, Player.Position, Quaternion.identity);
         }
 
         private void AirJump()
         {
+            if (Player.AirJumpEffect != null)
+                Object.Instantiate(Player.AirJumpEffect, Player.Position, Quaternion.identity);
             Player.SetVelocity(Player.Velocity.x, Stats.JumpPower);
             Player.DecrementAirJump();
         }
 
         private void WallJump()
         {
-            Player.SetVelocity(-_lastWallDirection * Stats.WallJumpVelocity.x, Stats.WallJumpVelocity.y);
+            if (Player.WallJumpEffect != null)
+                Object.Instantiate(Player.WallJumpEffect, Player.Position, Quaternion.identity);
+            Player.SetVelocity(-(Player.LastWallRight ? 1 : -1) * Stats.WallJumpVelocity.x, Stats.WallJumpVelocity.y);
             Player.ResetAirJumps();
             Player.LerpMoveAcceleration(Stats.WallJumpInputFreezeTime);
         }
@@ -141,9 +157,19 @@ namespace PlayerStateMachine
                 Player.SetState(PlayerStateType.Dash);
             else if (Stats.GrappleToggle && InputInfo.Grapple)
                 Player.SetState(PlayerStateType.GrappleAim);
-            else if (InputInfo.AttackPressedThisFrame && Player.CanAttack && TriggerInfo.OnGround)
+            else if (InputInfo.AttackUsable && Player.AttackOffCooldown)
+                HandleAttackTransition();
+        }
+
+        private void HandleAttackTransition()
+        {
+            if (!TriggerInfo.OnGround && InputInfo.Move.y == -1)
+                Player.SetState(PlayerStateType.DownAttack);
+            else if (InputInfo.Move.y == 1)
+                Player.SetState(PlayerStateType.UpAttack);
+            else if (TriggerInfo.OnGround)
                 Player.SetState(PlayerStateType.GroundAttack1);
-            else if (InputInfo.AttackPressedThisFrame && Player.CanAttack && !TriggerInfo.OnGround && !TriggerInfo.OnWall)
+            else if (!TriggerInfo.OnGround && !TriggerInfo.OnWall)
                 Player.SetState(PlayerStateType.AirAttack1);
         }
     }

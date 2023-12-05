@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SnapInput: 1
   HorizontalDeadzone: 0.25
-  VerticalDeadzone: 0.25
+  VerticalDeadzone: 0.75
   AimDeadzone: 0.5
-  MoveSpeed: 15
+  MoveSpeed: 12
   MoveAcceleration: 200
-  MaxFallSpeed: 40
+  MaxFallSpeed: 30
   QuickFallSpeed: 70
   FallingGravity: 170
   RisingGravity: 100
@@ -39,73 +39,35 @@ MonoBehaviour:
   WallJumpInputFreezeTime: 0.3
   DashToggle: 1
   AirDashToggle: 1
-  DashTime: 0.15
+  SlideAirLaunch: 1
+  DashTime: 0.2
   DashDistance: 5
   GroundDashCooldown: 0.3
   GrappleToggle: 1
   GrappleSpeed: 40
   GrappleLaunchBoostMultiplier: 1.2
   GrappleRange: 10
-  GrappleTimeSlow: 0.132
-  GrappleTimeSlowTransitionSpeed: 0.1
+  GrappleTimeSlow: 0.13
+  GrappleTimeSlowTransitionSpeed: 0.5
   GrappleStopDistance: 0.5
   GrappleInputFreezeTime: 0.7
   GrappleAssistAngle: 60
   MaxHealth: 5
+  HitInvincibilityTime: 1
+  HitKnockbackStrength: 45
+  HitCameraShakeIntensity: 0.6
+  AttackInputBufferTime: 0.15
   GroundAttackDamage: 1
-  GroundAttackCooldown: 0.2
-  GroundAttack1KnockbackStrength: 10
-  GroundAttack1Length: 0.2
-  GroundAttack1MovementStrength: 10
-  GroundAttack1MovementCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0.16350646
-      outSlope: 0.16350646
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.072320685
-    - serializedVersion: 3
-      time: 0.9972534
-      value: -0.0047187805
-      inSlope: 0.13329333
-      outSlope: 0.13329333
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.07095735
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  GroundAttack2KnockbackStrength: 15
+  GroundAttackCooldown: 0.35
+  GroundAttack1KnockbackStrength: 1
+  GroundAttack1MovementStrength: 0
+  GroundAttack2KnockbackStrength: 1.5
+  GroundAttack2MovementStrength: 20
+  UpAttackKnockbackStrength: 1
+  DownAttackKnockbackStrength: 1
+  DownAttackPogoStrength: 35
   AirAttackDamage: 1
-  AirAttack1MovementStrength: 10
-  AirAttack1MovementCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  SlideAttackKnockback: {x: 40, y: 40}
+  AirAttack1KnockbackStrength: 1
+  AirAttack1MovementStrength: 15
+  AirAttack2KnockbackStrength: 1.5
+  AirAttack2MovementStrength: 10

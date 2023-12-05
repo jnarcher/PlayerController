@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,26 +6,34 @@ namespace PlayerStateMachine
 {
     public class AirAttack1State : PlayerState
     {
-        private float _attackTimer;
         private bool _attackPressedAgain;
         private bool _enemyHit;
+        private float _cachedXVelocity;
 
-        public AirAttack1State(Player player) : base(player) { }
+        private List<EnemyHealth> _hitEnemies;
+
+        public AirAttack1State(Player player) : base(player)
+        {
+            _hitEnemies = new();
+        }
 
         public override void EnterState()
         {
-            _attackTimer = 0;
             _enemyHit = false;
-            Player.Animator.SetTrigger("AirAttack1");
-            Player.GroundAttack1Hitbox.enabled = true;
-            Player.SetGravity(0f);
             _attackPressedAgain = false;
+            _cachedXVelocity = Player.Velocity.x;
+            Player.Animator.SetTrigger("AirAttack1");
+            Player.SetGravity(0f);
             Player.UseAttack();
+            InputInfo.UseAttack();
+
+            // Allow quick turn attacks
+            if (InputInfo.Move.x != 0 && InputInfo.Move.x > 0 != Player.IsFacingRight)
+                Player.SetFacing(InputInfo.Move.x > 0);
         }
 
         public override void UpdateState()
         {
-            _attackTimer += Time.deltaTime;
             DealDamage();
             CheckForComboInput();
             HandleStateChange();
@@ -32,42 +41,60 @@ namespace PlayerStateMachine
 
         public override void FixedUpdateState()
         {
-            float curveSample = Stats.AirAttack1MovementCurve.Evaluate(1 - _attackTimer / Stats.GroundAttack1Length); // TODO: change to air attack length
-            Player.SetVelocity((Player.IsFacingRight ? 1 : -1) * curveSample * Stats.AirAttack1MovementStrength, 0);
+            Player.SetVelocity(0.7f * _cachedXVelocity, 0);
         }
 
         public override void ExitState()
         {
-            Player.GroundAttack1Hitbox.enabled = false; // TODO: change to air attack
+            ResetEnemyHitables();
             Player.SetGravity(Stats.FallingGravity);
+        }
+
+        private void ResetEnemyHitables()
+        {
+            foreach (var enemy in _hitEnemies)
+                enemy.HasTakenDamage = false;
+            _hitEnemies.Clear();
         }
 
         private void HandleStateChange()
         {
-            if (_attackTimer > Stats.GroundAttack1Length)
+            if (Player.AnimationCompleteTrigger)
             {
-                if (_attackPressedAgain && _enemyHit)
-                    Player.SetState(PlayerStateType.AirAttack2);
-                else
+                Player.AnimationCompleteTrigger = false;
+
+                if (_enemyHit)
                 {
-                    Player.SetGravity(Stats.RisingGravity);
-                    Player.UseAttack();
-                    Player.SetState(PlayerStateType.Move);
+                    Player.ResetDash();
+                    Player.ResetAirJumps();
+
+                    if (_attackPressedAgain)
+                    {
+                        Player.SetState(PlayerStateType.AirAttack2);
+                        return;
+                    }
                 }
+
+                Player.UseAttack();
+                Player.SetState(PlayerStateType.Move);
             }
         }
 
         private void DealDamage()
         {
-            List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(Player.GroundAttack1Hitbox);
+            List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(TriggerInfo.AirAttack1);
             if (enemies.Count > 0) _enemyHit = true;
             foreach (var enemy in enemies)
             {
-                // TODO: use air attack knockback stats
-                enemy.Damage(
-                    Stats.GroundAttackDamage,
-                    Stats.GroundAttack1KnockbackStrength * (Player.IsFacingRight ? 1 : -1) * Vector2.right
-                );
+                if (!enemy.HasTakenDamage)
+                {
+                    _hitEnemies.Add(enemy);
+                    enemy.Damage(
+                        Stats.AirAttackDamage,
+                        (Player.IsFacingRight ? 1 : -1) * Vector2.right,
+                        Stats.AirAttack1KnockbackStrength
+                    );
+                }
             }
         }
 

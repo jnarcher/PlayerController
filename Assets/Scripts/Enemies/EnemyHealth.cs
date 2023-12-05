@@ -1,8 +1,8 @@
 using UnityEngine;
+using Cinemachine;
 
 public class EnemyHealth : Health
 {
-    public float InvincibilityTime = 0.2f;
     private IEnemyController _controller;
     private EnemyStats _stats;
 
@@ -10,31 +10,33 @@ public class EnemyHealth : Health
     private SpriteRenderer _sprite;
     private float _flashTimer;
 
-    private float _invincibilityTimer;
-    private bool _canTakeDamage;
+    public bool HasTakenDamage { get; set; }
 
-    private void Awake()
-    {
-        _sprite = GetComponentInParent<SpriteRenderer>();
-    }
+    private CinemachineImpulseSource _impulseSource;
 
     private void Start()
     {
+        _impulseSource = GetComponent<CinemachineImpulseSource>();
         _controller = GetComponentInParent<IEnemyController>();
+        _sprite = GetComponentInParent<SpriteRenderer>();
         _stats = _controller.GetStats();
         _currentHealth = _stats.MaxHealth;
-        _canTakeDamage = _stats.Damageable;
     }
 
-    public override void Damage(int damage, Vector2 knockback)
+    public override void Damage(int damage, Vector2 direction, float knockbackStrength)
     {
-        if (_stats.Damageable && _canTakeDamage)
+        if (_stats.Damageable)
         {
+            CameraShakeManager.Instance.CameraShake(_impulseSource, _stats.HitCameraShakeIntensity);
             _flashTimer = 0.1f;
-            _invincibilityTimer = InvincibilityTime;
             _currentHealth -= damage;
-            _canTakeDamage = false;
-            _controller.Knockback(knockback);
+            HasTakenDamage = true;
+
+            _controller.DirectionHitFrom = direction;
+            _controller.HitStrength = knockbackStrength;
+
+            GameManager.Instance.HitFreeze();
+
             _controller.Stun();
             if (_currentHealth <= 0) Kill();
         }
@@ -46,11 +48,7 @@ public class EnemyHealth : Health
 
     private void Update()
     {
-        _invincibilityTimer -= Time.deltaTime;
         _flashTimer -= Time.deltaTime;
-
-        if (_invincibilityTimer < 0)
-            _canTakeDamage = true;
 
         if (_flashTimer > 0)
             _sprite.color = Color.white;

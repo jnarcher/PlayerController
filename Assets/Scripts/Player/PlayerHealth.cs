@@ -1,6 +1,7 @@
 using PlayerStateMachine;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
 
 public class PlayerHealth : Health
 {
@@ -10,6 +11,7 @@ public class PlayerHealth : Health
 
     private Player Player;
 
+    private CinemachineImpulseSource _impulseSource;
 
     private PlayerStats Stats => GameManager.Instance.PlayerStats;
 
@@ -17,6 +19,7 @@ public class PlayerHealth : Health
     {
         _currentHealth = Stats.MaxHealth;
         Player = GetComponentInParent<Player>();
+        _impulseSource = GetComponentInParent<CinemachineImpulseSource>();
     }
 
     private void Update()
@@ -24,14 +27,14 @@ public class PlayerHealth : Health
         HealthText.text = _currentHealth.ToString();
     }
 
-    public override void Damage(int damage, Vector2 knockback)
+    public override void Damage(int damage, Vector2 direction, float knockbackStrength)
     {
         _currentHealth -= damage;
-        if (_currentHealth <= 0) Kill();
+        CameraShakeManager.Instance.CameraShake(_impulseSource, GameManager.Instance.PlayerStats.HitCameraShakeIntensity);
+        if (_currentHealth <= 0)
+            Kill();
         else
-        {
-            Player.Knockback(knockback);
-        }
+            Player.Hit(direction);
     }
 
     public void DamageAndRespawn(int damage)

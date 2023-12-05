@@ -16,6 +16,7 @@ namespace PlayerStateMachine
         private bool _hitWall;
 
         private bool _isSlide;
+        private GameObject _effectObject;
 
         public DashState(Player player) : base(player) { }
 
@@ -24,16 +25,16 @@ namespace PlayerStateMachine
             _cachedXSpeed = Mathf.Abs(Player.Velocity.x);
             _dashTimer = Stats.DashTime;
 
+
             // Dash goes in direction of input rather than player facing direction
-            if (InputInfo.Move.x == 0)
-                _dashDirection = Player.IsFacingRight ? 1 : -1;
-            else
-                _dashDirection = InputInfo.Move.x > 0 ? 1 : -1;
+            _dashDirection = (InputInfo.Move.x == 0)
+                ? (Player.IsFacingRight ? 1 : -1)
+                : (InputInfo.Move.x > 0 ? 1 : -1);
 
             _hitWall = false;
 
             // if on wall, dash away from the wall
-            if (TriggerInfo.OnWall)
+            if (TriggerInfo.OnWall && _dashDirection == (Player.LastWallRight ? 1 : -1))
             {
                 _dashDirection *= -1;
                 _cachedXSpeed = DashSpeed;
@@ -45,22 +46,32 @@ namespace PlayerStateMachine
             Player.SetGravity(0);
 
             _isSlide = TriggerInfo.OnGround;
+            if (TriggerInfo.OnGround)
+            {
+                if (Player.SlideEffect != null)
+                {
+                    _effectObject = GameObject.Instantiate(Player.SlideEffect, Player.Position, Quaternion.identity);
+                    _effectObject.transform.parent = Player.gameObject.transform;
+                }
+            }
+            else if (Player.DashEffect != null)
+            {
+                _effectObject = GameObject.Instantiate(Player.DashEffect, Player.Position, Quaternion.identity);
+                _effectObject.transform.parent = Player.gameObject.transform;
+            }
 
             if (_isSlide)
             {
                 Player.Animator.SetBool("Sliding", true);
-                Player.SlideAttackHitbox.enabled = true;
             }
             else
                 Player.Animator.SetBool("Dashing", true);
-
-            Player.GiveInvincibility(200f); // TODO: Think of better implementation
         }
 
         public override void UpdateState()
         {
             if (_isSlide)
-                DealDamage();
+                LaunchEnemies();
         }
 
         public override void FixedUpdateState()
@@ -83,17 +94,19 @@ namespace PlayerStateMachine
             else
                 Player.SetDashCooldown();
 
+            _effectObject?.GetComponentInChildren<ParticleSystem>().Stop();
+            _effectObject = null;
+
             Player.Animator.SetBool("Dashing", false);
             Player.Animator.SetBool("Sliding", false);
-
-            Player.SlideAttackHitbox.enabled = false;
-
-            Player.StopInvincibility();
         }
 
-        private void DealDamage()
+        private void LaunchEnemies()
         {
-            List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(Player.SlideAttackHitbox);
+            if (!Stats.SlideAirLaunch)
+                return;
+
+            List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(TriggerInfo.SlideAttack);
             foreach (var enemy in enemies)
             {
                 enemy.AirLaunch(Player.IsFacingRight);

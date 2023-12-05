@@ -5,22 +5,33 @@ namespace PlayerStateMachine
 {
     public class GroundAttack1State : PlayerState
     {
-        private float _attackTimer;
         private bool _attackPressedAgain;
+        private float _cachedXSpeed;
 
-        public GroundAttack1State(Player player) : base(player) { }
+        private List<EnemyHealth> _hitEnemies;
+
+        public GroundAttack1State(Player player) : base(player)
+        {
+            _hitEnemies = new();
+        }
 
         public override void EnterState()
         {
-            _attackTimer = 0;
             Player.Animator.SetTrigger("GroundAttack1");
-            Player.GroundAttack1Hitbox.enabled = true;
+            InputInfo.UseAttack();
             _attackPressedAgain = false;
+            _cachedXSpeed = Mathf.Abs(Player.Velocity.x);
+
+            // Allows quick turn attacks
+            if (InputInfo.Move.x != 0 && InputInfo.Move.x > 0 != Player.IsFacingRight)
+            {
+                Player.SetFacing(InputInfo.Move.x > 0);
+                _cachedXSpeed = 0f;
+            }
         }
 
         public override void UpdateState()
         {
-            _attackTimer += Time.deltaTime;
             DealDamage();
             CheckForComboInput();
             HandleStateChange();
@@ -28,61 +39,52 @@ namespace PlayerStateMachine
 
         public override void FixedUpdateState()
         {
-            float curveSample = Stats.GroundAttack1MovementCurve.Evaluate(1 - _attackTimer / Stats.GroundAttack1Length);
-            Player.SetVelocity((Player.IsFacingRight ? 1 : -1) * curveSample * Stats.GroundAttack1MovementStrength, 0);
+            float xDirection = Player.IsFacingRight ? 1 : -1;
+            float newXSpeed = (0.5f * _cachedXSpeed) + Player.AnimatedVelocity.x * Stats.GroundAttack1MovementStrength;
+            Player.SetVelocity(xDirection * newXSpeed, 0);
         }
 
         public override void ExitState()
         {
-            Player.GroundAttack1Hitbox.enabled = false;
+            ResetEnemyHitables();
+            Player.UseAttack();
+            Player.SetGravity(GameManager.Instance.PlayerStats.RisingGravity);
+        }
+
+        private void ResetEnemyHitables()
+        {
+            foreach (var enemy in _hitEnemies)
+                enemy.HasTakenDamage = false;
+            _hitEnemies.Clear();
         }
 
         private void HandleStateChange()
         {
-            if (_attackTimer > Stats.GroundAttack1Length)
+            if (Player.AnimationCompleteTrigger)
             {
-                if (_attackPressedAgain) // Start combo
-                {
-                    Player.SetState(PlayerStateType.GroundAttack2);
-                }
-                else // Combo ended
-                {
-                    Player.SetState(PlayerStateType.Move);
-                    Player.UseAttack();
-                    Player.SetGravity(GameManager.Instance.PlayerStats.RisingGravity);
-                }
+                Player.AnimationCompleteTrigger = false; // reset trigger
+
+                Player.SetState(_attackPressedAgain
+                    ? PlayerStateType.GroundAttack2
+                    : PlayerStateType.Move
+                );
             }
-        }
-
-        private List<EnemyHealth> GetEnemiesInHitbox()
-        {
-            List<Collider2D> hits = new();
-            ContactFilter2D filter = new()
-            {
-                useTriggers = true,
-            };
-            Physics2D.OverlapCollider(Player.GroundAttack1Hitbox, filter, hits);
-
-            List<EnemyHealth> enemies = new();
-            foreach (var hit in hits)
-            {
-                EnemyHealth enemyHealth = hit.GetComponent<EnemyHealth>();
-                if (enemyHealth != null)
-                    enemies.Add(enemyHealth);
-            }
-
-            return enemies;
         }
 
         private void DealDamage()
         {
-            List<EnemyHealth> enemies = GetEnemiesInHitbox();
+            List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(TriggerInfo.GroundAttack1);
             foreach (var enemy in enemies)
             {
-                enemy.Damage(
-                    Stats.GroundAttackDamage,
-                    Stats.GroundAttack1KnockbackStrength * (Player.IsFacingRight ? 1 : -1) * Vector2.right
-                );
+                if (!enemy.HasTakenDamage)
+                {
+                    _hitEnemies.Add(enemy);
+                    enemy.Damage(
+                        Stats.GroundAttackDamage,
+                        (Player.IsFacingRight ? 1 : -1) * Vector2.right,
+                        Stats.GroundAttack1KnockbackStrength
+                    );
+                }
             }
         }
 

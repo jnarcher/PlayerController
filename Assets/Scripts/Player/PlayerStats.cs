@@ -3,6 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player Stats")]
 public class PlayerStats : ScriptableObject
 {
+    #region INPUT
+
     [Header("Input")]
     [Tooltip("Forces movement input to integer values, movement won't scale with analouge input.")]
     public bool SnapInput = true;
@@ -13,7 +15,11 @@ public class PlayerStats : ScriptableObject
     [Tooltip("Sets the minimum input magnitude (in a direction) that registers as input for aiming."), Range(0f, 0.99f)]
     public float AimDeadzone = 0.5f;
 
-    [Header("Horizontal Movement")]
+    #endregion
+
+    #region MOVEMENT
+
+    [Header("Movement")]
     [Tooltip("Maximum horizontal move speed.")]
     public float MoveSpeed = 10f;
     [Tooltip("Rate at which the move speed changes.")]
@@ -28,6 +34,10 @@ public class PlayerStats : ScriptableObject
     public float RisingGravity = 300f;
     [Tooltip("A contsant force while on the ground. (Good for slopes)")]
     public float GroundingForce = 1.5f;
+
+    #endregion
+
+    #region JUMP
 
     [Header("Jump")]
     [Tooltip("Vertical velocity of a jump.")]
@@ -67,17 +77,27 @@ public class PlayerStats : ScriptableObject
     [Tooltip("The amount of time the players input is lerped after a wall jump.")]
     public float WallJumpInputFreezeTime = 0.2f;
 
+    #endregion
+
+    #region DASH
+
     [Header("Dash")]
     [Tooltip("Toggle whether the player can dash or not.")]
     public bool DashToggle = true;
     [Tooltip("Toggle whether the player can dash in the air or not.")]
     public bool AirDashToggle = true;
+    [Tooltip("Dashing on the ground into enemies will launch them into the air.")]
+    public bool SlideAirLaunch = true;
     [Tooltip("How quickly it takes a dash to reach the dash distance.")]
     public float DashTime = 1f;
     [Tooltip("The maximum distance a dash can take the player horizontally.")]
     public float DashDistance = 4f;
     [Tooltip("How long the player has to wait before dashing again after a dash has been performed while on the ground.")]
     public float GroundDashCooldown = 0.5f;
+
+    #endregion
+
+    #region GRAPPLE
 
     [Header("Grapple")]
     [Tooltip("Toogle whether the player can grapple.")]
@@ -99,35 +119,64 @@ public class PlayerStats : ScriptableObject
     [Tooltip("The range in which the grapple point can be within around the aim input for the grapple to execute successfully. (Aim assist)")]
     public float GrappleAssistAngle = 45f;
 
+    #endregion
+
+    #region COMBAT
+
     [Header("Health")]
     [Tooltip("The maximum number of health the player can have.")]
     public int MaxHealth = 5;
+    [Tooltip("The amount of time after taking a hit where the player is invincible.")]
+    public float HitInvincibilityTime = 1.5f;
+    [Tooltip("The strength of the knockback when the player takes damage.")]
+    public float HitKnockbackStrength;
+    [Tooltip("The intensity of the camera shake when the player takes damage."), Range(0f, 1f)]
+    public float HitCameraShakeIntensity = 0.6f;
+
+    [Header("Combat")]
+    [Tooltip("The amount of time an attack input can be used after being pressed.")]
+    public float AttackInputBufferTime = 0.2f;
 
     [Header("Ground Attacks")]
     [Tooltip("The amount of damage a ground attack does.")]
     public int GroundAttackDamage = 1;
     [Tooltip("The amount of time between ground attacks.")]
     public float GroundAttackCooldown = 0.2f;
+
+    [Space] // Ground Attack 1
     [Tooltip("The amount of knockback enemies take from being hit by the first ground attacks.")]
     public float GroundAttack1KnockbackStrength = 15f;
-    [Tooltip("How long in seconds is the first ground attack")]
-    public float GroundAttack1Length = 0.2f;
     [Tooltip("The strength of the movement during the player's first ground attack")]
     public float GroundAttack1MovementStrength = 10f;
-    [Tooltip("The movement of the player during the player's first ground attack")]
-    public AnimationCurve GroundAttack1MovementCurve;
+
+    [Space] // Ground Attack 2
     [Tooltip("The amount of knockback enemies take from being hit by the second ground attack combo.")]
     public float GroundAttack2KnockbackStrength = 30f;
+    [Tooltip("The strength of the movement during the player's second ground attack")]
+    public float GroundAttack2MovementStrength = 10f;
+
+    [Space]
+    [Tooltip("The amount of knockback enemies take from an upwards attack.")]
+    public float UpAttackKnockbackStrength = 15f;
+    [Tooltip("The amount of knockback enemies take from an downwards attack.")]
+    public float DownAttackKnockbackStrength = 1f;
+    public float DownAttackPogoStrength = 1f;
 
     [Header("Air Attacks")]
     [Tooltip("The amount of damage an air attack does.")]
     public int AirAttackDamage = 1;
+
+    [Space] // Air Attack 1
+    [Tooltip("The amount of knockback enemies take from being hit by the first air attack combo.")]
+    public float AirAttack1KnockbackStrength = 30f;
     [Tooltip("The strength of the movement during the player's first ground attack")]
     public float AirAttack1MovementStrength = 10f;
-    [Tooltip("The movement of the player during the player's first ground attack")]
-    public AnimationCurve AirAttack1MovementCurve;
 
-    [Header("Slide Attack")]
-    [Tooltip("The knockback vector for hit enemies.")]
-    public Vector2 SlideAttackKnockback;
+    [Space] // Air Attack 2
+    [Tooltip("The amount of knockback enemies take from being hit by the second air attack combo.")]
+    public float AirAttack2KnockbackStrength = 30f;
+    [Tooltip("The strength of the movement during the player's first ground attack")]
+    public float AirAttack2MovementStrength = 10f;
+
+    #endregion
 }

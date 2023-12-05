@@ -4,41 +4,65 @@ using UnityEngine.InputSystem;
 
 public class InputInfo : MonoBehaviour
 {
-    public Vector2 Move { get; private set; }
-    public Vector2 Aim { get; private set; }
-    public bool Jump { get; private set; }
-    public bool Grapple { get; private set; }
-    public bool Attack { get; private set; }
+    public Vector2 Move => GameManager.Instance.PlayerCanMove ? _move : Vector2.zero;
+    private Vector2 _move;
+    public Vector2 Aim => GameManager.Instance.PlayerCanMove ? _aim : Vector2.zero;
+    private Vector2 _aim;
+    public bool Jump => GameManager.Instance.PlayerCanMove ? _jump : false;
+    private bool _jump;
+    public bool Grapple => GameManager.Instance.PlayerCanMove ? _grapple : false;
+    private bool _grapple;
+    public bool Attack => GameManager.Instance.PlayerCanMove ? _attack : false;
+    private bool _attack;
 
-    public bool JumpPressedThisFrame { get; private set; }
-    public bool DashPressedThisFrame { get; private set; }
-    public bool GrapplePressedThisFrame { get; private set; }
-    public bool AttackPressedThisFrame { get; private set; }
+    public bool AttackUsable => GameManager.Instance.PlayerCanMove ? _attackUsable : false;
+    public bool _attackUsable;
 
-    public float TimeJumpPressed { get; private set; }
-    public float TimeDashPressed { get; private set; }
-    public float TimeGrapplePressed { get; private set; }
-    public float TimeGrappleReleased { get; private set; }
-    public float TimeAttackPressed { get; private set; }
+    // ------------------------------------------------------
+
+    public bool JumpPressedThisFrame => GameManager.Instance.PlayerCanMove ? _jumpPressedThisFrame : false;
+    private bool _jumpPressedThisFrame;
+    public bool DashPressedThisFrame => GameManager.Instance.PlayerCanMove ? _dashPressedThisFrame : false;
+    private bool _dashPressedThisFrame;
+    public bool GrapplePressedThisFrame => GameManager.Instance.PlayerCanMove ? _grapplePressedThisFrame : false;
+    private bool _grapplePressedThisFrame;
+    public bool AttackPressedThisFrame => GameManager.Instance.PlayerCanMove ? _attackPressedThisFrame : false;
+    private bool _attackPressedThisFrame;
+
+    // ------------------------------------------------------
+
+    public float TimeJumpPressed => GameManager.Instance.PlayerCanMove ? _timeJumpPressed : float.MinValue;
+    private float _timeJumpPressed;
+    public float TimeDashPressed => GameManager.Instance.PlayerCanMove ? _timeDashPressed : float.MinValue;
+    private float _timeDashPressed;
+    public float TimeGrapplePressed => GameManager.Instance.PlayerCanMove ? _timeGrapplePressed : float.MinValue;
+    private float _timeGrapplePressed;
+    public float TimeGrappleReleased => GameManager.Instance.PlayerCanMove ? _timeGrappleReleased : float.MinValue;
+    private float _timeGrappleReleased;
+    public float TimeAttackPressed => GameManager.Instance.PlayerCanMove ? _timeAttackPressed : float.MinValue;
+    private float _timeAttackPressed;
 
     private PlayerStats GameSettings => GameManager.Instance.PlayerStats;
     private float _time;
 
     private void Start()
     {
-        TimeJumpPressed = float.MinValue;
-        TimeDashPressed = float.MinValue;
-        TimeGrapplePressed = float.MinValue;
+        _timeJumpPressed = float.MinValue;
+        _timeDashPressed = float.MinValue;
+        _timeGrapplePressed = float.MinValue;
     }
 
     private void Update()
     {
         _time += Time.deltaTime;
 
-        JumpPressedThisFrame = false;
-        DashPressedThisFrame = false;
-        GrapplePressedThisFrame = false;
-        AttackPressedThisFrame = false;
+        _jumpPressedThisFrame = false;
+        _dashPressedThisFrame = false;
+        _grapplePressedThisFrame = false;
+        _attackPressedThisFrame = false;
+
+        if (_time > TimeAttackPressed + GameManager.Instance.PlayerStats.AttackInputBufferTime)
+            _attackUsable = false;
     }
 
     /// <summary>
@@ -49,7 +73,7 @@ public class InputInfo : MonoBehaviour
     {
         Vector2 ipt = context.ReadValue<Vector2>();
 
-        Aim = ipt.magnitude > GameSettings.AimDeadzone ? ipt.normalized : Vector2.zero;
+        _aim = ipt.magnitude > GameSettings.AimDeadzone ? ipt.normalized : Vector2.zero;
 
         ipt.x = Mathf.Abs(ipt.x) >= GameSettings.HorizontalDeadzone ? ipt.x : 0;
         ipt.y = Mathf.Abs(ipt.y) >= GameSettings.VerticalDeadzone ? ipt.y : 0;
@@ -60,7 +84,7 @@ public class InputInfo : MonoBehaviour
             ipt.y = Math.Sign(ipt.y);
         }
 
-        Move = ipt;
+        _move = ipt;
     }
 
     /// <summary>
@@ -71,13 +95,13 @@ public class InputInfo : MonoBehaviour
     {
         if (context.performed)
         {
-            Jump = true;
-            JumpPressedThisFrame = true;
-            TimeJumpPressed = _time;
+            _jump = true;
+            _jumpPressedThisFrame = true;
+            _timeJumpPressed = _time;
         }
         else if (context.canceled)
         {
-            Jump = false;
+            _jump = false;
         }
     }
 
@@ -89,8 +113,8 @@ public class InputInfo : MonoBehaviour
     {
         if (context.performed)
         {
-            DashPressedThisFrame = true;
-            TimeDashPressed = _time;
+            _dashPressedThisFrame = true;
+            _timeDashPressed = _time;
         }
     }
 
@@ -102,14 +126,14 @@ public class InputInfo : MonoBehaviour
     {
         if (context.performed)
         {
-            Grapple = true;
-            GrapplePressedThisFrame = true;
-            TimeGrapplePressed = _time;
+            _grapple = true;
+            _grapplePressedThisFrame = true;
+            _timeGrapplePressed = _time;
         }
         else if (context.canceled)
         {
-            Grapple = false;
-            TimeGrappleReleased = _time;
+            _grapple = false;
+            _timeGrappleReleased = _time;
         }
     }
 
@@ -121,13 +145,14 @@ public class InputInfo : MonoBehaviour
     {
         if (context.performed)
         {
-            AttackPressedThisFrame = true;
-            TimeAttackPressed = _time;
-            Attack = true;
+            _attackPressedThisFrame = true;
+            _attackUsable = true;
+            _timeAttackPressed = _time;
+            _attack = true;
         }
         else if (context.canceled)
-        {
-            Attack = false;
-        }
+            _attack = false;
     }
+
+    public void UseAttack() => _attackUsable = false;
 }
