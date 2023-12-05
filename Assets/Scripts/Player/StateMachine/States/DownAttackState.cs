@@ -30,6 +30,7 @@ namespace PlayerStateMachine
         {
             ResetEnemyHitables();
             if (!_hitEnemy) Player.UseAttack();
+            else Player.ResetAttack();
         }
 
         private void ResetEnemyHitables()
@@ -43,8 +44,11 @@ namespace PlayerStateMachine
         {
             List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(TriggerInfo.DownAttack);
 
-            if (enemies.Count > 0)
+            if (!_hitEnemy && enemies.Count > 0)
+            {
                 Pogo();
+                _hitEnemy = true;
+            }
 
             foreach (var enemy in enemies)
             {
