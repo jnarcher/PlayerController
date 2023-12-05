@@ -25,7 +25,9 @@ namespace PlayerStateMachine
         public GameObject GroundJumpEffect;
         public GameObject AirJumpEffect;
         public GameObject WallJumpEffect;
-        public GameObject WallSlideEffect;
+
+        public ParticleSystem WallSlideParticles;
+
         public GameObject SlideEffect;
         public GameObject DashEffect;
         public GameObject GrappleEffect;
