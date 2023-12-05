@@ -582,14 +582,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GrappleAimIndicator: {fileID: 3051681179509865518}
-  HitEffect: {fileID: 0}
+  HitEffect: {fileID: 1129633805783450260, guid: df067904931a44913a0320d90435a304, type: 3}
   RunEffect: {fileID: 0}
   LandingEffect: {fileID: 0}
   GroundJumpEffect: {fileID: 0}
-  AirJumpEffect: {fileID: 0}
+  AirJumpEffect: {fileID: 1299347968722792943, guid: 259d28ba199bc48809fcfbe0e3a4decf, type: 3}
   WallJumpEffect: {fileID: 0}
   WallSlideEffect: {fileID: 501337314513589835, guid: 853c71bf7af62475cb434219ff3432a8, type: 3}
-  SlideEffect: {fileID: 0}
+  SlideEffect: {fileID: 7420247545697084777, guid: 1b26c7b2bc85446bfba69fba8b6bd558, type: 3}
   DashEffect: {fileID: 0}
   GrappleEffect: {fileID: 0}
   AnimatedVelocity: {x: 0, y: 0}
