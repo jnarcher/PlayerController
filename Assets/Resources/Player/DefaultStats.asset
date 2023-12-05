@@ -16,7 +16,7 @@ MonoBehaviour:
   HorizontalDeadzone: 0.25
   VerticalDeadzone: 0.25
   AimDeadzone: 0.5
-  MoveSpeed: 15
+  MoveSpeed: 12
   MoveAcceleration: 200
   MaxFallSpeed: 30
   QuickFallSpeed: 70
