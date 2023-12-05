@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
     public PlayerHealth PlayerHealth;
 
-    public float HitFreezeDuration;
+    [SerializeField] private float _hitFreezeDuration;
 
     private void Awake()
     {
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     {
         float cachedTimeScale = Time.timeScale;
         Time.timeScale = 0;
-        yield return new WaitForSecondsRealtime(HitFreezeDuration);
+        yield return new WaitForSecondsRealtime(_hitFreezeDuration);
         Time.timeScale = cachedTimeScale;
     }
 
