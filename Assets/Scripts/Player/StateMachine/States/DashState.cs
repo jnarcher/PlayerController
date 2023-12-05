@@ -16,6 +16,7 @@ namespace PlayerStateMachine
         private bool _hitWall;
 
         private bool _isSlide;
+        private GameObject _effectObject;
 
         public DashState(Player player) : base(player) { }
 
@@ -23,6 +24,7 @@ namespace PlayerStateMachine
         {
             _cachedXSpeed = Mathf.Abs(Player.Velocity.x);
             _dashTimer = Stats.DashTime;
+
 
             // Dash goes in direction of input rather than player facing direction
             _dashDirection = (InputInfo.Move.x == 0)
@@ -44,19 +46,18 @@ namespace PlayerStateMachine
             Player.SetGravity(0);
 
             _isSlide = TriggerInfo.OnGround;
-            GameObject effectObject;
             if (TriggerInfo.OnGround)
             {
                 if (Player.SlideEffect != null)
                 {
-                    effectObject = GameObject.Instantiate(Player.SlideEffect, Player.Position, Quaternion.identity);
-                    effectObject.transform.parent = Player.gameObject.transform;
+                    _effectObject = GameObject.Instantiate(Player.SlideEffect, Player.Position, Quaternion.identity);
+                    _effectObject.transform.parent = Player.gameObject.transform;
                 }
             }
             else if (Player.DashEffect != null)
             {
-                effectObject = GameObject.Instantiate(Player.DashEffect, Player.Position, Quaternion.identity);
-                effectObject.transform.parent = Player.gameObject.transform;
+                _effectObject = GameObject.Instantiate(Player.DashEffect, Player.Position, Quaternion.identity);
+                _effectObject.transform.parent = Player.gameObject.transform;
             }
 
             if (_isSlide)
@@ -92,6 +93,9 @@ namespace PlayerStateMachine
                 Player.ResetDash();
             else
                 Player.SetDashCooldown();
+
+            _effectObject?.GetComponentInChildren<ParticleSystem>().Stop();
+            _effectObject = null;
 
             Player.Animator.SetBool("Dashing", false);
             Player.Animator.SetBool("Sliding", false);
