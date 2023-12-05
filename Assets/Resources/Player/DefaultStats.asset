@@ -58,7 +58,7 @@ MonoBehaviour:
   HitCameraShakeIntensity: 0.6
   AttackInputBufferTime: 0.15
   GroundAttackDamage: 1
-  GroundAttackCooldown: 0.2
+  GroundAttackCooldown: 0.35
   GroundAttack1KnockbackStrength: 1
   GroundAttack1MovementStrength: 0
   GroundAttack2KnockbackStrength: 1.5
