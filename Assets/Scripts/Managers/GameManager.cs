@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private float _hitFreezeDuration;
 
+    public bool PlayerCanMove { get; private set; } = true;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -89,4 +91,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         _lerping = false;
     }
+
+    public void FreezePlayer() => PlayerCanMove = false;
+    public void UnFreezePlayer() => PlayerCanMove = true;
 }
