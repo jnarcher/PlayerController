@@ -6151,6 +6151,10 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8278712579897378213, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
+      propertyPath: DashEffect
+      value: 
+      objectReference: {fileID: 7420247545697084777, guid: 1b26c7b2bc85446bfba69fba8b6bd558, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6426,7 +6430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5426437554305082426, guid: 55efc53d4e8c1461f97a773bd7fb533b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.29
+      value: 14.87
       objectReference: {fileID: 0}
     - target: {fileID: 5426437554305082426, guid: 55efc53d4e8c1461f97a773bd7fb533b, type: 3}
       propertyPath: m_LocalPosition.y
