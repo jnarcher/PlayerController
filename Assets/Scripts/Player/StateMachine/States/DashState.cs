@@ -65,8 +65,6 @@ namespace PlayerStateMachine
             }
             else
                 Player.Animator.SetBool("Dashing", true);
-
-            Player.GiveInvincibility(200f); // TODO: Think of better implementation
         }
 
         public override void UpdateState()
