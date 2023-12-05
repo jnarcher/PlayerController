@@ -70,7 +70,7 @@ namespace PlayerStateMachine
         public override void UpdateState()
         {
             if (_isSlide)
-                DealDamage();
+                LaunchEnemies();
         }
 
         public override void FixedUpdateState()
@@ -95,12 +95,13 @@ namespace PlayerStateMachine
 
             Player.Animator.SetBool("Dashing", false);
             Player.Animator.SetBool("Sliding", false);
-
-            Player.StopInvincibility();
         }
 
-        private void DealDamage()
+        private void LaunchEnemies()
         {
+            if (!Stats.SlideAirLaunch)
+                return;
+
             List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(TriggerInfo.SlideAttack);
             foreach (var enemy in enemies)
             {
