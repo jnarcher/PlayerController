@@ -55,6 +55,7 @@ namespace PlayerStateMachine
         {
             foreach (var enemy in _hitEnemies)
                 enemy.HasTakenDamage = false;
+            _hitEnemies.Clear();
         }
 
         private void HandleStateChange()
