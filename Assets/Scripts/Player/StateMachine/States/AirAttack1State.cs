@@ -41,7 +41,7 @@ namespace PlayerStateMachine
 
         public override void FixedUpdateState()
         {
-            Player.SetVelocity(0.5f * _cachedXVelocity, 0);
+            Player.SetVelocity(0.7f * _cachedXVelocity, 0);
         }
 
         public override void ExitState()
