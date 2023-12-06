@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
@@ -26,8 +25,6 @@ public class UIManager : MonoBehaviour
     {
         _time += Time.deltaTime;
     }
-
-    private float _timeDeathTransitionStart = float.MinValue;
 
     public void CrossFadeOut()
     {
