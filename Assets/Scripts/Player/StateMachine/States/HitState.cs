@@ -32,9 +32,7 @@ namespace PlayerStateMachine
         private void CheckTransitionState()
         {
             if (Player.AnimationCompleteTrigger)
-            {
                 Player.SetState(PlayerStateType.Move);
-            }
         }
     }
 }

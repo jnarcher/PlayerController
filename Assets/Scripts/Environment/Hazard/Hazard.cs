@@ -9,7 +9,7 @@ public class Hazard : MonoBehaviour
         Health health = other.gameObject.GetComponent<PlayerHealth>();
         if (health != null)
         {
-            health.Damage(HazardDamage, Vector2.up, 20); // fix knockback direction
+            ((PlayerHealth)health).DamageAndRespawn(HazardDamage, Vector2.up); // fix knockback direction
             GameManager.Instance.RespawnPlayer();
         }
         else
