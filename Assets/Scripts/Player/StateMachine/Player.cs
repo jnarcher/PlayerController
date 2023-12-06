@@ -238,8 +238,10 @@ namespace PlayerStateMachine
         public void Respawn()
         {
             GameObject checkpoint = CheckpointManager.Instance.GetRespawnCheckpoint();
-            ResetPhysics();
             transform.position = checkpoint.transform.GetChild(0).position;
+            SetState(PlayerStateType.Move);
+            ResetPhysics();
+            GiveInvincibility(Stats.HitInvincibilityTime);
         }
 
         public void Knockback(Vector2 knockback)
