@@ -16581,6 +16581,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraShakeManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5655306698559939035, guid: fc6fb079d65ff46e1be36e8699146b3f, type: 3}
+      propertyPath: RumbleIntensity
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 5655306698559939035, guid: fc6fb079d65ff46e1be36e8699146b3f, type: 3}
+      propertyPath: ControllerRumbleDuration
+      value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 5655306698559939035, guid: fc6fb079d65ff46e1be36e8699146b3f, type: 3}
+      propertyPath: ControllerRumbleIntensity
+      value: 0.08
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
