@@ -5788,53 +5788,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d8ad9513aca543ca9d59acb2a72954d, type: 3}
---- !u!1 &972929428
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 972929430}
-  - component: {fileID: 972929429}
-  m_Layer: 0
-  m_Name: UIManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &972929429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 972929428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf2c141ae7c804b338ddb55db5b47dbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DeathPanel: {fileID: 0}
-  PausePanel: {fileID: 0}
-  CrossFadeAnimator: {fileID: 407855917}
---- !u!4 &972929430
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 972929428}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 45.815865, y: -0.68856657, z: -4.3254013}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &987417357
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16633,6 +16586,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc6fb079d65ff46e1be36e8699146b3f, type: 3}
+--- !u!1001 &4037743511594125523
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 954238199918361256, guid: a0a499497e12b4085bee7d802bd50178, type: 3}
+      propertyPath: m_Name
+      value: UIManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915945338392448961, guid: a0a499497e12b4085bee7d802bd50178, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 45.815865
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915945338392448961, guid: a0a499497e12b4085bee7d802bd50178, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.68856657
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915945338392448961, guid: a0a499497e12b4085bee7d802bd50178, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.3254013
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915945338392448961, guid: a0a499497e12b4085bee7d802bd50178, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915945338392448961, guid: a0a499497e12b4085bee7d802bd50178, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915945338392448961, guid: a0a499497e12b4085bee7d802bd50178, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915945338392448961, guid: a0a499497e12b4085bee7d802bd50178, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915945338392448961, guid: a0a499497e12b4085bee7d802bd50178, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915945338392448961, guid: a0a499497e12b4085bee7d802bd50178, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915945338392448961, guid: a0a499497e12b4085bee7d802bd50178, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6551650120224631389, guid: a0a499497e12b4085bee7d802bd50178, type: 3}
+      propertyPath: CrossFadeAnimator
+      value: 
+      objectReference: {fileID: 407855917}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a0a499497e12b4085bee7d802bd50178, type: 3}
 --- !u!1001 &6404813206608532764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16764,7 +16778,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 6404813206608532764}
-  - {fileID: 972929430}
+  - {fileID: 4037743511594125523}
   - {fileID: 971116145}
   - {fileID: 457137974542741279}
   - {fileID: 2000349840}
