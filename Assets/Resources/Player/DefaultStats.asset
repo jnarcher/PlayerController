@@ -54,7 +54,7 @@ MonoBehaviour:
   GrappleAssistAngle: 60
   MaxHealth: 5
   HitInvincibilityTime: 1
-  HitKnockbackStrength: 45
+  HitKnockbackStrength: 20
   HitCameraShakeIntensity: 0.6
   AttackInputBufferTime: 0.15
   GroundAttackDamage: 1
