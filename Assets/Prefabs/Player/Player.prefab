@@ -503,7 +503,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 640
+    m_Bits: 1664
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 375
@@ -548,9 +548,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0704b29f2dfe46dcbfa3c4ccf9e7107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GroundLayer:
+  GroundCheckLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 3200
+  WallCheckLayer:
+    serializedVersion: 2
+    m_Bits: 1024
   _groundCheck: {fileID: 1000584906714311614}
   _wallCheck: {fileID: 5803549863384928352}
   PlayerHurtbox: {fileID: 6155604243638324290}
@@ -574,6 +577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c91b84747d25433e8b61bea7cbac693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackUsable: 0
 --- !u!114 &8278712579897378213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -595,7 +599,7 @@ MonoBehaviour:
   WallJumpEffect: {fileID: 0}
   WallSlideParticles: {fileID: 3883266682021234363}
   SlideEffect: {fileID: 7420247545697084777, guid: 1b26c7b2bc85446bfba69fba8b6bd558, type: 3}
-  DashEffect: {fileID: 0}
+  DashEffect: {fileID: 8025448690208556, guid: 934d5a9c1d2334412837c721fa1aa8c8, type: 3}
   GrappleEffect: {fileID: 0}
   AnimatedVelocity: {x: 0, y: 0}
   AnimationCompleteTrigger: 0
@@ -905,7 +909,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0

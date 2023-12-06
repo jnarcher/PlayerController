@@ -8,7 +8,8 @@ using UnityEngine;
 public class TriggerInfo : MonoBehaviour
 {
 
-    [SerializeField] private LayerMask GroundLayer;
+    [SerializeField] private LayerMask GroundCheckLayer;
+    [SerializeField] private LayerMask WallCheckLayer;
 
     [Space]
     [SerializeField] private BoxCollider2D _groundCheck;
@@ -46,11 +47,12 @@ public class TriggerInfo : MonoBehaviour
         LandedThisFrame = false;
         HitWallThisFrame = false;
 
-        ContactFilter2D filter = new() { useLayerMask = true, layerMask = GroundLayer };
+        ContactFilter2D groundFilter = new() { useLayerMask = true, layerMask = GroundCheckLayer };
+        ContactFilter2D wallFilter = new() { useLayerMask = true, layerMask = WallCheckLayer };
         List<Collider2D> hits = new();
 
-        bool groundHit = _groundCheck.OverlapCollider(filter, hits) > 0;
-        bool wallHit = _wallCheck.OverlapCollider(filter, hits) > 0;
+        bool groundHit = _groundCheck.OverlapCollider(groundFilter, hits) > 0;
+        bool wallHit = _wallCheck.OverlapCollider(wallFilter, hits) > 0;
 
         // player just left ground
         if (!groundHit && OnGround)

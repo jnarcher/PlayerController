@@ -133,7 +133,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 1152
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 119
@@ -219,10 +219,10 @@ MonoBehaviour:
     m_Bits: 64
   LineOfSightLayers:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 1216
   GroundLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 1152
   SearchZone: {fileID: 7737784447726119576}
   LedgeCheck: {fileID: 4307050368723099385}
 --- !u!114 &7188046185906043233
@@ -281,7 +281,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1152
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -482,7 +482,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.0020118356}
+  m_Offset: {x: 0, y: -0.19333902}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -493,7 +493,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 15, y: 2.0610538}
+  m_Size: {x: 15, y: 1.6783993}
   m_EdgeRadius: 0
 --- !u!1001 &9115260998937488926
 PrefabInstance:
