@@ -26,11 +26,26 @@ public class GameManager : MonoBehaviour
 
     #region Player Health
 
-    public void KillPlayer() => PlayerHealth.Kill();
+    private bool _isRespawning = false;
     public void RespawnPlayer()
     {
-        UIManager.Instance.SetDeathScreen();
+        if (_isRespawning) return;
+
+        UIManager.Instance.CrossFadeOut();
+        FreezePlayer();
+        StartCoroutine(WaitToResetPlayer());
+    }
+
+    private IEnumerator WaitToResetPlayer()
+    {
+        _isRespawning = true;
+        yield return new WaitForSecondsRealtime(1f);
         PlayerController.Respawn();
+        yield return new WaitForSecondsRealtime(0.2f);
+        UIManager.Instance.CrossFadeIn();
+        yield return new WaitForSecondsRealtime(0.5f);
+        UnFreezePlayer();
+        _isRespawning = false;
     }
 
     #endregion

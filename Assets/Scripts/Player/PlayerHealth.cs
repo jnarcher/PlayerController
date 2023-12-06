@@ -24,7 +24,6 @@ public class PlayerHealth : Health
 
     private void Update()
     {
-        HealthText.text = _currentHealth.ToString();
     }
 
     public override void Damage(int damage, Vector2 direction, float knockbackStrength)
@@ -34,23 +33,30 @@ public class PlayerHealth : Health
         if (_currentHealth <= 0)
             Kill();
         else
+        {
+            GameManager.Instance.HitFreeze();
             Player.Hit(direction);
+        }
     }
 
-    public void DamageAndRespawn(int damage)
+    public void DamageAndRespawn(int damage, Vector2 direction)
     {
         _currentHealth -= damage;
+        CameraShakeManager.Instance.CameraShake(_impulseSource, GameManager.Instance.PlayerStats.HitCameraShakeIntensity);
         if (_currentHealth <= 0)
             Kill();
         else
-            Player.Respawn();
+        {
+            Player.Hit(direction);
+            GameManager.Instance.RespawnPlayer();
+        }
 
     }
 
     public override void Kill()
     {
         Debug.Log("Player has died.");
-        _currentHealth = Stats.MaxHealth; // ! only for debugging
+        _currentHealth = Stats.MaxHealth;
         GameManager.Instance.RespawnPlayer();
     }
 

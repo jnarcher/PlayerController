@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class UIManager : MonoBehaviour
     public GameObject PausePanel;
 
     private GameObject _currentPanel;
+
+    public Animator CrossFadeAnimator;
 
     private void Awake()
     {
@@ -25,9 +28,15 @@ public class UIManager : MonoBehaviour
     }
 
     private float _timeDeathTransitionStart = float.MinValue;
-    public void SetDeathScreen()
+
+    public void CrossFadeOut()
     {
-        _currentPanel = DeathPanel;
-        _currentPanel.SetActive(true);
+        CrossFadeAnimator.ResetTrigger("FadeIn");
+        CrossFadeAnimator.SetTrigger("FadeOut");
+    }
+    public void CrossFadeIn()
+    {
+        CrossFadeAnimator.ResetTrigger("FadeOut");
+        CrossFadeAnimator.SetTrigger("FadeIn");
     }
 }
