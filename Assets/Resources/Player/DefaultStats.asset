@@ -17,10 +17,10 @@ MonoBehaviour:
   VerticalDeadzone: 0.75
   AimDeadzone: 0.5
   MoveSpeed: 12
-  MoveAcceleration: 200
+  MoveAcceleration: 130
   MaxFallSpeed: 30
   QuickFallSpeed: 70
-  FallingGravity: 170
+  FallingGravity: 130
   RisingGravity: 100
   GroundingForce: 1.5
   JumpPower: 25
