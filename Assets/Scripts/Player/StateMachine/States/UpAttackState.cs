@@ -56,11 +56,8 @@ namespace PlayerStateMachine
 
         private void CheckStateTransitions()
         {
-            if (Player.AnimationCompleteTrigger)
-            {
-                Player.AnimationCompleteTrigger = false;
+            if (Player.TryUseAnimationCompleteTrigger())
                 Player.SetState(PlayerStateType.Move);
-            }
         }
     }
 }

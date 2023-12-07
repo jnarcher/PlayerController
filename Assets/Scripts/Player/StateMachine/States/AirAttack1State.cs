@@ -59,10 +59,8 @@ namespace PlayerStateMachine
 
         private void HandleStateChange()
         {
-            if (Player.AnimationCompleteTrigger)
+            if (Player.TryUseAnimationCompleteTrigger())
             {
-                Player.AnimationCompleteTrigger = false;
-
                 if (_enemyHit)
                 {
                     Player.ResetDash();

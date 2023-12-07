@@ -60,15 +60,11 @@ namespace PlayerStateMachine
 
         private void HandleStateChange()
         {
-            if (Player.AnimationCompleteTrigger)
-            {
-                Player.AnimationCompleteTrigger = false; // reset trigger
-
+            if (Player.TryUseAnimationCompleteTrigger())
                 Player.SetState(_attackPressedAgain
                     ? PlayerStateType.GroundAttack2
                     : PlayerStateType.Move
                 );
-            }
         }
 
         private void DealDamage()

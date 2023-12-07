@@ -57,11 +57,8 @@ namespace PlayerStateMachine
 
         private void HandleStateChange()
         {
-            if (Player.AnimationCompleteTrigger)
-            {
-                Player.AnimationCompleteTrigger = false; // reset trigger
+            if (Player.TryUseAnimationCompleteTrigger())
                 Player.SetState(PlayerStateType.Move);
-            }
         }
 
         private void DealDamage()

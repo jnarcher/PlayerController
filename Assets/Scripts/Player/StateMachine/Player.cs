@@ -37,7 +37,7 @@ namespace PlayerStateMachine
         // Set by animations for attacks
         [HideInInspector] public Vector2 AnimatedVelocity;
         // Set by animations to signal a state change
-        [HideInInspector] public bool AnimationCompleteTrigger;
+        public bool AnimationCompleteTrigger { get; private set; }
 
         // State Management
         public PlayerState State { get; private set; }
@@ -232,6 +232,17 @@ namespace PlayerStateMachine
             _anim.SetBool("InAir", !_trigs.OnGround);
             _anim.SetBool("OnWall", GameManager.Instance.Inventory.WallSlideAndJump && _trigs.OnWall);
             _anim.SetFloat("VerticalVelocity", Velocity.y);
+        }
+
+        public void SetAnimationCompleteTrigger() => AnimationCompleteTrigger = true;
+        public bool TryUseAnimationCompleteTrigger()
+        {
+            if (AnimationCompleteTrigger)
+            {
+                AnimationCompleteTrigger = false;
+                return true;
+            }
+            return false;
         }
 
         #endregion
