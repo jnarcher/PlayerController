@@ -1,6 +1,7 @@
 using UnityEngine;
 using Cinemachine;
 
+[RequireComponent(typeof(CinemachineImpulseSource))]
 public class EnemyHealth : Health
 {
     private IEnemyController _controller;
@@ -8,7 +9,6 @@ public class EnemyHealth : Health
 
     private int _currentHealth;
     private SpriteRenderer _sprite;
-    private float _flashTimer;
 
     public bool HasTakenDamage { get; set; }
 
@@ -28,15 +28,11 @@ public class EnemyHealth : Health
         if (_stats.Damageable)
         {
             CameraShakeManager.Instance.CameraShake(_impulseSource, _stats.HitCameraShakeIntensity);
-            _flashTimer = 0.1f;
             _currentHealth -= damage;
             HasTakenDamage = true;
-
             _controller.DirectionHitFrom = direction;
             _controller.HitStrength = knockbackStrength;
-
             GameManager.Instance.HitFreeze();
-
             _controller.Stun();
             if (_currentHealth <= 0) Kill();
         }
@@ -46,13 +42,5 @@ public class EnemyHealth : Health
 
     public void AirLaunch(bool toRight) => _controller.AirLaunch(toRight);
 
-    private void Update()
-    {
-        _flashTimer -= Time.deltaTime;
-
-        if (_flashTimer > 0)
-            _sprite.color = Color.white;
-        else
-            _sprite.color = Color.red;
-    }
+    private void Update() { }
 }
