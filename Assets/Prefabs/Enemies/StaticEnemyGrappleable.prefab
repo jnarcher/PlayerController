@@ -222,7 +222,7 @@ MonoBehaviour:
     m_Bits: 1216
   GroundLayer:
     serializedVersion: 2
-    m_Bits: 1152
+    m_Bits: 3200
   SearchZone: {fileID: 7737784447726119576}
   LedgeCheck: {fileID: 4307050368723099385}
 --- !u!114 &7188046185906043233
