@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4dacd45727e14913ba6f3ff813297cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _activeCheckpoints: []
+  CheckpointMode: 1

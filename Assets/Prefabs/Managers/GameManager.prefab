@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerStats: {fileID: 11400000, guid: 5463be961ec114a9a82999b24f6abab9, type: 2}
+  Inventory: {fileID: 11400000, guid: 7a427c596b0dd43f8b01e0c7ed8d06ae, type: 2}
   KnockbackCurves: {fileID: 11400000, guid: 1b7dae23b09e446a899d3c2c98916f04, type: 2}
   PlayerController: {fileID: 0}
   PlayerObject: {fileID: 0}
