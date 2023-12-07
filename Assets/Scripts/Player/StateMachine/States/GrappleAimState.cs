@@ -49,6 +49,8 @@ namespace PlayerStateMachine
             float grapplePointDist = float.MaxValue;
             foreach (var point in Player.ActiveGrapplePoints)
             {
+                if (point == null) continue; // TODO: This solves the issue where an enemy is destroyed however they don't clear the grapple point from the active grapple points list. Find a better solution?
+
                 // get angle of grapple point from player
                 Vector2 pointDirection = point.transform.position - Player.transform.position;
                 float grapplePointAngle = Mathf.Atan2(pointDirection.y, pointDirection.x);
