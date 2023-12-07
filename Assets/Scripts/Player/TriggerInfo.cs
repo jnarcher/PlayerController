@@ -81,7 +81,7 @@ public class TriggerInfo : MonoBehaviour
         {
             useTriggers = true,
         };
-        Physics2D.OverlapCollider(collider, filter, hits); // TODO: use air attack hitbox
+        Physics2D.OverlapCollider(collider, filter, hits);
 
         List<EnemyHealth> enemies = new();
         foreach (var hit in hits)
