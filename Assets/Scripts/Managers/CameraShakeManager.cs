@@ -22,6 +22,6 @@ public class CameraShakeManager : MonoBehaviour
     public void CameraShake(CinemachineImpulseSource impulseSource, float force)
     {
         impulseSource.GenerateImpulseWithForce(force);
-        ControllerRumbleManager.Instance.SetRumblePulse(1, 0.2f);
+        ControllerRumbleManager.Instance.SetRumblePulse(1, 0.1f);
     }
 }
