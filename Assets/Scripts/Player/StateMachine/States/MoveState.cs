@@ -36,7 +36,7 @@ namespace PlayerStateMachine
 
         private void HandleCollision()
         {
-            if (TriggerInfo.LandedThisFrame)
+            if (TriggerInfo.LandedThisFrame && Player.Velocity.y <= 0f)
             {
                 Player.ResetAirJumps();
                 if (Player.LandingEffect != null)
@@ -87,9 +87,9 @@ namespace PlayerStateMachine
 
         #region JUMPING
 
-        private bool HasBufferedJump => Player.ElapsedTime < InputInfo.TimeJumpPressed + Stats.JumpBuffer;
+        private bool HasBufferedJump => InputInfo.JumpToUse && Player.ElapsedTime < InputInfo.TimeJumpPressed + Stats.JumpBuffer;
         private bool WithinCoyoteBuffer => Player.ElapsedTime < TriggerInfo.TimeLeftGround + Stats.CoyoteTime;
-        private bool HasBufferedWallJump => Player.ElapsedTime < TriggerInfo.TimeLeftWall + Stats.WallJumpBuffer;
+        private bool HasBufferedWallJump => InputInfo.JumpToUse && Player.ElapsedTime < TriggerInfo.TimeLeftWall + Stats.WallJumpBuffer;
         private void HandleJump()
         {
             if (TriggerInfo.OnGround && HasBufferedJump)
@@ -109,10 +109,10 @@ namespace PlayerStateMachine
 
         private void GroundJump()
         {
-            Player.SetVelocity(Player.Velocity.x, Stats.JumpPower);
-
             if (Player.GroundJumpEffect != null)
                 Object.Instantiate(Player.GroundJumpEffect, Player.Position, Quaternion.identity);
+            Player.SetVelocity(Player.Velocity.x, Stats.JumpPower);
+            InputInfo.UseJump();
         }
 
         private void AirJump()
@@ -121,6 +121,7 @@ namespace PlayerStateMachine
                 Object.Instantiate(Player.AirJumpEffect, Player.Position, Quaternion.identity);
             Player.SetVelocity(Player.Velocity.x, Stats.JumpPower);
             Player.DecrementAirJump();
+            InputInfo.UseJump();
         }
 
         private void WallJump()
@@ -130,6 +131,7 @@ namespace PlayerStateMachine
             Player.SetVelocity(-(Player.LastWallRight ? 1 : -1) * Stats.WallJumpVelocity.x, Stats.WallJumpVelocity.y);
             Player.ResetAirJumps();
             Player.LerpMoveAcceleration(Stats.WallJumpInputFreezeTime);
+            InputInfo.UseJump();
         }
 
         #endregion
@@ -157,7 +159,7 @@ namespace PlayerStateMachine
                 Player.SetState(PlayerStateType.Dash);
             else if (Stats.GrappleToggle && InputInfo.Grapple)
                 Player.SetState(PlayerStateType.GrappleAim);
-            else if (InputInfo.AttackUsable && Player.AttackOffCooldown)
+            else if (InputInfo.AttackToUse && Player.AttackOffCooldown)
                 HandleAttackTransition();
         }
 
