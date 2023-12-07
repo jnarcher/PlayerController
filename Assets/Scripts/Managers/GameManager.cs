@@ -33,7 +33,8 @@ public class GameManager : MonoBehaviour
         if (_isRespawning) return;
 
         UIManager.Instance.CrossFadeOut();
-        FreezePlayer();
+        FreezePlayerInput();
+        PlayerController.GiveInvincibility(100f);
         StartCoroutine(WaitToResetPlayer());
     }
 
@@ -45,19 +46,27 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.2f);
         UIManager.Instance.CrossFadeIn();
         yield return new WaitForSecondsRealtime(0.5f);
-        UnFreezePlayer();
+        UnFreezePlayerInput();
+        PlayerController.StopInvincibility();
         _isRespawning = false;
     }
 
     #endregion
 
-    public void HitFreeze() => StartCoroutine(DoFreeze());
+    private bool _inHitFreeze;
+    public void HitFreeze()
+    {
+        if (!_inHitFreeze)
+            StartCoroutine(DoFreeze());
+    }
     private IEnumerator DoFreeze()
     {
+        _inHitFreeze = true;
         float cachedTimeScale = Time.timeScale;
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(_hitFreezeDuration);
         Time.timeScale = cachedTimeScale;
+        _inHitFreeze = false;
     }
 
     private float _lerpTimeScaleDuration;
@@ -112,6 +121,6 @@ public class GameManager : MonoBehaviour
         _lerping = false;
     }
 
-    public void FreezePlayer() => PlayerCanMove = false;
-    public void UnFreezePlayer() => PlayerCanMove = true;
+    public void FreezePlayerInput() => PlayerCanMove = false;
+    public void UnFreezePlayerInput() => PlayerCanMove = true;
 }

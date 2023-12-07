@@ -242,13 +242,19 @@ namespace PlayerStateMachine
             transform.position = checkpoint.transform.GetChild(0).position;
             SetState(PlayerStateType.Move);
             ResetPhysics();
-            GiveInvincibility(Stats.HitInvincibilityTime);
         }
 
         public void Knockback(Vector2 knockback)
         {
             LerpMoveAcceleration(0.2f);
             SetVelocity(knockback);
+        }
+
+        public void Hit(Vector2 direction)
+        {
+            if (StateType == PlayerStateType.Hit) return;
+            HitDirection = direction;
+            SetState(PlayerStateType.Hit);
         }
 
         private float _timeInvincibilityStart = float.MinValue;
@@ -261,12 +267,6 @@ namespace PlayerStateMachine
             IsInIFrames = true;
         }
 
-        public void Hit(Vector2 direction)
-        {
-            HitDirection = direction;
-            SetState(PlayerStateType.Hit);
-        }
-
         public void StopInvincibility()
         {
             _trigs.PlayerHurtbox.enabled = true;
@@ -275,7 +275,7 @@ namespace PlayerStateMachine
 
         private void HandleInvincibility()
         {
-            if (ElapsedTime > _timeInvincibilityStop)
+            if (IsInIFrames && ElapsedTime > _timeInvincibilityStop)
                 StopInvincibility();
 
             if (IsInIFrames)
