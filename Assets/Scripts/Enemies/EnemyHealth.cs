@@ -27,11 +27,11 @@ public class EnemyHealth : Health
         if (Stats.Damageable)
         {
             CameraShakeManager.Instance.CameraShake(_impulseSource, Stats.HitCameraShakeIntensity);
-            _currentHealth -= damage;
+            GameManager.Instance.HitFreeze();
             HasTakenDamage = true;
+            _currentHealth -= damage;
             _controller.DirectionHitFrom = direction;
             _controller.HitStrength = knockbackStrength;
-            GameManager.Instance.HitFreeze();
             _controller.Stun();
             if (_currentHealth <= 0) Kill();
         }
