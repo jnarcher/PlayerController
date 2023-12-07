@@ -60,12 +60,7 @@ namespace PlayerStateMachine
                 _effectObject.transform.parent = Player.gameObject.transform;
             }
 
-            if (_isSlide)
-            {
-                Player.Animator.SetBool("Sliding", true);
-            }
-            else
-                Player.Animator.SetBool("Dashing", true);
+            Player.Animator.SetBool(_isSlide ? "Sliding" : "Dashing", true);
         }
 
         public override void UpdateState()
