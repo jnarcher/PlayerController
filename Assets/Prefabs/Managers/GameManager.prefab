@@ -50,4 +50,4 @@ MonoBehaviour:
   PlayerController: {fileID: 0}
   PlayerObject: {fileID: 0}
   PlayerHealth: {fileID: 0}
-  _hitFreezeDuration: 0.12
+  _hitFreezeDuration: 0.08
