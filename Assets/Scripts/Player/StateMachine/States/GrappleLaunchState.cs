@@ -36,15 +36,21 @@ namespace PlayerStateMachine
 
         public override void ExitState()
         {
-            GrapplePointController gpController = Player.SelectedGrapplePoint?.GetComponent<GrapplePointController>();
             Player.ResetAirJumps();
             Player.ResetDash();
             Player.ResetAttack();
             Player.LerpMoveAcceleration(Stats.GrappleInputFreezeTime);
-            gpController.StartCooldown();
-            gpController.Grappleable?.UnFreeze();
             Player.GiveInvincibility(0.2f);
             Player.SetVelocity(Stats.GrappleLaunchBoostMultiplier * Stats.GrappleSpeed * _gpDirection);
+            ResetGrapple();
+        }
+
+        private void ResetGrapple()
+        {
+            GrapplePointController gpController = Player.SelectedGrapplePoint?.GetComponent<GrapplePointController>();
+            gpController.StartCooldown();
+            gpController.Grappleable?.UnFreeze();
+            Player.ResetSelectedGrapplePoint();
         }
     }
 }

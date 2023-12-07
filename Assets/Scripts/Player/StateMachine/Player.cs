@@ -129,7 +129,7 @@ namespace PlayerStateMachine
             ResetDash();
             ResetAirJumps();
             ResetAttack();
-            SelectedGrapplePoint = null;
+            ResetSelectedGrapplePoint();
             HitDirection = Vector2.zero;
         }
 
@@ -209,6 +209,7 @@ namespace PlayerStateMachine
         }
 
         public void SetSelectedGrapplePoint(GameObject go) => SelectedGrapplePoint = go;
+        public void ResetSelectedGrapplePoint() => SelectedGrapplePoint = null;
 
         #region LERPING
 
