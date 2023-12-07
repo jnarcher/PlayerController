@@ -12,7 +12,7 @@ namespace PlayerStateMachine
         // in this class is run
         private bool _jumpPressedThisFrame;
 
-        public MoveState(Player player) : base(player) { }
+        public MoveState(Player player, PlayerStateType stateType) : base(player, stateType) { }
 
         public override void UpdateState()
         {

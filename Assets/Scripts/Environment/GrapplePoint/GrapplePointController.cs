@@ -95,7 +95,7 @@ public class GrapplePointController : MonoBehaviour
     {
         _indicator.SetActive(
             _isOn &&
-            _playerController.StateType == PlayerStateType.GrappleAim &&
+            _playerController.State.Type == PlayerStateType.GrappleAim &&
             _playerController.SelectedGrapplePoint == gameObject
         );
     }

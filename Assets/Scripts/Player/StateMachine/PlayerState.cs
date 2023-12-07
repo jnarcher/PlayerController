@@ -3,13 +3,15 @@ namespace PlayerStateMachine
     public abstract class PlayerState
     {
         protected Player Player;
+        public PlayerStateType Type { get; protected set; }
         protected InputInfo InputInfo;
         protected TriggerInfo TriggerInfo;
         protected PlayerStats Stats => GameManager.Instance.PlayerStats;
 
-        public PlayerState(Player player)
+        public PlayerState(Player player, PlayerStateType stateType)
         {
             Player = player;
+            Type = stateType;
             InputInfo = player.GetComponent<InputInfo>();
             TriggerInfo = player.GetComponent<TriggerInfo>();
         }

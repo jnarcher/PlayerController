@@ -18,7 +18,7 @@ namespace PlayerStateMachine
         private bool _isSlide;
         private GameObject _effectObject;
 
-        public DashState(Player player) : base(player) { }
+        public DashState(Player player, PlayerStateType stateType) : base(player, stateType) { }
 
         public override void EnterState()
         {

@@ -4,7 +4,7 @@ namespace PlayerStateMachine
 {
     public class GrappleAimState : PlayerState
     {
-        public GrappleAimState(Player player) : base(player) { }
+        public GrappleAimState(Player player, PlayerStateType stateType) : base(player, stateType) { }
 
         private bool _launched;
 

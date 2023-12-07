@@ -5,7 +5,7 @@ namespace PlayerStateMachine
     public class HitState : PlayerState
     {
         private float knockbackDirectionX;
-        public HitState(Player player) : base(player) { }
+        public HitState(Player player, PlayerStateType stateType) : base(player, stateType) { }
 
         public override void EnterState()
         {
@@ -31,7 +31,7 @@ namespace PlayerStateMachine
 
         private void CheckTransitionState()
         {
-            if (Player.AnimationCompleteTrigger)
+            if (Player.TryUseAnimationCompleteTrigger())
                 Player.SetState(PlayerStateType.Move);
         }
     }

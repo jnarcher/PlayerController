@@ -10,7 +10,7 @@ namespace PlayerStateMachine
 
         private List<EnemyHealth> _hitEnemies;
 
-        public AirAttack2State(Player player) : base(player)
+        public AirAttack2State(Player player, PlayerStateType stateType) : base(player, stateType)
         {
             _hitEnemies = new();
         }

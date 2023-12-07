@@ -41,7 +41,6 @@ namespace PlayerStateMachine
 
         // State Management
         public PlayerState State { get; private set; }
-        public PlayerStateType StateType { get; private set; }
         private Dictionary<PlayerStateType, PlayerState> _stateDict;
 
         // Physics
@@ -70,17 +69,17 @@ namespace PlayerStateMachine
             _sprite = GetComponent<SpriteRenderer>();
             _stateDict = new()
             {
-                [PlayerStateType.Hit] = new HitState(this),
-                [PlayerStateType.Move] = new MoveState(this),
-                [PlayerStateType.Dash] = new DashState(this),
-                [PlayerStateType.GrappleAim] = new GrappleAimState(this),
-                [PlayerStateType.GrappleLaunch] = new GrappleLaunchState(this),
-                [PlayerStateType.GroundAttack1] = new GroundAttack1State(this),
-                [PlayerStateType.GroundAttack2] = new GroundAttack2State(this),
-                [PlayerStateType.AirAttack1] = new AirAttack1State(this),
-                [PlayerStateType.AirAttack2] = new AirAttack2State(this),
-                [PlayerStateType.UpAttack] = new UpAttackState(this),
-                [PlayerStateType.DownAttack] = new DownAttackState(this),
+                [PlayerStateType.Hit] = new HitState(this, PlayerStateType.Hit),
+                [PlayerStateType.Move] = new MoveState(this, PlayerStateType.Move),
+                [PlayerStateType.Dash] = new DashState(this, PlayerStateType.Dash),
+                [PlayerStateType.GrappleAim] = new GrappleAimState(this, PlayerStateType.GrappleAim),
+                [PlayerStateType.GrappleLaunch] = new GrappleLaunchState(this, PlayerStateType.GrappleLaunch),
+                [PlayerStateType.GroundAttack1] = new GroundAttack1State(this, PlayerStateType.GroundAttack1),
+                [PlayerStateType.GroundAttack2] = new GroundAttack2State(this, PlayerStateType.GroundAttack2),
+                [PlayerStateType.AirAttack1] = new AirAttack1State(this, PlayerStateType.AirAttack1),
+                [PlayerStateType.AirAttack2] = new AirAttack2State(this, PlayerStateType.AirAttack2),
+                [PlayerStateType.UpAttack] = new UpAttackState(this, PlayerStateType.UpAttack),
+                [PlayerStateType.DownAttack] = new DownAttackState(this, PlayerStateType.DownAttack),
             };
             ActiveGrapplePoints = new();
         }
@@ -116,7 +115,6 @@ namespace PlayerStateMachine
 
         public void SetState(PlayerStateType stateType)
         {
-            StateType = stateType;
             State.ExitState();
             State = _stateDict[stateType];
             State.EnterState();
@@ -263,7 +261,7 @@ namespace PlayerStateMachine
 
         public void Hit(Vector2 direction)
         {
-            if (StateType == PlayerStateType.Hit) return;
+            if (State.Type == PlayerStateType.Hit) return;
             HitDirection = direction;
             SetState(PlayerStateType.Hit);
         }

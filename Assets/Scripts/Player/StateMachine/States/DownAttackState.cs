@@ -8,7 +8,7 @@ namespace PlayerStateMachine
         private List<EnemyHealth> _hitEnemies;
         private bool _hitEnemy;
 
-        public DownAttackState(Player player) : base(player)
+        public DownAttackState(Player player, PlayerStateType stateType) : base(player, stateType)
         {
             _hitEnemies = new();
         }

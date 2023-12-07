@@ -4,7 +4,7 @@ namespace PlayerStateMachine
 {
     public class GrappleLaunchState : PlayerState
     {
-        public GrappleLaunchState(Player player) : base(player) { }
+        public GrappleLaunchState(Player player, PlayerStateType stateType) : base(player, stateType) { }
 
         private Vector2 _gpDirection;
 
