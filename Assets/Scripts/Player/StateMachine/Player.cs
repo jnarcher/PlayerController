@@ -162,7 +162,7 @@ namespace PlayerStateMachine
         public void SetLastWallDirection(bool lastWallRight) => LastWallRight = lastWallRight;
 
         public void DecrementAirJump() => AirJumpsRemaining--;
-        public void ResetAirJumps() => AirJumpsRemaining = Stats.AirJumpCount;
+        public void ResetAirJumps() => AirJumpsRemaining = GameManager.Instance.Inventory.AirJumps;
 
 
         private float _timeDashed;
@@ -230,7 +230,7 @@ namespace PlayerStateMachine
         {
             _anim.SetBool("IsRunning", Mathf.Abs(Velocity.x) > 0.01f);
             _anim.SetBool("InAir", !_trigs.OnGround);
-            _anim.SetBool("OnWall", _trigs.OnWall);
+            _anim.SetBool("OnWall", GameManager.Instance.Inventory.WallSlideAndJump && _trigs.OnWall);
             _anim.SetFloat("VerticalVelocity", Velocity.y);
         }
 

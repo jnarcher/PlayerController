@@ -104,7 +104,7 @@ namespace PlayerStateMachine
 
         private void LaunchEnemies()
         {
-            if (!Stats.SlideAirLaunch)
+            if (!GameManager.Instance.Inventory.AirLaunch)
                 return;
 
             List<EnemyHealth> enemies = TriggerInfo.GetEnemiesInHitbox(TriggerInfo.SlideAttack);

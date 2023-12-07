@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public PlayerStats PlayerStats;
+    public Inventory Inventory;
     public KnockbackCurves KnockbackCurves;
 
     public PlayerStateMachine.Player PlayerController;

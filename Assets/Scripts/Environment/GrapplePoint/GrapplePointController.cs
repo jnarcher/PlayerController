@@ -53,7 +53,7 @@ public class GrapplePointController : MonoBehaviour
     {
         bool newStatus = false;
 
-        if (_outOfCooldown && PlayerStats.GrappleToggle && Vector2.Distance(_playerTransform.position, transform.position) <= PlayerStats.GrappleRange)
+        if (_outOfCooldown && GameManager.Instance.Inventory.Grapple && Vector2.Distance(_playerTransform.position, transform.position) <= PlayerStats.GrappleRange)
         {
             Vector2 dir = (_playerTransform.position - transform.position).normalized;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, PlayerStats.GrappleRange, LineOfSightLayers);

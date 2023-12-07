@@ -44,8 +44,6 @@ public class PlayerStats : ScriptableObject
     public float JumpPower = 20f;
     [Tooltip("Vertical velocity of a mid-air jump.")]
     public float AirJumpPower = 10f;
-    [Tooltip("The amount of jumps the player can use in the air.")]
-    public int AirJumpCount = 1;
     [Tooltip("An extra downforce when the player releases the jump button.")]
     public float EarlyJumpReleaseModifier = 2f;
 
@@ -66,8 +64,6 @@ public class PlayerStats : ScriptableObject
     public float CoyoteTime = 0.15f;
 
     [Header("Wall Slide / Jump")]
-    [Tooltip("Toggle whether the player can wall slide and jump or not.")]
-    public bool WallSlideJumpToggle = true;
     [Tooltip("The speed the player falls down walls.")]
     public float WallSlideSpeed = 10f;
     [Tooltip("The velocity that gets applied when the player wall jumps.")]
@@ -82,12 +78,6 @@ public class PlayerStats : ScriptableObject
     #region DASH
 
     [Header("Dash")]
-    [Tooltip("Toggle whether the player can dash or not.")]
-    public bool DashToggle = true;
-    [Tooltip("Toggle whether the player can dash in the air or not.")]
-    public bool AirDashToggle = true;
-    [Tooltip("Dashing on the ground into enemies will launch them into the air.")]
-    public bool SlideAirLaunch = true;
     [Tooltip("How quickly it takes a dash to reach the dash distance.")]
     public float DashTime = 1f;
     [Tooltip("The maximum distance a dash can take the player horizontally.")]
@@ -100,8 +90,6 @@ public class PlayerStats : ScriptableObject
     #region GRAPPLE
 
     [Header("Grapple")]
-    [Tooltip("Toogle whether the player can grapple.")]
-    public bool GrappleToggle = true;
     [Tooltip("The speed at which the grapple launches you.")]
     public float GrappleSpeed = 30f;
     [Tooltip("A speed multiplier on grapple release."), Range(1f, 4f)]
@@ -160,6 +148,7 @@ public class PlayerStats : ScriptableObject
     public float UpAttackKnockbackStrength = 15f;
     [Tooltip("The amount of knockback enemies take from an downwards attack.")]
     public float DownAttackKnockbackStrength = 1f;
+    [Tooltip("The amount of knockback the player gets from hitting something on a down attack.")]
     public float DownAttackPogoStrength = 1f;
 
     [Header("Air Attacks")]

@@ -45,11 +45,10 @@ namespace PlayerStateMachine
             else if (TriggerInfo.LeftGroundThisFrame)
                 Player.ResetDash();
 
-            if (TriggerInfo.HitWallThisFrame)
+            if (GameManager.Instance.Inventory.WallSlideAndJump && TriggerInfo.HitWallThisFrame)
             {
                 Player.ResetDash();
                 Player.ResetAttack();
-
                 Player.WallSlideParticles?.Play();
             }
 
@@ -59,7 +58,7 @@ namespace PlayerStateMachine
                 Player.WallSlideParticles?.Stop();
 
             Player.SetFallSpeed(
-                Stats.WallSlideJumpToggle && TriggerInfo.OnWall
+                GameManager.Instance.Inventory.WallSlideAndJump && TriggerInfo.OnWall
                     ? Stats.WallSlideSpeed
                     : Stats.MaxFallSpeed
             );
@@ -96,7 +95,7 @@ namespace PlayerStateMachine
                 GroundJump();
             else if (_jumpPressedThisFrame)
             {
-                if (Stats.WallSlideJumpToggle && (HasBufferedWallJump || TriggerInfo.OnWall))
+                if (GameManager.Instance.Inventory.WallSlideAndJump && (HasBufferedWallJump || TriggerInfo.OnWall))
                     WallJump();
                 else if (WithinCoyoteBuffer)
                     GroundJump();
@@ -155,9 +154,9 @@ namespace PlayerStateMachine
 
         private void CheckStateTransitions()
         {
-            if (Stats.DashToggle && Player.DashAvailable && InputInfo.DashPressedThisFrame && (TriggerInfo.OnGround || Stats.AirDashToggle))
+            if (GameManager.Instance.Inventory.Slide && Player.DashAvailable && InputInfo.DashPressedThisFrame && (TriggerInfo.OnGround || GameManager.Instance.Inventory.AirDash))
                 Player.SetState(PlayerStateType.Dash);
-            else if (Stats.GrappleToggle && InputInfo.Grapple)
+            else if (GameManager.Instance.Inventory.Grapple && InputInfo.Grapple)
                 Player.SetState(PlayerStateType.GrappleAim);
             else if (InputInfo.AttackToUse && Player.AttackOffCooldown)
                 HandleAttackTransition();
