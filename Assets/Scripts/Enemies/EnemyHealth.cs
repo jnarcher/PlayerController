@@ -5,7 +5,7 @@ using Cinemachine;
 public class EnemyHealth : Health
 {
     private IEnemyController _controller;
-    private EnemyStats _stats;
+    public EnemyStats Stats;
 
     private int _currentHealth;
     private SpriteRenderer _sprite;
@@ -19,15 +19,14 @@ public class EnemyHealth : Health
         _impulseSource = GetComponent<CinemachineImpulseSource>();
         _controller = GetComponentInParent<IEnemyController>();
         _sprite = GetComponentInParent<SpriteRenderer>();
-        _stats = _controller.GetStats();
-        _currentHealth = _stats.MaxHealth;
+        _currentHealth = Stats.MaxHealth;
     }
 
     public override void Damage(int damage, Vector2 direction, float knockbackStrength)
     {
-        if (_stats.Damageable)
+        if (Stats.Damageable)
         {
-            CameraShakeManager.Instance.CameraShake(_impulseSource, _stats.HitCameraShakeIntensity);
+            CameraShakeManager.Instance.CameraShake(_impulseSource, Stats.HitCameraShakeIntensity);
             _currentHealth -= damage;
             HasTakenDamage = true;
             _controller.DirectionHitFrom = direction;
