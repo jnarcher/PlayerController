@@ -15,8 +15,12 @@ public class InputInfo : MonoBehaviour
     public bool Attack => GameManager.Instance.PlayerCanMove ? _attack : false;
     private bool _attack;
 
-    public bool AttackUsable => GameManager.Instance.PlayerCanMove ? _attackUsable : false;
-    public bool _attackUsable;
+    public bool AttackToUse => GameManager.Instance.PlayerCanMove ? _attackToUse : false;
+    private bool _attackToUse;
+
+    public bool JumpToUse => GameManager.Instance.PlayerCanMove ? _jumpToUse : false;
+    private bool _jumpToUse;
+
 
     // ------------------------------------------------------
 
@@ -62,7 +66,10 @@ public class InputInfo : MonoBehaviour
         _attackPressedThisFrame = false;
 
         if (_time > TimeAttackPressed + GameManager.Instance.PlayerStats.AttackInputBufferTime)
-            _attackUsable = false;
+            _attackToUse = false;
+
+        if (_time > TimeJumpPressed + GameManager.Instance.PlayerStats.JumpBuffer)
+            _jumpToUse = false;
     }
 
     /// <summary>
@@ -98,6 +105,7 @@ public class InputInfo : MonoBehaviour
             _jump = true;
             _jumpPressedThisFrame = true;
             _timeJumpPressed = _time;
+            _jumpToUse = true;
         }
         else if (context.canceled)
         {
@@ -146,7 +154,7 @@ public class InputInfo : MonoBehaviour
         if (context.performed)
         {
             _attackPressedThisFrame = true;
-            _attackUsable = true;
+            _attackToUse = true;
             _timeAttackPressed = _time;
             _attack = true;
         }
@@ -154,5 +162,6 @@ public class InputInfo : MonoBehaviour
             _attack = false;
     }
 
-    public void UseAttack() => _attackUsable = false;
+    public void UseAttack() => _attackToUse = false;
+    public void UseJump() => _jumpToUse = false;
 }
