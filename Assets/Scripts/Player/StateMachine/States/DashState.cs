@@ -92,8 +92,14 @@ namespace PlayerStateMachine
             _effectObject?.GetComponentInChildren<ParticleSystem>().Stop();
             _effectObject = null;
 
-            Player.Animator.SetBool("Dashing", false);
-            Player.Animator.SetBool("Sliding", false);
+            if (_isSlide)
+            {
+                if (!TriggerInfo.OnGround) // reset the players dash if they dash off a ledge
+                    Player.ResetDash();
+                Player.Animator.SetBool("Sliding", false);
+            }
+            else
+                Player.Animator.SetBool("Dashing", false);
         }
 
         private void LaunchEnemies()
