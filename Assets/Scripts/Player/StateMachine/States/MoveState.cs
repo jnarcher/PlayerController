@@ -156,7 +156,7 @@ namespace PlayerStateMachine
         {
             if (GameManager.Instance.Inventory.Slide && Player.DashOffCooldown && InputInfo.DashPressedThisFrame && (TriggerInfo.OnGround || GameManager.Instance.Inventory.AirDash))
                 Player.SetState(PlayerStateType.Dash);
-            else if (GameManager.Instance.Inventory.Grapple && InputInfo.Grapple)
+            else if (GameManager.Instance.Inventory.Grapple && Player.GrappleOffCooldown && InputInfo.Grapple)
                 Player.SetState(PlayerStateType.GrappleAim);
             else if (InputInfo.AttackToUse && Player.AttackOffCooldown)
                 HandleAttackTransition();

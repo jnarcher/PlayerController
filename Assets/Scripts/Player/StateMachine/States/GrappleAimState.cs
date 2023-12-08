@@ -8,20 +8,30 @@ namespace PlayerStateMachine
 
         private bool _launched;
 
+        private float _aimTimer;
+
         public override void EnterState()
         {
             Player.GrappleAimIndicator.SetActive(true);
             GameManager.Instance.LerpTimeScale(Stats.GrappleTimeSlow, Stats.GrappleTimeSlowTransitionSpeed);
             _launched = false;
+            _aimTimer = 0;
         }
 
         public override void UpdateState()
         {
+            _aimTimer += Time.unscaledDeltaTime;
             GameObject selectedGrapplePoint = FindGrappleFromInput();
             Player.SetSelectedGrapplePoint(selectedGrapplePoint);
 
-            if (!InputInfo.Grapple)
+            if (!InputInfo.Grapple || _aimTimer > Stats.GrappleAimTime)
             {
+                if (_aimTimer > Stats.GrappleAimTime)
+                {
+                    Player.SetGrappleCooldown();
+                    CameraShakeManager.Instance.CameraShake(0.5f);
+                }
+
                 if (selectedGrapplePoint == null)
                     Player.SetState(PlayerStateType.Move);
                 else

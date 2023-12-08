@@ -98,6 +98,8 @@ public class PlayerStats : ScriptableObject
     public float GrappleRange = 10f;
     [Tooltip("How much time slows while aiming the grapple."), Range(0.01f, 1f)]
     public float GrappleTimeSlow = 0.2f;
+    [Tooltip("The amount of time the player has while aiming to select a target.")]
+    public float GrappleAimTime = 1.5f;
     [Tooltip("The speed the time slow is interpolated with.")]
     public float GrappleTimeSlowTransitionSpeed = 0.1f;
     [Tooltip("The distance from the player to the grapple point at which the grapple will detach.")]
