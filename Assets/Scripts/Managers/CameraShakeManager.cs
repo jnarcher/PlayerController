@@ -1,15 +1,15 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Cinemachine;
 
+[RequireComponent(typeof(CinemachineImpulseSource))]
 public class CameraShakeManager : MonoBehaviour
 {
     public static CameraShakeManager Instance;
 
-    private Gamepad pad;
     [Range(0f, 1f)] public float ControllerRumbleIntensity = 1f;
     [Range(0f, 1f)] public float ControllerRumbleDuration = 0.2f;
+
+    private CinemachineImpulseSource _impulseSource;
 
     private void Awake()
     {
@@ -17,11 +17,13 @@ public class CameraShakeManager : MonoBehaviour
             Destroy(Instance);
         else
             Instance = this;
+
+        _impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
-    public void CameraShake(CinemachineImpulseSource impulseSource, float force)
+    public void CameraShake(float force)
     {
-        impulseSource.GenerateImpulseWithForce(force);
+        _impulseSource.GenerateImpulseWithForce(force);
         ControllerRumbleManager.Instance.SetRumblePulse(1, 0.1f);
     }
 }

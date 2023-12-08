@@ -362,7 +362,6 @@ GameObject:
   - component: {fileID: 1148998754268707377}
   - component: {fileID: 6316439966176813300}
   - component: {fileID: 8278712579897378213}
-  - component: {fileID: 3952703644199494746}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -577,7 +576,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c91b84747d25433e8b61bea7cbac693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackUsable: 0
 --- !u!114 &8278712579897378213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -602,62 +600,8 @@ MonoBehaviour:
   DashEffect: {fileID: 8025448690208556, guid: 934d5a9c1d2334412837c721fa1aa8c8, type: 3}
   GrappleEffect: {fileID: 0}
   AnimatedVelocity: {x: 0, y: 0}
-  AnimationCompleteTrigger: 0
   HitDirection: {x: 0, y: 0}
   IsInIFrames: 0
---- !u!114 &3952703644199494746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2168337661443292302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ImpulseDefinition:
-    m_ImpulseChannel: 1
-    m_ImpulseShape: 2
-    m_CustomImpulseShape:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_ImpulseDuration: 0.2
-    m_ImpulseType: 0
-    m_DissipationRate: 0.25
-    m_RawSignal: {fileID: 0}
-    m_AmplitudeGain: 1
-    m_FrequencyGain: 1
-    m_RepeatMode: 0
-    m_Randomize: 1
-    m_TimeEnvelope:
-      m_AttackShape:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      m_DecayShape:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      m_AttackTime: 0
-      m_SustainTime: 0.2
-      m_DecayTime: 0.7
-      m_ScaleWithImpact: 1
-      m_HoldForever: 0
-    m_ImpactRadius: 100
-    m_DirectionMode: 0
-    m_DissipationMode: 2
-    m_DissipationDistance: 100
-    m_PropagationSpeed: 343
-  m_DefaultVelocity: {x: 0, y: -1, z: 0}
 --- !u!1 &2364883184856354044
 GameObject:
   m_ObjectHideFlags: 0
