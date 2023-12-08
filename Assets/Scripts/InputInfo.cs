@@ -21,6 +21,8 @@ public class InputInfo : MonoBehaviour
     public bool JumpToUse => GameManager.Instance.PlayerCanMove ? _jumpToUse : false;
     private bool _jumpToUse;
 
+    public bool DashToUse => GameManager.Instance.PlayerCanMove ? _dashToUse : false;
+    private bool _dashToUse;
 
     // ------------------------------------------------------
 
@@ -70,6 +72,9 @@ public class InputInfo : MonoBehaviour
 
         if (_time > TimeJumpPressed + GameManager.Instance.PlayerStats.JumpBuffer)
             _jumpToUse = false;
+
+        if (_time > TimeDashPressed + GameManager.Instance.PlayerStats.DashInputBufferTime)
+            _dashToUse = false;
     }
 
     /// <summary>
@@ -123,6 +128,7 @@ public class InputInfo : MonoBehaviour
         {
             _dashPressedThisFrame = true;
             _timeDashPressed = _time;
+            _dashToUse = true;
         }
     }
 
@@ -164,4 +170,5 @@ public class InputInfo : MonoBehaviour
 
     public void UseAttack() => _attackToUse = false;
     public void UseJump() => _jumpToUse = false;
+    public void UseDash() => _dashToUse = false;
 }

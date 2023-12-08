@@ -84,6 +84,8 @@ public class PlayerStats : ScriptableObject
     public float DashDistance = 4f;
     [Tooltip("How long the player has to wait before dashing again after a dash has been performed while on the ground.")]
     public float GroundDashCooldown = 0.5f;
+    [Tooltip("The amount of time after pressing dash can the player use this input.")]
+    public float DashInputBufferTime = 0.2f;
 
     #endregion
 

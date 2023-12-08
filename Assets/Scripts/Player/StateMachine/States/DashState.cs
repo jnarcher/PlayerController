@@ -22,6 +22,7 @@ namespace PlayerStateMachine
 
         public override void EnterState()
         {
+            InputInfo.UseDash();
             _cachedXSpeed = Mathf.Abs(Player.Velocity.x);
             _dashTimer = Stats.DashTime;
 
