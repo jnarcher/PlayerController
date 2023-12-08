@@ -49,7 +49,7 @@ namespace PlayerStateMachine
             {
                 Player.ResetDash();
                 Player.ResetAttack();
-                Player.WallSlideParticles?.Play();
+                if (Player.Velocity.y < 0f) Player.WallSlideParticles?.Play();
             }
 
             if (TriggerInfo.OnWall)
