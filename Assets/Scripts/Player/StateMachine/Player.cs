@@ -9,14 +9,14 @@ namespace PlayerStateMachine
     [RequireComponent(typeof(InputInfo))]
     public class Player : MonoBehaviour
     {
-        // Component References
-        [Header("Component References")]
         private Rigidbody2D _rb;
         private Animator _anim;
         private TriggerInfo _trigs;
         private PlayerStats Stats => GameManager.Instance.PlayerStats;
-        public GameObject GrappleAimIndicator;
         private SpriteRenderer _sprite;
+
+        [Header("Component References")]
+        public GameObject GrappleAimIndicator;
 
         [Header("Effects")]
         public GameObject HitEffect;
@@ -25,18 +25,14 @@ namespace PlayerStateMachine
         public GameObject GroundJumpEffect;
         public GameObject AirJumpEffect;
         public GameObject WallJumpEffect;
-
         public ParticleSystem WallSlideParticles;
-
         public GameObject SlideEffect;
         public GameObject DashEffect;
         public GameObject GrappleEffect;
 
-
         public Animator Animator => _anim;
         // Set by animations for attacks
         [HideInInspector] public Vector2 AnimatedVelocity;
-        // Set by animations to signal a state change
         public bool AnimationCompleteTrigger { get; private set; }
 
         // State Management
@@ -90,13 +86,9 @@ namespace PlayerStateMachine
 
         private void Start()
         {
-            // Set defaults
-            _gravity = Stats.RisingGravity;
-            _maxFallSpeed = Stats.MaxFallSpeed;
-
-            // Set starting state
             State = _stateDict[PlayerStateType.Move];
             State.EnterState();
+            ResetPhysics();
         }
 
         private void Update()
@@ -143,7 +135,6 @@ namespace PlayerStateMachine
         public void AddVelocity(float x, float y) => _rb.velocity += new Vector2(x, y);
         public void AddVelocity(Vector2 v) => AddVelocity(v.x, v.y);
 
-
         public void SetFallSpeed(float s) => _maxFallSpeed = s;
         private void ClampVelocity()
         {
@@ -174,7 +165,7 @@ namespace PlayerStateMachine
             HandleGrappleCooldown();
         }
 
-        private float _timeDashed;
+        private float _timeDashed = float.MinValue;
         public void ResetDash() => DashOffCooldown = true;
         public void SetDashCooldown()
         {
@@ -187,7 +178,7 @@ namespace PlayerStateMachine
                 ResetDash();
         }
 
-        private float _timeAttacked;
+        private float _timeAttacked = float.MinValue;
         public void ResetAttack() => AttackOffCooldown = true;
         public void SetAttackCooldown()
         {
@@ -202,7 +193,22 @@ namespace PlayerStateMachine
             ) ResetAttack();
         }
 
+        private float _timeGrappled = float.MinValue;
+        public void ResetGrapple() => GrappleOffCooldown = true;
+        public void SetGrappleCooldown()
+        {
+            GrappleOffCooldown = false;
+            _timeGrappled = ElapsedTime;
+        }
+        private void HandleGrappleCooldown()
+        {
+            if (ElapsedTime >= _timeGrappled + Stats.GrappleAimTime)
+                ResetGrapple();
+        }
+
         #endregion
+
+        #region GRAPPLE POINT MANAGEMENT
 
         public void AddActiveGrapplePoint(GameObject grapplePoint)
         {
@@ -218,6 +224,8 @@ namespace PlayerStateMachine
 
         public void SetSelectedGrapplePoint(GameObject go) => SelectedGrapplePoint = go;
         public void ResetSelectedGrapplePoint() => SelectedGrapplePoint = null;
+
+        #endregion
 
         #region LERPING
 
