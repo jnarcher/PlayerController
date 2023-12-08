@@ -29,6 +29,13 @@ namespace PlayerStateMachine
             CheckTransitionState();
         }
 
+        public override void ExitState()
+        {
+            Player.ResetAttack();
+            Player.ResetDash();
+            Player.ResetAirJumps();
+        }
+
         private void CheckTransitionState()
         {
             if (Player.TryUseAnimationCompleteTrigger())
