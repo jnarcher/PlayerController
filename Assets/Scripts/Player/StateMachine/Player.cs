@@ -166,6 +166,7 @@ namespace PlayerStateMachine
         public void DecrementAirJump() => AirJumpsRemaining--;
         public void ResetAirJumps() => AirJumpsRemaining = GameManager.Instance.Inventory.AirJumps;
 
+        #region COOLDOWNS
 
         private float _timeDashed;
         public void SetDashCooldown()
@@ -197,6 +198,7 @@ namespace PlayerStateMachine
                 AttackOffCooldown = true;
         }
 
+        #endregion
 
         public void AddActiveGrapplePoint(GameObject grapplePoint)
         {
