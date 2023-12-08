@@ -29,6 +29,7 @@ namespace PlayerStateMachine
                 if (_aimTimer > Stats.GrappleAimTime)
                 {
                     Player.SetGrappleCooldown();
+                    selectedGrapplePoint = null;
                     CameraShakeManager.Instance.CameraShake(0.5f);
                 }
 

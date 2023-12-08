@@ -202,7 +202,7 @@ namespace PlayerStateMachine
         }
         private void HandleGrappleCooldown()
         {
-            if (ElapsedTime >= _timeGrappled + Stats.GrappleAimTime)
+            if (ElapsedTime >= _timeGrappled + Stats.GrappleFailCooldown)
                 ResetGrapple();
         }
 
