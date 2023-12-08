@@ -43,7 +43,7 @@ namespace PlayerStateMachine
             }
 
             Player.SetFacing(_dashDirection > 0);
-            Player.SetVelocity(_dashDirection * DashSpeed, 0);
+            Player.SetVelocity(_dashDirection * Mathf.Max(DashSpeed, _cachedXSpeed), 0);
             Player.SetGravity(0);
 
             _isSlide = TriggerInfo.OnGround;
