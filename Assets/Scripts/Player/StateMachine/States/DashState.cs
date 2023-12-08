@@ -101,6 +101,8 @@ namespace PlayerStateMachine
             }
             else
                 Player.Animator.SetBool("Dashing", false);
+
+            InputInfo.UseDash();
         }
 
         private void LaunchEnemies()
