@@ -172,15 +172,15 @@ namespace PlayerStateMachine
         public void SetDashCooldown()
         {
             _timeDashed = ElapsedTime;
-            DashAvailable = false;
+            DashOffCooldown = false;
         }
         private void HandleDashCooldown()
         {
-            if (!DashAvailable && _trigs.OnGround && ElapsedTime >= _timeDashed + Stats.GroundDashCooldown)
+            if (!DashOffCooldown && _trigs.OnGround && ElapsedTime >= _timeDashed + Stats.GroundDashCooldown)
                 ResetDash();
         }
 
-        public void ResetDash() => DashAvailable = true;
+        public void ResetDash() => DashOffCooldown = true;
 
         private float _timeAttacked;
         public void UseAttack()

@@ -154,7 +154,7 @@ namespace PlayerStateMachine
 
         private void CheckStateTransitions()
         {
-            if (GameManager.Instance.Inventory.Slide && Player.DashAvailable && InputInfo.DashPressedThisFrame && (TriggerInfo.OnGround || GameManager.Instance.Inventory.AirDash))
+            if (GameManager.Instance.Inventory.Slide && Player.DashOffCooldown && InputInfo.DashPressedThisFrame && (TriggerInfo.OnGround || GameManager.Instance.Inventory.AirDash))
                 Player.SetState(PlayerStateType.Dash);
             else if (GameManager.Instance.Inventory.Grapple && InputInfo.Grapple)
                 Player.SetState(PlayerStateType.GrappleAim);
