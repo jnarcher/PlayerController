@@ -4,48 +4,48 @@ using UnityEngine.InputSystem;
 
 public class InputInfo : MonoBehaviour
 {
-    public Vector2 Move => GameManager.Instance.PlayerCanMove ? _move : Vector2.zero;
+    public Vector2 Move => GameManager.Instance.PlayerCanInput ? _move : Vector2.zero;
     private Vector2 _move;
-    public Vector2 Aim => GameManager.Instance.PlayerCanMove ? _aim : Vector2.zero;
+    public Vector2 Aim => GameManager.Instance.PlayerCanInput ? _aim : Vector2.zero;
     private Vector2 _aim;
-    public bool Jump => GameManager.Instance.PlayerCanMove ? _jump : false;
+    public bool Jump => GameManager.Instance.PlayerCanInput ? _jump : false;
     private bool _jump;
-    public bool Grapple => GameManager.Instance.PlayerCanMove ? _grapple : false;
+    public bool Grapple => GameManager.Instance.PlayerCanInput ? _grapple : false;
     private bool _grapple;
-    public bool Attack => GameManager.Instance.PlayerCanMove ? _attack : false;
+    public bool Attack => GameManager.Instance.PlayerCanInput ? _attack : false;
     private bool _attack;
 
-    public bool AttackToUse => GameManager.Instance.PlayerCanMove ? _attackToUse : false;
+    public bool AttackToUse => GameManager.Instance.PlayerCanInput ? _attackToUse : false;
     private bool _attackToUse;
 
-    public bool JumpToUse => GameManager.Instance.PlayerCanMove ? _jumpToUse : false;
+    public bool JumpToUse => GameManager.Instance.PlayerCanInput ? _jumpToUse : false;
     private bool _jumpToUse;
 
-    public bool DashToUse => GameManager.Instance.PlayerCanMove ? _dashToUse : false;
+    public bool DashToUse => GameManager.Instance.PlayerCanInput ? _dashToUse : false;
     private bool _dashToUse;
 
     // ------------------------------------------------------
 
-    public bool JumpPressedThisFrame => GameManager.Instance.PlayerCanMove ? _jumpPressedThisFrame : false;
+    public bool JumpPressedThisFrame => GameManager.Instance.PlayerCanInput ? _jumpPressedThisFrame : false;
     private bool _jumpPressedThisFrame;
-    public bool DashPressedThisFrame => GameManager.Instance.PlayerCanMove ? _dashPressedThisFrame : false;
+    public bool DashPressedThisFrame => GameManager.Instance.PlayerCanInput ? _dashPressedThisFrame : false;
     private bool _dashPressedThisFrame;
-    public bool GrapplePressedThisFrame => GameManager.Instance.PlayerCanMove ? _grapplePressedThisFrame : false;
+    public bool GrapplePressedThisFrame => GameManager.Instance.PlayerCanInput ? _grapplePressedThisFrame : false;
     private bool _grapplePressedThisFrame;
-    public bool AttackPressedThisFrame => GameManager.Instance.PlayerCanMove ? _attackPressedThisFrame : false;
+    public bool AttackPressedThisFrame => GameManager.Instance.PlayerCanInput ? _attackPressedThisFrame : false;
     private bool _attackPressedThisFrame;
 
     // ------------------------------------------------------
 
-    public float TimeJumpPressed => GameManager.Instance.PlayerCanMove ? _timeJumpPressed : float.MinValue;
+    public float TimeJumpPressed => GameManager.Instance.PlayerCanInput ? _timeJumpPressed : float.MinValue;
     private float _timeJumpPressed;
-    public float TimeDashPressed => GameManager.Instance.PlayerCanMove ? _timeDashPressed : float.MinValue;
+    public float TimeDashPressed => GameManager.Instance.PlayerCanInput ? _timeDashPressed : float.MinValue;
     private float _timeDashPressed;
-    public float TimeGrapplePressed => GameManager.Instance.PlayerCanMove ? _timeGrapplePressed : float.MinValue;
+    public float TimeGrapplePressed => GameManager.Instance.PlayerCanInput ? _timeGrapplePressed : float.MinValue;
     private float _timeGrapplePressed;
-    public float TimeGrappleReleased => GameManager.Instance.PlayerCanMove ? _timeGrappleReleased : float.MinValue;
+    public float TimeGrappleReleased => GameManager.Instance.PlayerCanInput ? _timeGrappleReleased : float.MinValue;
     private float _timeGrappleReleased;
-    public float TimeAttackPressed => GameManager.Instance.PlayerCanMove ? _timeAttackPressed : float.MinValue;
+    public float TimeAttackPressed => GameManager.Instance.PlayerCanInput ? _timeAttackPressed : float.MinValue;
     private float _timeAttackPressed;
 
     private PlayerStats GameSettings => GameManager.Instance.PlayerStats;

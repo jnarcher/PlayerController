@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject PlayerObject;
     public PlayerHealth PlayerHealth;
 
-    public bool PlayerCanMove { get; private set; } = true;
+    public bool PlayerCanInput { get; private set; } = true;
 
     private void Awake()
     {
@@ -119,6 +119,6 @@ public class GameManager : MonoBehaviour
         _lerping = false;
     }
 
-    public void FreezePlayerInput() => PlayerCanMove = false;
-    public void UnFreezePlayerInput() => PlayerCanMove = true;
+    public void FreezePlayerInput() => PlayerCanInput = false;
+    public void UnFreezePlayerInput() => PlayerCanInput = true;
 }
