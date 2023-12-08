@@ -24,7 +24,7 @@ namespace PlayerStateMachine
             _cachedXVelocity = Player.Velocity.x;
             Player.Animator.SetTrigger("AirAttack1");
             Player.SetGravity(0f);
-            Player.UseAttack();
+            Player.SetAttackCooldown();
             InputInfo.UseAttack();
 
             // Allow quick turn attacks
@@ -73,7 +73,7 @@ namespace PlayerStateMachine
                     }
                 }
 
-                Player.UseAttack();
+                Player.SetAttackCooldown();
                 Player.SetState(PlayerStateType.Move);
             }
         }

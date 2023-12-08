@@ -29,7 +29,7 @@ namespace PlayerStateMachine
         public override void ExitState()
         {
             ResetEnemyHitables();
-            if (!_hitEnemy) Player.UseAttack();
+            if (!_hitEnemy) Player.SetAttackCooldown();
             else Player.ResetAttack();
         }
 

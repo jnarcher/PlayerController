@@ -102,8 +102,7 @@ namespace PlayerStateMachine
         private void Update()
         {
             ElapsedTime += Time.deltaTime;
-            HandleDashCooldown();
-            HandleAttackCooldown();
+            HandleCooldowns();
             HandleAnimations();
             HandleInvincibility();
             State.UpdateState();
@@ -168,7 +167,15 @@ namespace PlayerStateMachine
 
         #region COOLDOWNS
 
+        private void HandleCooldowns()
+        {
+            HandleDashCooldown();
+            HandleAttackCooldown();
+            HandleGrappleCooldown();
+        }
+
         private float _timeDashed;
+        public void ResetDash() => DashOffCooldown = true;
         public void SetDashCooldown()
         {
             _timeDashed = ElapsedTime;
@@ -180,22 +187,19 @@ namespace PlayerStateMachine
                 ResetDash();
         }
 
-        public void ResetDash() => DashOffCooldown = true;
-
         private float _timeAttacked;
-        public void UseAttack()
+        public void ResetAttack() => AttackOffCooldown = true;
+        public void SetAttackCooldown()
         {
             _timeAttacked = ElapsedTime;
             AttackOffCooldown = false;
         }
-        public void ResetAttack() => AttackOffCooldown = true;
-
         private void HandleAttackCooldown()
         {
-            if (_trigs.LandedThisFrame || _trigs.LeftGroundThisFrame)
-                AttackOffCooldown = true;
-            else if (!AttackOffCooldown && _trigs.OnGround && ElapsedTime >= _timeAttacked + Stats.GroundAttackCooldown)
-                AttackOffCooldown = true;
+            if (
+                _trigs.LandedThisFrame || _trigs.LeftGroundThisFrame ||
+                (!AttackOffCooldown && _trigs.OnGround && ElapsedTime >= _timeAttacked + Stats.GroundAttackCooldown)
+            ) ResetAttack();
         }
 
         #endregion

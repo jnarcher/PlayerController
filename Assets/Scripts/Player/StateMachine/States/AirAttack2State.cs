@@ -21,7 +21,7 @@ namespace PlayerStateMachine
             _cachedXVelocity = Player.Velocity.x;
             Player.Animator.SetTrigger("AirAttack2");
             Player.SetGravity(0f);
-            Player.UseAttack();
+            Player.SetAttackCooldown();
             InputInfo.UseAttack();
 
             // Allow quick turn attacks
@@ -45,7 +45,7 @@ namespace PlayerStateMachine
         {
             ResetEnemyHitables();
             Player.SetGravity(Stats.FallingGravity);
-            Player.UseAttack();
+            Player.SetAttackCooldown();
         }
 
         private void ResetEnemyHitables()

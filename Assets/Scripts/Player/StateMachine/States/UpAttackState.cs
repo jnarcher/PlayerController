@@ -27,7 +27,7 @@ namespace PlayerStateMachine
         public override void ExitState()
         {
             ResetEnemyHitables();
-            Player.UseAttack();
+            Player.SetAttackCooldown();
         }
 
         private void ResetEnemyHitables()
