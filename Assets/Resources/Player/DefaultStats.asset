@@ -43,7 +43,7 @@ MonoBehaviour:
   GrappleLaunchBoostMultiplier: 1.2
   GrappleRange: 10
   GrappleTimeSlow: 0.13
-  GrappleAimTime: 1.5
+  GrappleAimTime: 1
   GrappleFailCooldown: 3
   GrappleTimeSlowTransitionSpeed: 0.5
   GrappleStopDistance: 0.5
