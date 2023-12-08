@@ -22,7 +22,7 @@ public class EnemyHealth : Health
         if (Stats.Damageable)
         {
             CameraShakeManager.Instance.CameraShake(Stats.HitCameraShakeIntensity);
-            GameManager.Instance.HitFreeze();
+            GameManager.Instance.HitFreeze(0.08f);
             HasTakenDamage = true;
             _currentHealth -= damage;
             _controller.DirectionHitFrom = direction;

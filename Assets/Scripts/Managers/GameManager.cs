@@ -13,8 +13,6 @@ public class GameManager : MonoBehaviour
     public GameObject PlayerObject;
     public PlayerHealth PlayerHealth;
 
-    [SerializeField] private float _hitFreezeDuration;
-
     public bool PlayerCanMove { get; private set; } = true;
 
     private void Awake()
@@ -54,17 +52,17 @@ public class GameManager : MonoBehaviour
     #endregion
 
     private bool _inHitFreeze;
-    public void HitFreeze()
+    public void HitFreeze(float time)
     {
         if (!_inHitFreeze)
-            StartCoroutine(DoFreeze());
+            StartCoroutine(DoFreeze(time));
     }
-    private IEnumerator DoFreeze()
+    private IEnumerator DoFreeze(float time)
     {
         _inHitFreeze = true;
         float cachedTimeScale = Time.timeScale;
         Time.timeScale = 0;
-        yield return new WaitForSecondsRealtime(_hitFreezeDuration);
+        yield return new WaitForSecondsRealtime(time);
         Time.timeScale = cachedTimeScale;
         _inHitFreeze = false;
     }

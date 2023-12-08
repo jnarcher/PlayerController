@@ -30,7 +30,7 @@ namespace PlayerStateMachine
                 {
                     Player.SetGrappleCooldown();
                     selectedGrapplePoint = null;
-                    CameraShakeManager.Instance.CameraShake(0.5f);
+                    CameraShakeManager.Instance.CameraShake(0.8f);
                 }
 
                 if (selectedGrapplePoint == null)

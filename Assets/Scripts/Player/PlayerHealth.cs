@@ -26,7 +26,7 @@ public class PlayerHealth : Health
             Kill();
         else
         {
-            GameManager.Instance.HitFreeze();
+            GameManager.Instance.HitFreeze(0.2f);
             Player.Hit(direction);
         }
     }
