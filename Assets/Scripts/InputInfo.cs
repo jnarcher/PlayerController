@@ -14,6 +14,8 @@ public class InputInfo : MonoBehaviour
     private bool _grapple;
     public bool Attack => GameManager.Instance.PlayerCanInput ? _attack : false;
     private bool _attack;
+    public float Camera => GameManager.Instance.PlayerCanInput ? _camera : 0;
+    private float _camera;
 
     public bool AttackToUse => GameManager.Instance.PlayerCanInput ? _attackToUse : false;
     private bool _attackToUse;
@@ -97,6 +99,15 @@ public class InputInfo : MonoBehaviour
         }
 
         _move = ipt;
+    }
+
+    /// <summary>
+    /// Handles the camera input event sent from the `Player Input` component.
+    /// </summary>
+    /// <param name="context">The wrapper around the input event.</param>
+    public void OnCamera(InputAction.CallbackContext context)
+    {
+        _camera = context.ReadValue<float>();
     }
 
     /// <summary>
