@@ -591,7 +591,7 @@ MonoBehaviour:
   GrappleAimIndicator: {fileID: 3051681179509865518}
   HitEffect: {fileID: 1129633805783450260, guid: df067904931a44913a0320d90435a304, type: 3}
   RunEffect: {fileID: 0}
-  LandingEffect: {fileID: 1299347968722792943, guid: 259d28ba199bc48809fcfbe0e3a4decf, type: 3}
+  LandingEffect: {fileID: 0}
   GroundJumpEffect: {fileID: 0}
   AirJumpEffect: {fileID: 1299347968722792943, guid: 259d28ba199bc48809fcfbe0e3a4decf, type: 3}
   WallJumpEffect: {fileID: 0}
