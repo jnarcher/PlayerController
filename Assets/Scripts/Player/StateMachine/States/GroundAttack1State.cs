@@ -37,13 +37,6 @@ namespace PlayerStateMachine
             HandleStateChange();
         }
 
-        public override void FixedUpdateState()
-        {
-            float xDirection = Player.IsFacingRight ? 1 : -1;
-            float newXSpeed = (0.5f * _cachedXSpeed) + Player.AnimatedVelocity.x * Stats.GroundAttack1MovementStrength;
-            Player.SetVelocity(xDirection * newXSpeed, 0);
-        }
-
         public override void ExitState()
         {
             ResetEnemyHitables();
