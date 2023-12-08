@@ -25322,6 +25322,14 @@ PrefabInstance:
       propertyPath: ControllerRumbleIntensity
       value: 0.08
       objectReference: {fileID: 0}
+    - target: {fileID: 7588024851902888683, guid: fc6fb079d65ff46e1be36e8699146b3f, type: 3}
+      propertyPath: m_DefaultVelocity.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588024851902888683, guid: fc6fb079d65ff46e1be36e8699146b3f, type: 3}
+      propertyPath: m_ImpulseDefinition.m_ImpulseShape
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
