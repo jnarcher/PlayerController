@@ -39,8 +39,8 @@ MonoBehaviour:
   DashDistance: 5
   GroundDashCooldown: 0.3
   DashInputBufferTime: 0.5
-  GrappleSpeed: 40
-  GrappleLaunchBoostMultiplier: 1.2
+  GrappleSpeed: 35
+  GrappleLaunchBoostMultiplier: 1.25
   GrappleRange: 10
   GrappleTimeSlow: 0.13
   GrappleAimTime: 1
