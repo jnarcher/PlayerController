@@ -17,7 +17,7 @@ public class CameraFollowTransform : MonoBehaviour
 
     private void Update()
     {
-        if (_trigs.OnGround && Mathf.Abs(_controller.Velocity.x) < 0.001f)
+        if (Mathf.Abs(_ipt.Camera) == 1 && _trigs.OnGround && Mathf.Abs(_controller.Velocity.x) < 0.001f)
             transform.position = _ipt.Camera * LookDistance * Vector2.up + _controller.Position;
         else
             transform.position = _controller.Position;
