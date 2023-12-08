@@ -52,14 +52,18 @@ namespace PlayerStateMachine
         private float _maxFallSpeed;
 
         // Tracked Stats
-        public int AirJumpsRemaining { get; private set; }
-        public bool DashAvailable { get; private set; }
         public List<GameObject> ActiveGrapplePoints { get; private set; }
         public GameObject SelectedGrapplePoint { get; private set; }
-        public bool AttackOffCooldown { get; private set; }
         public bool LastWallRight { get; private set; }
+        public int AirJumpsRemaining { get; private set; }
         [HideInInspector] public Vector2 HitDirection;
         [HideInInspector] public bool IsInIFrames;
+
+        // Cooldowns
+        public bool AttackOffCooldown { get; private set; }
+        public bool DashOffCooldown { get; private set; }
+        public bool GrappleOffCooldown { get; private set; }
+
 
         private void Awake()
         {
