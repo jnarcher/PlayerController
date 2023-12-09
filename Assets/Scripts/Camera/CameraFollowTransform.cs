@@ -3,33 +3,34 @@ using UnityEngine;
 public class CameraFollowTransform : MonoBehaviour
 {
     [SerializeField] private float _verticalLookDistance = 2f;
-    [SerializeField] private float _horizontalLookAheadDistance = 1f;
     [Space]
     [SerializeField] private InputInfo _ipt;
     [SerializeField] private TriggerInfo _trigs;
     [SerializeField] private PlayerStateMachine.Player _controller;
+    [SerializeField] private Transform _playerTransform;
 
-    private float followX;
-    private float followY;
+    private float _followX;
+    private float _followY;
 
     private void Update()
     {
         HandleFollowX();
         HandleFollowY();
 
-        transform.position = new Vector2(followX, followY);
+        transform.position = new Vector2(_followX, _followY);
+        // transform.position = _playerTransform.position;
     }
 
     private void HandleFollowY()
     {
-        followY = _controller.Position.y;
+        _followY = _playerTransform.position.y;
         if (Mathf.Abs(_ipt.Camera) == 1 && _trigs.OnGround && Mathf.Abs(_controller.Velocity.x) < 0.001f)
-            followY += _ipt.Camera * _verticalLookDistance;
+            _followY += _ipt.Camera * _verticalLookDistance;
     }
 
     private void HandleFollowX()
     {
-        followX = _controller.Position.x;
-        followX += _horizontalLookAheadDistance * (_controller.IsFacingRight ? 1 : -1);
+        _followX = _playerTransform.position.x;
+        // _followX += _horizontalLookAheadDistance * (_controller.IsFacingRight ? 1 : -1);
     }
 }
