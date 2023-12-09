@@ -23,6 +23,7 @@ namespace PlayerStateMachine
         public override void EnterState()
         {
             InputInfo.UseDash();
+            ControllerRumbleManager.Instance.SetRumblePulse(0.2f, 0.1f);
             _cachedXSpeed = Mathf.Abs(Player.Velocity.x);
             _dashTimer = Stats.DashTime;
 
