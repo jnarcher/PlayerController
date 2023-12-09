@@ -22,6 +22,7 @@ public class PlayerHealth : Health
     {
         _currentHealth -= damage;
         CameraShakeManager.Instance.CameraShake(GameManager.Instance.PlayerStats.HitCameraShakeIntensity);
+        ControllerRumbleManager.Instance.SetRumblePulse(1f, 0.1f);
         if (_currentHealth <= 0)
             Kill();
         else
@@ -35,6 +36,7 @@ public class PlayerHealth : Health
     {
         _currentHealth -= damage;
         CameraShakeManager.Instance.CameraShake(GameManager.Instance.PlayerStats.HitCameraShakeIntensity);
+        ControllerRumbleManager.Instance.SetRumblePulse(1f, 0.1f);
         if (_currentHealth <= 0)
             Kill();
         else
