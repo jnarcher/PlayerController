@@ -121,14 +121,14 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: player_test_up_down_attack_Frame_0
     originalName: 
-    pivot: {x: 0.45833334, y: -0.20000002}
+    pivot: {x: 0.44, y: -0.20000002}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 75
       y: 66
-      width: 24
+      width: 25
       height: 50
     spriteID: 76e205176af784bb096f110f54e4c937
     spriteBone: []
@@ -141,7 +141,7 @@ ScriptedImporter:
     uvTransform: {x: 75, y: 66}
   - name: player_test_up_down_attack_Frame_1
     originalName: 
-    pivot: {x: 0.5090909, y: -0.08196722}
+    pivot: {x: 0.5090909, y: -0.07317073}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -149,7 +149,7 @@ ScriptedImporter:
       x: 4
       y: 126
       width: 55
-      height: 122
+      height: 123
     spriteID: c8f8b14a2b0a045eb8399aff1e6a870c
     spriteBone: []
     spriteOutline: []
@@ -161,14 +161,14 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 126}
   - name: player_test_up_down_attack_Frame_2
     originalName: 
-    pivot: {x: 0.40000004, y: -1.3888888}
+    pivot: {x: 0.40625, y: -1.3888888}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 75
       y: 4
-      width: 30
+      width: 32
       height: 54
     spriteID: b0a2c17b201d1467dbdc6ce35fd43ef2
     spriteBone: []
@@ -213,23 +213,23 @@ ScriptedImporter:
       cellRect:
         x: 53
         y: 10
-        width: 24
+        width: 25
         height: 50
       spriteId: 76e205176af784bb096f110f54e4c937
     - name: player_test_up_down_attack_Frame_1
       frameIndex: 1
       cellRect:
         x: 36
-        y: 10
+        y: 9
         width: 55
-        height: 122
+        height: 123
       spriteId: c8f8b14a2b0a045eb8399aff1e6a870c
     - name: player_test_up_down_attack_Frame_2
       frameIndex: 2
       cellRect:
-        x: 52
+        x: 51
         y: 75
-        width: 30
+        width: 32
         height: 54
       spriteId: b0a2c17b201d1467dbdc6ce35fd43ef2
     - name: player_test_up_down_attack_Frame_3

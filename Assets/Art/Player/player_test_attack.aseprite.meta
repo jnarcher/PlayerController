@@ -126,7 +126,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 126
+      x: 127
       y: 72
       width: 20
       height: 58
@@ -138,17 +138,17 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 126, y: 72}
+    uvTransform: {x: 127, y: 72}
   - name: player_test_attack_Frame_1
     originalName: 
-    pivot: {x: 1.4642857, y: -0.58181816}
+    pivot: {x: 1.4310344, y: -0.58181816}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 140
       y: 4
-      width: 56
+      width: 58
       height: 55
     spriteID: cfc2ae9a515204e58a8f4c0ad76869c6
     spriteBone: []
@@ -161,14 +161,14 @@ ScriptedImporter:
     uvTransform: {x: 140, y: 4}
   - name: player_test_attack_Frame_2
     originalName: 
-    pivot: {x: 0.5087719, y: -0.4848485}
+    pivot: {x: 0.5130435, y: -0.4848485}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 72
-      width: 114
+      width: 115
       height: 66
     spriteID: 032ca5a463b0d474ca4713309c61e84f
     spriteBone: []
@@ -181,14 +181,14 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 72}
   - name: player_test_attack_Frame_3
     originalName: 
-    pivot: {x: 1.159091, y: -0.5925926}
+    pivot: {x: 1.1304346, y: -0.5925926}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 204
+      x: 206
       y: 4
-      width: 44
+      width: 46
       height: 54
     spriteID: 1ee894759f7b24231baacb0eec379ddb
     spriteBone: []
@@ -198,7 +198,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 204, y: 4}
+    uvTransform: {x: 206, y: 4}
   - name: player_test_attack_Frame_4
     originalName: 
     pivot: {x: 0.24999999, y: -0.53333336}
@@ -239,25 +239,25 @@ ScriptedImporter:
     - name: player_test_attack_Frame_1
       frameIndex: 1
       cellRect:
-        x: 14
+        x: 13
         y: 32
-        width: 56
+        width: 58
         height: 55
       spriteId: cfc2ae9a515204e58a8f4c0ad76869c6
     - name: player_test_attack_Frame_2
       frameIndex: 2
       cellRect:
-        x: 38
+        x: 37
         y: 32
-        width: 114
+        width: 115
         height: 66
       spriteId: 032ca5a463b0d474ca4713309c61e84f
     - name: player_test_attack_Frame_3
       frameIndex: 3
       cellRect:
-        x: 45
+        x: 44
         y: 32
-        width: 44
+        width: 46
         height: 54
       spriteId: 1ee894759f7b24231baacb0eec379ddb
     - name: player_test_attack_Frame_4

@@ -307,11 +307,8 @@ namespace PlayerStateMachine
 
             if (IsInIFrames)
             {
-                _sprite.color = Color.grey;
                 // TODO: Implement logic for I frame animation (flashing character or something)
             }
-            else
-                _sprite.color = Color.white;
         }
     }
 }
