@@ -4,7 +4,6 @@ public class CameraFollowTransform : MonoBehaviour
 {
     [SerializeField] private float _verticalLookDistance = 2f;
     [SerializeField] private float _horizontalLookAheadDistance = 1f;
-    [SerializeField] private float _lookAheadLerpTime = 1f;
     [Space]
     [SerializeField] private InputInfo _ipt;
     [SerializeField] private TriggerInfo _trigs;
