@@ -508,6 +508,10 @@ PrefabInstance:
       propertyPath: Grappleable
       value: 
       objectReference: {fileID: 7188046185906043233}
+    - target: {fileID: 316730734956660539, guid: 30066304ba0a247968ecd0889bda3624, type: 3}
+      propertyPath: GrapplePointCooldown
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4255939302837167701, guid: 30066304ba0a247968ecd0889bda3624, type: 3}
       propertyPath: m_Enabled
       value: 0
