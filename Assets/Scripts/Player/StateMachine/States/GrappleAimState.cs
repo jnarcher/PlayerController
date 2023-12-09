@@ -22,7 +22,12 @@ namespace PlayerStateMachine
         {
             _aimTimer += Time.unscaledDeltaTime;
             GameObject selectedGrapplePoint = FindGrappleFromInput();
-            Player.SetSelectedGrapplePoint(selectedGrapplePoint);
+            if (selectedGrapplePoint != Player.SelectedGrapplePoint)
+            {
+                Player.SetSelectedGrapplePoint(selectedGrapplePoint);
+                if (selectedGrapplePoint != null) // small controller rumble everytime a grapple point is selected
+                    ControllerRumbleManager.Instance.SetRumblePulse(0.2f, 0.2f);
+            }
 
             if (!InputInfo.Grapple || _aimTimer > Stats.GrappleAimTime)
             {
