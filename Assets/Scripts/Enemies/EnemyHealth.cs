@@ -23,6 +23,7 @@ public class EnemyHealth : Health
         {
             CameraShakeManager.Instance.CameraShake(Stats.HitCameraShakeIntensity);
             GameManager.Instance.HitFreeze(0.08f);
+            ControllerRumbleManager.Instance.SetRumblePulse(0.2f, 0.1f);
             HasTakenDamage = true;
             _currentHealth -= damage;
             _controller.DirectionHitFrom = direction;
