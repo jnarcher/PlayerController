@@ -42,7 +42,7 @@ public class ControllerRumbleManager : MonoBehaviour
             float lowFreq = _rumbleStrength * _lowFrequencyCurve.Evaluate(t);
             float highFreq = _rumbleStrength * _highFrequencyCurve.Evaluate(t);
             pad?.SetMotorSpeeds(lowFreq, highFreq);
-            time += Time.deltaTime;
+            time += Time.unscaledDeltaTime;
             yield return null;
         }
         pad?.SetMotorSpeeds(0, 0);
