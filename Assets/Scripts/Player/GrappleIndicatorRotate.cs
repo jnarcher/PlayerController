@@ -25,7 +25,6 @@ public class GrappleIndicatorRotate : MonoBehaviour
 
     private void Update()
     {
-        // This object isn't a parent of the player object so that it doesn't get flipped when the player turns.
         transform.position = Player.transform.position;
 
         if (InputInfo.Aim == Vector2.zero)
