@@ -36,6 +36,7 @@ namespace PlayerStateMachine
                     Player.SetGrappleCooldown();
                     selectedGrapplePoint = null;
                     CameraShakeManager.Instance.CameraShake(0.8f);
+                    ControllerRumbleManager.Instance.SetRumblePulse(0.3f, 0.3f);
                 }
 
                 if (selectedGrapplePoint == null)
