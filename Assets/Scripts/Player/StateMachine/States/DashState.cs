@@ -48,21 +48,27 @@ namespace PlayerStateMachine
             Player.SetGravity(0);
 
             _isSlide = TriggerInfo.OnGround;
-            if (TriggerInfo.OnGround)
+
+            if (_isSlide)
             {
                 if (Player.SlideEffect != null)
                 {
                     _effectObject = GameObject.Instantiate(Player.SlideEffect, Player.Position, Quaternion.identity);
                     _effectObject.transform.parent = Player.gameObject.transform;
                 }
+                Player.Animator.SetBool("Sliding", true);
+                SoundManager.Instance.PlaySound(Player.Sounds.Slide);
             }
-            else if (Player.DashEffect != null)
+            else
             {
-                _effectObject = GameObject.Instantiate(Player.DashEffect, Player.Position, Quaternion.identity);
-                _effectObject.transform.parent = Player.gameObject.transform;
+                if (Player.DashEffect != null)
+                {
+                    _effectObject = GameObject.Instantiate(Player.DashEffect, Player.Position, Quaternion.identity);
+                    _effectObject.transform.parent = Player.gameObject.transform;
+                }
+                Player.Animator.SetBool("Dashing", true);
+                SoundManager.Instance.PlaySound(Player.Sounds.Dash);
             }
-
-            Player.Animator.SetBool(_isSlide ? "Sliding" : "Dashing", true);
         }
 
         public override void UpdateState()
