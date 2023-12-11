@@ -41,6 +41,7 @@ namespace PlayerStateMachine
             Player.LerpMoveAcceleration(Stats.GrappleInputFreezeTime);
             Player.GiveInvincibility(0.2f);
             Player.SetVelocity(Stats.GrappleLaunchBoostMultiplier * Stats.GrappleSpeed * _gpDirection);
+            SoundManager.Instance.PlaySound(Player.Sounds.GrappleLaunch);
             ResetGrapple();
         }
 

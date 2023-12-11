@@ -112,6 +112,7 @@ namespace PlayerStateMachine
                 Object.Instantiate(Player.GroundJumpEffect, Player.Position, Quaternion.identity);
             Player.SetVelocity(Player.Velocity.x, Stats.JumpPower);
             InputInfo.UseJump();
+            SoundManager.Instance.PlaySound(Player.Sounds.GroundJump);
         }
 
         private void AirJump()
@@ -121,6 +122,7 @@ namespace PlayerStateMachine
             Player.SetVelocity(Player.Velocity.x, Stats.JumpPower);
             Player.DecrementAirJump();
             InputInfo.UseJump();
+            SoundManager.Instance.PlaySound(Player.Sounds.AirJump);
         }
 
         private void WallJump()
@@ -131,6 +133,7 @@ namespace PlayerStateMachine
             Player.ResetAirJumps();
             Player.LerpMoveAcceleration(Stats.WallJumpInputFreezeTime);
             InputInfo.UseJump();
+            SoundManager.Instance.PlaySound(Player.Sounds.GroundJump);
         }
 
         #endregion

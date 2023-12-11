@@ -16,9 +16,11 @@ namespace PlayerStateMachine
 
         public override void EnterState()
         {
-            _cachedXSpeed = Mathf.Abs(Player.Velocity.x);
             InputInfo.UseAttack();
             Player.Animator.SetTrigger("GroundAttack2");
+            SoundManager.Instance.PlaySound(Player.Sounds.Attack2);
+
+            _cachedXSpeed = Mathf.Abs(Player.Velocity.x);
 
             // Allows quick turn attacks
             if (InputInfo.Move.x != 0 && InputInfo.Move.x > 0 != Player.IsFacingRight)
