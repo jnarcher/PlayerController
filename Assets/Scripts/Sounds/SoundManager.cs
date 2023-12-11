@@ -32,7 +32,7 @@ public class SoundManager : MonoBehaviour
 
         // destroy object after sound clip is done
         obj.AddComponent<EffectCleanUp>()
-            .SetTime(clip.length)
+            .SetTime(clip.length + 0.5f)
             .SetObject(obj);
 
         // play sound

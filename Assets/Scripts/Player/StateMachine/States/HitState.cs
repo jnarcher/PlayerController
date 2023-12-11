@@ -9,7 +9,7 @@ namespace PlayerStateMachine
 
         public override void EnterState()
         {
-            SoundManager.Instance.PlaySound(Player.Sounds.Hit);
+            Player.Sounds.PlaySound(PlayerSoundType.Hit);
             Player.GiveInvincibility(Stats.HitInvincibilityTime);
             Player.Animator.SetTrigger("Hit");
             knockbackDirectionX = Player.HitDirection.x > 0f ? 1f : -1f;

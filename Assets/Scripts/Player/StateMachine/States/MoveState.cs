@@ -17,6 +17,7 @@ namespace PlayerStateMachine
         public override void UpdateState()
         {
             if (InputInfo.JumpPressedThisFrame) _jumpPressedThisFrame = true;
+            HandleMovementSounds();
             CheckStateTransitions();
         }
 
@@ -32,6 +33,8 @@ namespace PlayerStateMachine
         public override void ExitState()
         {
             Player.WallSlideParticles?.Stop();
+            Player.Sounds.StopWalking();
+            Player.Sounds.StopWallSliding();
         }
 
         private void HandleCollision()
@@ -62,6 +65,26 @@ namespace PlayerStateMachine
                     ? Stats.WallSlideSpeed
                     : Stats.MaxFallSpeed
             );
+        }
+
+        private void HandleMovementSounds()
+        {
+            if (TriggerInfo.OnGround)
+            {
+                Player.Sounds.StopWallSliding();
+                if (Mathf.Abs(Player.Velocity.x) > 0.001f && Mathf.Abs(Player.Velocity.y) < 0.001f)
+                    Player.Sounds.StartWalking();
+                else
+                    Player.Sounds.StopWalking();
+            }
+            else if (TriggerInfo.OnWall)
+            {
+                Player.Sounds.StopWalking();
+                if (Player.Velocity.y < 0f)
+                    Player.Sounds.StartWallSliding();
+                else
+                    Player.Sounds.StopWallSliding();
+            }
         }
 
         private void HandleMovement()
@@ -112,7 +135,7 @@ namespace PlayerStateMachine
                 Object.Instantiate(Player.GroundJumpEffect, Player.Position, Quaternion.identity);
             Player.SetVelocity(Player.Velocity.x, Stats.JumpPower);
             InputInfo.UseJump();
-            SoundManager.Instance.PlaySound(Player.Sounds.GroundJump);
+            Player.Sounds.PlaySound(PlayerSoundType.GroundJump);
         }
 
         private void AirJump()
@@ -122,7 +145,7 @@ namespace PlayerStateMachine
             Player.SetVelocity(Player.Velocity.x, Stats.JumpPower);
             Player.DecrementAirJump();
             InputInfo.UseJump();
-            SoundManager.Instance.PlaySound(Player.Sounds.AirJump);
+            Player.Sounds.PlaySound(PlayerSoundType.AirJump);
         }
 
         private void WallJump()
@@ -133,7 +156,7 @@ namespace PlayerStateMachine
             Player.ResetAirJumps();
             Player.LerpMoveAcceleration(Stats.WallJumpInputFreezeTime);
             InputInfo.UseJump();
-            SoundManager.Instance.PlaySound(Player.Sounds.GroundJump);
+            Player.Sounds.PlaySound(PlayerSoundType.WallJump);
         }
 
         #endregion

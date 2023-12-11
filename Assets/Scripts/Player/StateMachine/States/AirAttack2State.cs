@@ -23,8 +23,9 @@ namespace PlayerStateMachine
             Player.Animator.SetTrigger("AirAttack2");
             Player.SetGravity(0f);
             Player.SetAttackCooldown();
+
             InputInfo.UseAttack();
-            SoundManager.Instance.PlaySound(Player.Sounds.Attack2);
+            Player.Sounds.PlaySound(PlayerSoundType.Attack2);
 
             // Allow quick turn attacks
             if (InputInfo.Move.x != 0 && InputInfo.Move.x > 0 != Player.IsFacingRight)

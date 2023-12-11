@@ -8,7 +8,7 @@ namespace PlayerStateMachine
 
         public override void EnterState()
         {
-            SoundManager.Instance.PlaySound(Player.Sounds.Death);
+            Player.Sounds.PlaySound(PlayerSoundType.Death);
         }
     }
 }

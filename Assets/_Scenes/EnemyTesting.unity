@@ -13674,6 +13674,14 @@ PrefabInstance:
       propertyPath: WallJumpTerrainLayers.m_Bits
       value: 1024
       objectReference: {fileID: 0}
+    - target: {fileID: 1286040775346692627, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
+      propertyPath: FootstepSpeed
+      value: 0.271
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286040775346692627, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
+      propertyPath: _playerAudioSource
+      value: 
+      objectReference: {fileID: 1505225268}
     - target: {fileID: 2168337661443292302, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
       propertyPath: m_Name
       value: Player
@@ -13693,6 +13701,14 @@ PrefabInstance:
     - target: {fileID: 3094611675852782098, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
       propertyPath: m_ShadowIntensityEnabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5023605405577699756, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5023605405577699756, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7939272941704661295, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14326,13 +14342,25 @@ PrefabInstance:
       propertyPath: _stats
       value: 
       objectReference: {fileID: 11400000, guid: f22f244ae07cb4af6b3ff9f05e6a9db3, type: 2}
+    - target: {fileID: 4342916039317611731, guid: 55efc53d4e8c1461f97a773bd7fb533b, type: 3}
+      propertyPath: m_Size.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4342916039317611731, guid: 55efc53d4e8c1461f97a773bd7fb533b, type: 3}
+      propertyPath: m_Size.y
+      value: 0.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 4342916039317611731, guid: 55efc53d4e8c1461f97a773bd7fb533b, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5426437554305082426, guid: 55efc53d4e8c1461f97a773bd7fb533b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.02
+      value: -0.85
       objectReference: {fileID: 0}
     - target: {fileID: 5426437554305082426, guid: 55efc53d4e8c1461f97a773bd7fb533b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.761
+      value: -0.44
       objectReference: {fileID: 0}
     - target: {fileID: 5426437554305082426, guid: 55efc53d4e8c1461f97a773bd7fb533b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -14370,6 +14398,14 @@ PrefabInstance:
       propertyPath: Stats
       value: 
       objectReference: {fileID: 11400000, guid: f22f244ae07cb4af6b3ff9f05e6a9db3, type: 2}
+    - target: {fileID: 7484909078097540338, guid: 55efc53d4e8c1461f97a773bd7fb533b, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7484909078097540338, guid: 55efc53d4e8c1461f97a773bd7fb533b, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 0.57
+      objectReference: {fileID: 0}
     - target: {fileID: 8968559913174159077, guid: 55efc53d4e8c1461f97a773bd7fb533b, type: 3}
       propertyPath: m_ImpulseDefinition.m_ImpulseType
       value: 0
@@ -14983,6 +15019,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5426437554305082426, guid: 55efc53d4e8c1461f97a773bd7fb533b, type: 3}
   m_PrefabInstance: {fileID: 1495119308}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &1505225268 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5023605405577699756, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
+  m_PrefabInstance: {fileID: 987417357}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1563458960
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15453,7 +15494,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 9b62faa687b06408ea50b03f14aa1069, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1

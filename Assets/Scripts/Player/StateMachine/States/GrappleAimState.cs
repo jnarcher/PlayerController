@@ -12,11 +12,13 @@ namespace PlayerStateMachine
 
         public override void EnterState()
         {
-            SoundManager.Instance.PlaySound(Player.Sounds.GrappleAim);
-            Player.GrappleAimIndicator.SetActive(true);
-            GameManager.Instance.LerpTimeScale(Stats.GrappleTimeSlow, Stats.GrappleTimeSlowTransitionSpeed);
             _launched = false;
             _aimTimer = 0;
+
+            Player.Sounds.PlaySound(PlayerSoundType.GrappleAim);
+            Player.GrappleAimIndicator.SetActive(true);
+
+            GameManager.Instance.LerpTimeScale(Stats.GrappleTimeSlow, Stats.GrappleTimeSlowTransitionSpeed);
         }
 
         public override void UpdateState()

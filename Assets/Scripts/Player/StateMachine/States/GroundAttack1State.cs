@@ -18,8 +18,8 @@ namespace PlayerStateMachine
         public override void EnterState()
         {
             Player.Animator.SetTrigger("GroundAttack1");
+            Player.Sounds.PlaySound(PlayerSoundType.Attack1);
             InputInfo.UseAttack();
-            SoundManager.Instance.PlaySound(Player.Sounds.Attack1);
 
             _attackPressedAgain = false;
             _cachedXSpeed = Mathf.Abs(Player.Velocity.x);

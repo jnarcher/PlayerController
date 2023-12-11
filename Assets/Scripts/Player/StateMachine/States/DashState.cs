@@ -57,7 +57,7 @@ namespace PlayerStateMachine
                     _effectObject.transform.parent = Player.gameObject.transform;
                 }
                 Player.Animator.SetBool("Sliding", true);
-                SoundManager.Instance.PlaySound(Player.Sounds.Slide);
+                Player.Sounds.PlaySound(PlayerSoundType.Slide);
             }
             else
             {
@@ -67,7 +67,7 @@ namespace PlayerStateMachine
                     _effectObject.transform.parent = Player.gameObject.transform;
                 }
                 Player.Animator.SetBool("Dashing", true);
-                SoundManager.Instance.PlaySound(Player.Sounds.Dash);
+                Player.Sounds.PlaySound(PlayerSoundType.Dash);
             }
         }
 

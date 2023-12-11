@@ -15,6 +15,7 @@ namespace PlayerStateMachine
         public override void EnterState()
         {
             Player.Animator.SetTrigger("UpAttack");
+            Player.Sounds.PlaySound(PlayerSoundType.Attack1);
             InputInfo.UseAttack();
         }
 

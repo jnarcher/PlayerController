@@ -16,7 +16,10 @@ namespace PlayerStateMachine
         public override void EnterState()
         {
             _hitEnemy = false;
+
             Player.Animator.SetTrigger("DownAttack");
+            Player.Sounds.PlaySound(PlayerSoundType.Attack1);
+
             InputInfo.UseAttack();
         }
 
