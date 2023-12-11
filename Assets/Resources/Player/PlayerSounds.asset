@@ -12,9 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df89f7cda9b44925ab146e5b96c0177, type: 3}
   m_Name: PlayerSounds
   m_EditorClassIdentifier: 
-  Move: {fileID: 0}
-  GroundJump: {fileID: 0}
-  AirJump: {fileID: 0}
+  Move: {fileID: 8300000, guid: c5e2a73ad4706440f93bf05df0b465fe, type: 3}
+  GroundJump: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
+  GrappleAim: {fileID: 8300000, guid: 7bef0064f8567430cac22499c6b93d4f, type: 3}
+  GrappleLaunch: {fileID: 8300000, guid: 4b4dd7245f6104c8c8eb07ccf6b386ed, type: 3}
+  AirJump: {fileID: 8300000, guid: 7e9ee6dc04a5d40d1a5dfc4beb9865e7, type: 3}
   WallSlide: {fileID: 0}
-  Slide: {fileID: 8300000, guid: 15fe5cecfc3764a088f865505edaaa6a, type: 3}
-  Dash: {fileID: 8300000, guid: 15fe5cecfc3764a088f865505edaaa6a, type: 3}
+  Slide: {fileID: 8300000, guid: 84e427d6b66ab4066b6a4dcd0ce819ee, type: 3}
+  Dash: {fileID: 8300000, guid: 80e397195ea2940b69ee7bdbded856a5, type: 3}
+  Hit: {fileID: 8300000, guid: 79e6baad2fd414b82a6d49ce1568d2e5, type: 3}
+  Death: {fileID: 8300000, guid: b9eff218e132a4e76be78840eca96fb2, type: 3}
+  Attack1: {fileID: 8300000, guid: d46323e22e74e46baa241cbf48c85671, type: 3}
+  Attack2: {fileID: 8300000, guid: fe0b1f9aeb45b41b089175aeeabd5d95, type: 3}
