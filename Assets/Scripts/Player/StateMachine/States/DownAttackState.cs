@@ -15,8 +15,8 @@ namespace PlayerStateMachine
 
         public override void EnterState()
         {
-            Player.Animator.SetTrigger("DownAttack");
             _hitEnemy = false;
+            Player.Animator.SetTrigger("DownAttack");
             InputInfo.UseAttack();
         }
 

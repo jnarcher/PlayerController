@@ -22,6 +22,7 @@ namespace PlayerStateMachine
             _enemyHit = false;
             _attackPressedAgain = false;
             _cachedXVelocity = Player.Velocity.x;
+
             Player.Animator.SetTrigger("AirAttack1");
             Player.SetGravity(0f);
             Player.SetAttackCooldown();

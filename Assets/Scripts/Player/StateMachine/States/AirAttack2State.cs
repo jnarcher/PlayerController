@@ -19,6 +19,7 @@ namespace PlayerStateMachine
         {
             _attackTimer = 0;
             _cachedXVelocity = Player.Velocity.x;
+
             Player.Animator.SetTrigger("AirAttack2");
             Player.SetGravity(0f);
             Player.SetAttackCooldown();

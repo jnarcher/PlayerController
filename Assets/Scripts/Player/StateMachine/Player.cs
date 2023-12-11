@@ -17,6 +17,7 @@ namespace PlayerStateMachine
 
         [Header("Component References")]
         public GameObject GrappleAimIndicator;
+        public PlayerSounds Sounds;
 
         [Header("Effects")]
         public GameObject HitEffect;

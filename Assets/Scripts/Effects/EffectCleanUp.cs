@@ -2,9 +2,21 @@ using UnityEngine;
 
 public class EffectCleanUp : MonoBehaviour
 {
-    public float TimeUntilDestroyed = 5f;
-    private void Start()
+    [SerializeField] private float _timeToDestroy = 5f;
+    [SerializeField] private GameObject _objectToDestroy;
+
+    private void Start() =>
+        Destroy(_objectToDestroy != null ? _objectToDestroy : gameObject, _timeToDestroy);
+
+    public EffectCleanUp SetTime(float time)
     {
-        Destroy(gameObject, TimeUntilDestroyed);
+        _timeToDestroy = time;
+        return this;
+    }
+
+    public EffectCleanUp SetObject(GameObject obj)
+    {
+        _objectToDestroy = obj;
+        return this;
     }
 }
