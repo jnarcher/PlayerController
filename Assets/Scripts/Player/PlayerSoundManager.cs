@@ -48,10 +48,7 @@ public class PlayerSoundManager : MonoBehaviour
         }
     }
 
-    public void PlaySound(PlayerSoundType soundType)
-    {
-        SoundManager.Instance.PlaySound(_clips[soundType]);
-    }
+    public void PlaySound(PlayerSoundType soundType) => SoundManager.Instance.PlaySound(_clips[soundType]);
 
 
     private bool _isWalking;
