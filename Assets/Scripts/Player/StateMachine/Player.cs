@@ -21,6 +21,7 @@ namespace PlayerStateMachine
 
         [Header("Effects")]
         public GameObject HitEffect;
+        public GameObject DeathEffect;
         public GameObject RunEffect;
         public GameObject LandingEffect;
         public GameObject GroundJumpEffect;
@@ -71,6 +72,7 @@ namespace PlayerStateMachine
             _stateDict = new()
             {
                 [PlayerStateType.Hit] = new HitState(this, PlayerStateType.Hit),
+                [PlayerStateType.Death] = new DeathState(this, PlayerStateType.Death),
                 [PlayerStateType.Move] = new MoveState(this, PlayerStateType.Move),
                 [PlayerStateType.Dash] = new DashState(this, PlayerStateType.Dash),
                 [PlayerStateType.GrappleAim] = new GrappleAimState(this, PlayerStateType.GrappleAim),
@@ -284,6 +286,8 @@ namespace PlayerStateMachine
             HitDirection = direction;
             SetState(PlayerStateType.Hit);
         }
+
+        public void Kill() => SetState(PlayerStateType.Death);
 
         private float _timeInvincibilityStart = float.MinValue;
         private float _timeInvincibilityStop;

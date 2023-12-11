@@ -51,6 +51,7 @@ public class PlayerHealth : Health
     {
         Debug.Log("Player has died.");
         _currentHealth = Stats.MaxHealth;
+        Player.Kill();
         GameManager.Instance.RespawnPlayer();
     }
 

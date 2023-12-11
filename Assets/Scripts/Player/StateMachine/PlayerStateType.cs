@@ -3,6 +3,7 @@ namespace PlayerStateMachine
     public enum PlayerStateType
     {
         Hit,
+        Death,
         Move,
         Dash,
         GrappleAim,
