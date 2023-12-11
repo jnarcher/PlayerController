@@ -13659,10 +13659,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 919600757374210270, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 1148883153, guid: 5d431ceb3718740818ca67e2377a13fe, type: 3}
-    - target: {fileID: 919600757374210270, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
@@ -13742,10 +13738,6 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8278712579897378213, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
-      propertyPath: Sounds
-      value: 
-      objectReference: {fileID: 11400000, guid: afa83300ff5d2415bbe6dd74392db36c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6981314989302612128, guid: d7a660543b3bb4564981e347f7dbdff1, type: 3}
@@ -15827,7 +15819,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1945315933}
   - component: {fileID: 1945315932}
-  - component: {fileID: 1945315931}
   - component: {fileID: 1945315934}
   - component: {fileID: 1945315935}
   m_Layer: 0
@@ -15837,14 +15828,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1945315931
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1945315930}
-  m_Enabled: 1
 --- !u!20 &1945315932
 Camera:
   m_ObjectHideFlags: 0

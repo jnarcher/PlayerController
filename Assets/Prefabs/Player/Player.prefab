@@ -355,6 +355,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7939272941704661295}
+  - component: {fileID: 3817621336415009976}
   - component: {fileID: 919600757374210270}
   - component: {fileID: 4567020707833582544}
   - component: {fileID: 7507882556376946704}
@@ -391,6 +392,14 @@ Transform:
   - {fileID: 382743999968130750}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &3817621336415009976
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2168337661443292302}
+  m_Enabled: 1
 --- !u!212 &919600757374210270
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -432,12 +441,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 5d431ceb3718740818ca67e2377a13fe, type: 3}
+  m_Sprite: {fileID: 1148883153, guid: 5d431ceb3718740818ca67e2377a13fe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -528,7 +537,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 2, y: 2}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 2, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -590,7 +599,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GrappleAimIndicator: {fileID: 3051681179509865518}
+  Sounds: {fileID: 11400000, guid: afa83300ff5d2415bbe6dd74392db36c, type: 2}
   HitEffect: {fileID: 1129633805783450260, guid: df067904931a44913a0320d90435a304, type: 3}
+  DeathEffect: {fileID: 0}
   RunEffect: {fileID: 0}
   LandingEffect: {fileID: 0}
   GroundJumpEffect: {fileID: 0}
